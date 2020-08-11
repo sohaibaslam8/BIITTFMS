@@ -166,14 +166,12 @@ export default class CoursesDetail extends React.Component {
 
     }
 
+    ////////////////////////// Show All Section ///////////////////////////////////
 
-    componentDidMount() {
-        //    lib.CNo=this.props.navigation.getParam('cno');
+    ShowSection(){
+
         this.setState({ isLoading: true })
-
-        console.log(lib.CNo);
-        console.log(lib.CName);
-        const url = `http://192.168.10.2/FWebAPI/api/Users/AllSections?id=${lib.TId}&courseno=${lib.CNo}&semno=${lib.SemNo}`
+        const url = `http://192.168.10.11/FWebAPI/api/Users/AllSections?id=${lib.TId}&courseno=${lib.CNo}&semno=${lib.SemNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -189,6 +187,34 @@ export default class CoursesDetail extends React.Component {
             .catch((error) => {
                 console.log(error)
             })
+
+    }
+
+    ////////////////////////// Main Folder Manage ///////////////////////////////////////
+
+    MainFolderManage()
+    {
+        const url = `http://192.168.10.11/FWebAPI/api/Users/MainFolderManage?tid=${lib.TId}&courseno=${lib.CNo}&semesterno=${lib.SemNo}`
+        fetch(url)
+            .then((response) => response.json())
+            .then((responsejson) => {
+              lib.MainFM=responsejson;
+            // console.log(responsejson);
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+
+    componentDidMount() {
+        //    lib.CNo=this.props.navigation.getParam('cno');
+        console.log(lib.CNo);
+        console.log(lib.CName);
+        console.log(lib.SemNo);
+        this.ShowSection();
+        this.MainFolderManage();
+     
     }
 
 

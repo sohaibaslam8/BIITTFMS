@@ -120,7 +120,7 @@ class courses extends Component {
 
     //////////////////////// Get Teachers Courses ////////////////////////////////////////
     getcourses() {
-        const url = `http://192.168.10.3/FWebAPI/api/Users/AllCourses?id=${lib.TId}&semno=${lib.SemNo}`
+        const url = `http://192.168.10.11/FWebAPI/api/Users/AllCourses?id=${lib.TId}&semno=${lib.SemNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -142,7 +142,7 @@ class courses extends Component {
     }
     ///////////////////////// Get Semester Number //////////////////////////////////////////
     getsemesternumber() {
-        const url = `http://192.168.10.3/FWebAPI/api/Users/AllSemesterNumber`
+        const url = `http://192.168.10.11/FWebAPI/api/Users/AllSemesterNumber`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

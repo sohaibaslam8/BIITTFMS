@@ -48,11 +48,11 @@ export default class Exams extends React.Component {
 
     /////////       Show Files ////////////
     ShowFilesme = (name) => {
-        Linking.canOpenURL('http://192.168.10.6/FWebAPI/File/' + name).then(supported => {
+        Linking.canOpenURL('http://192.168.10.11/FWebAPI/File/' + name).then(supported => {
             if (supported) {
-                Linking.openURL('http://192.168.10.6/FWebAPI/File/' + name);
+                Linking.openURL('http://192.168.10.11/FWebAPI/File/' + name);
             } else {
-                console.log("Don't know how to open URI: " + 'http://192.168.10.6/FWebAPI/File/' + name);
+                console.log("Don't know how to open URI: " + 'http://192.168.10.11/FWebAPI/File/' + name);
             }
         });
     };
@@ -70,7 +70,7 @@ export default class Exams extends React.Component {
     //         })
     // }
     DeleteFolderDocumentme = (filedata) => {
-        const url = `http://192.168.10.6/FWebAPI/api/Users/DeleteFolderDocument?id=${filedata}`
+        const url = `http://192.168.10.11/FWebAPI/api/Users/DeleteFolderDocument?id=${filedata}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -126,6 +126,7 @@ export default class Exams extends React.Component {
                     <Text style={{ fontSize: 14, color: 'black', fontWeight: '600', width: '80%', }}>
                         {item.Doc_Name}
                     </Text>
+                    {lib.MainFM==='true' &&
                     <TouchableOpacity
                         style={{ right: 30, position: 'absolute', padding: 4 }}
                         onPress={this.CheckFilesDeleteOrNotme.bind(this, item.FDoc_Id)}
@@ -133,6 +134,7 @@ export default class Exams extends React.Component {
                         <Icon name={'delete'} size={21} color={'black'}
                         />
                     </TouchableOpacity>
+                    }
 
                 </View>
 
@@ -168,7 +170,7 @@ export default class Exams extends React.Component {
         }
 
 
-        fetch('http://192.168.10.6/FWebAPI/api/users/AddFolderDocument', {
+        fetch('http://192.168.10.11/FWebAPI/api/users/AddFolderDocument', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -191,7 +193,7 @@ export default class Exams extends React.Component {
         collection.Doc_Type = 'MidExam';
         collection.SEMESTER_NO = lib.SemNo;
 
-        fetch('http://192.168.10.6/FWebAPI/api/users/AddFolderDetail', {
+        fetch('http://192.168.10.11/FWebAPI/api/users/AddFolderDetail', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -210,13 +212,13 @@ export default class Exams extends React.Component {
             });
     }
     GetFolderDetailIdme() {
-        const url = `http://192.168.10.6/FWebAPI/api/Users/GetFolderDetailIdMainFolder?courseno=${lib.CNo}&semno=${lib.SemNo}&empno=${lib.TId}&dtype=${this.state.dtypeme}`
+        const url = `http://192.168.10.11/FWebAPI/api/Users/GetFolderDetailIdMainFolder?courseno=${lib.CNo}&semno=${lib.SemNo}&empno=${lib.TId}&dtype=${this.state.dtypeme}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
                 console.log(responsejson)
                 if (responsejson != 'false') {
-                    this.setState({ FDid: responsejson[0].FD_Id })
+                    this.setState({ FDidme: responsejson[0].FD_Id })
                     this.addFolderDocumentme();
                 }
                 else {
@@ -284,7 +286,7 @@ export default class Exams extends React.Component {
     };
     UploadFilesme = () => {
         this.setState({ showModalme: false });
-        fetch("http://192.168.10.6/FWebAPI/api/Users/UploadFilenewcode", {
+        fetch("http://192.168.10.11/FWebAPI/api/Users/UploadFilenewcode", {
             method: "POST",
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -304,7 +306,7 @@ export default class Exams extends React.Component {
     };
 
     DisplayMidExamsFiles() {
-        const url = `http://192.168.10.6/FWebAPI/api/users/AllDocumentShowMainFolder?courseno=${lib.CNo}&semno=${lib.SemNo}&dtype=${this.state.dtypeme}`
+        const url = `http://192.168.10.11/FWebAPI/api/users/AllDocumentShowMainFolder?courseno=${lib.CNo}&semno=${lib.SemNo}&dtype=${this.state.dtypeme}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -329,11 +331,11 @@ export default class Exams extends React.Component {
 
     /////////       Show Files ////////////
     ShowFilesfe = (name) => {
-        Linking.canOpenURL('http://192.168.10.6/FWebAPI/File/' + name).then(supported => {
+        Linking.canOpenURL('http://192.168.10.11/FWebAPI/File/' + name).then(supported => {
             if (supported) {
-                Linking.openURL('http://192.168.10.6/FWebAPI/File/' + name);
+                Linking.openURL('http://192.168.10.11/FWebAPI/File/' + name);
             } else {
-                console.log("Don't know how to open URI: " + 'http://192.168.10.6/FWebAPI/File/' + name);
+                console.log("Don't know how to open URI: " + 'http://192.168.10.11/FWebAPI/File/' + name);
             }
         });
     };
@@ -351,7 +353,7 @@ export default class Exams extends React.Component {
     //         })
     // }
     DeleteFolderDocumentfe = (filedata) => {
-        const url = `http://192.168.10.6/FWebAPI/api/Users/DeleteFolderDocument?id=${filedata}`
+        const url = `http://192.168.10.11/FWebAPI/api/Users/DeleteFolderDocument?id=${filedata}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -407,6 +409,7 @@ export default class Exams extends React.Component {
                     <Text style={{ fontSize: 14, color: 'black', fontWeight: '600', width: '80%', }}>
                         {item.Doc_Name}
                     </Text>
+                    {lib.MainFM==='true' &&
                     <TouchableOpacity
                         style={{ right: 30, position: 'absolute', padding: 4 }}
                         onPress={this.CheckFilesDeleteOrNotfe.bind(this, item.FDoc_Id)}
@@ -414,6 +417,7 @@ export default class Exams extends React.Component {
                         <Icon name={'delete'} size={21} color={'black'}
                         />
                     </TouchableOpacity>
+                     } 
 
                 </View>
 
@@ -434,6 +438,7 @@ export default class Exams extends React.Component {
 
     addFolderDocumentfe() {
         console.log(this.state.FileOriginalName);
+        console.log(this.state.FDidfe);
         let collection = {}
 
         if (this.state.FileOriginalNamefe == undefined) {
@@ -449,7 +454,7 @@ export default class Exams extends React.Component {
         }
 
 
-        fetch('http://192.168.10.6/FWebAPI/api/users/AddFolderDocument', {
+        fetch('http://192.168.10.11/FWebAPI/api/users/AddFolderDocument', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -472,7 +477,7 @@ export default class Exams extends React.Component {
         collection.Doc_Type = 'FinalExam';
         collection.SEMESTER_NO = lib.SemNo;
 
-        fetch('http://192.168.10.6/FWebAPI/api/users/AddFolderDetail', {
+        fetch('http://192.168.10.11/FWebAPI/api/users/AddFolderDetail', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -491,13 +496,13 @@ export default class Exams extends React.Component {
             });
     }
     GetFolderDetailIdfe() {
-        const url = `http://192.168.10.6/FWebAPI/api/Users/GetFolderDetailIdMainFolder?courseno=${lib.CNo}&semno=${lib.SemNo}&empno=${lib.TId}&dtype=${this.state.dtypefe}`
+        const url = `http://192.168.10.11/FWebAPI/api/Users/GetFolderDetailIdMainFolder?courseno=${lib.CNo}&semno=${lib.SemNo}&empno=${lib.TId}&dtype=${this.state.dtypefe}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
                 console.log(responsejson)
                 if (responsejson != 'false') {
-                    this.setState({ FDid: responsejson[0].FD_Id })
+                    this.setState({ FDidfe: responsejson[0].FD_Id })
                     this.addFolderDocumentfe();
                 }
                 else {
@@ -567,7 +572,7 @@ export default class Exams extends React.Component {
     };
     UploadFilesfe = () => {
         this.setState({ showModalfe: false });
-        fetch("http://192.168.10.6/FWebAPI/api/Users/UploadFilenewcode", {
+        fetch("http://192.168.10.11/FWebAPI/api/Users/UploadFilenewcode", {
             method: "POST",
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -587,7 +592,7 @@ export default class Exams extends React.Component {
     };
 
     DisplayFinalExamsFiles() {
-        const url = `http://192.168.10.6/FWebAPI/api/users/AllDocumentShowMainFolder?courseno=${lib.CNo}&semno=${lib.SemNo}&dtype=${this.state.dtypefe}`
+        const url = `http://192.168.10.11/FWebAPI/api/users/AllDocumentShowMainFolder?courseno=${lib.CNo}&semno=${lib.SemNo}&dtype=${this.state.dtypefe}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -756,6 +761,7 @@ export default class Exams extends React.Component {
                                 </TouchableOpacity>
                             </View>
                         </Modals>
+                        {lib.MainFM==='true' &&
                         <TouchableOpacity
                             onPress={this.selectFileme.bind(this)}
                             style={styles.inputicon}
@@ -763,6 +769,7 @@ export default class Exams extends React.Component {
                             <Icon name={'pluscircle'} size={50} color={'green'}
                             />
                         </TouchableOpacity>
+                        }
                         <View style={{ marginTop: 10, backgroundColor: '#FFFFFF' }}>
                             <FlatList
                                 data={this.state.multipleFileme}
@@ -872,6 +879,7 @@ export default class Exams extends React.Component {
                                     </TouchableOpacity>
                                 </View>
                             </Modals>
+                            {lib.MainFM==='true' &&
                             <TouchableOpacity
                                 onPress={this.selectFilefe.bind(this)}
                                 style={styles.inputicon}
@@ -879,6 +887,7 @@ export default class Exams extends React.Component {
                                 <Icon name={'pluscircle'} size={50} color={'green'}
                                 />
                             </TouchableOpacity>
+                            }
                             <View style={{ marginTop: 10, backgroundColor: '#FFFFFF' }}>
                                 <FlatList
                                     data={this.state.multipleFilefe}

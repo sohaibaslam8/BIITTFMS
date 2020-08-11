@@ -125,7 +125,7 @@ class WeeklyPlanMainFolder extends Component {
 
 
     componentDidMount() {
-        const url = `http://192.168.10.6/FWebAPI/api/users/AllSubTopic?weekno=${lib.WeekNoMainFolder}&courseno=${lib.CNo}`
+        const url = `http://192.168.10.11/FWebAPI/api/users/AllSubTopic?weekno=${lib.WeekNoMainFolder}&courseno=${lib.CNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -207,12 +207,12 @@ class WeeklyPlanMainFolder extends Component {
 
                                 />
                             </View>
-                            {/* {this.state.SubTopics=='' &&
+                            {this.state.SubTopics=='' &&
                                 <View style={{marginTop:'10%',marginBottom:'10%',alignItems:'center'}}>
                                     <Text style={{fontSize:20}}>No content available at the moment.</Text>
 
                                 </View>
-                            } */}
+                            }
 
                             <View style={{ marginLeft: '70%', flexDirection: 'row', margin: 20 }}>
                                 {/* {lib.WeekNoMainFolder!='Week-1' && */}
