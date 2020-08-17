@@ -26,29 +26,18 @@ class courses extends Component {
 
         }
     }
-    //     show=(value,label)=>
-    //   {
-
-
-    //     this.setState({selectedLabel:value});
-    //     // if(value==8000)
-    //     // {
-    //     //   alert("React")
-    //     // }
-    //   }
 
     ShowNewScreen(cno, cname) {
 
         lib.CNo = cno;
         lib.CName = cname;
-        this.props.navigation.navigate('coursedetail')
+        this.props.navigation.navigate('CoursesDetailAF')
     }
 
     renderItem = ({ item }) => {
         return (
             <TouchableOpacity
                 onPress={this.ShowNewScreen.bind(this, item.c.course_no, item.c.title)}
-                // onPress={() => Alert.alert("hello")}
                 style={{ flex: 1, flexDirection: 'row' }}
             >
                 <Icons name={'file-directory'} size={55} color={'#C0C0C0'}
@@ -80,7 +69,7 @@ class courses extends Component {
     }
     ////////////////// Modal Functions /////////////////////////////////////////////////////
     HideModel(semno) {
-        lib.SemNo = semno;
+        lib.SemNoAF = semno;
 
         this.setState({ modalShow: false });
         this.getcourses();
@@ -120,7 +109,7 @@ class courses extends Component {
 
     //////////////////////// Get Teachers Courses ////////////////////////////////////////
     getcourses() {
-        const url = `http://192.168.10.2/FWebAPI/api/Users/AllCourses?id=${lib.TId}&semno=${lib.SemNo}`
+        const url = `http://192.168.10.2/FWebAPI/api/Users/AllCourses?id=${lib.TIdAF}&semno=${lib.SemNoAF}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -171,24 +160,9 @@ class courses extends Component {
 
 
     async componentDidMount() {
-
-        // await AsyncStorage.getItem('TId').then((value)=>this.setState({Tid:value}));
-        lib.TId = await AsyncStorage.getItem('TId');
-        lib.TFName = await AsyncStorage.getItem('TFName');
-        lib.TMName = await AsyncStorage.getItem('TMName');
-        if (lib.TMName == null) {
-            lib.TMName = '';
-        }
-        lib.TLName = await AsyncStorage.getItem('TLName');
-        lib.TEmail = await AsyncStorage.getItem('TEmail');
-        lib.TPhone = await AsyncStorage.getItem('TPhone');
-        lib.TPwd = await AsyncStorage.getItem('TPwd');
-        lib.TImg = await AsyncStorage.getItem('TImg');
-        lib.TStatus = await AsyncStorage.getItem('TStatus');
         this.getsemesternumber();
         this.getcourses();
-
-    }
+}
 
 
 
@@ -206,11 +180,11 @@ class courses extends Component {
                 :
 
                 <View style={styles.container}>
-                    <TouchableOpacity 
-                    onPress={()=>this.props.navigation.navigate('profile')}
+                    <View 
+                   
                     style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#FFFFFF' }}>
                         <Image style={{ height: 60, width: 60, borderRadius: 30, margin: 15 }}
-                            source={lib.TImg != null ? { uri: 'data:image/jpeg;base64,' + lib.TImg } :
+                            source={lib.TImgAF != null ? { uri: 'data:image/jpeg;base64,' + lib.TImgAF } :
                                 require('./img/demoprofile.jpg')
                             }
 
@@ -219,13 +193,13 @@ class courses extends Component {
                         <View>
                             <Text style={{ fontSize: 16, }}>
 
-                                {lib.TFName + ' ' + lib.TMName + ' ' + lib.TLName}
+                                {lib.TFNameAF + ' ' + lib.TMNameAF + ' ' + lib.TLNameAF}
                             </Text>
                             <Text style={{ fontSize: 14, borderWidth: 0, width: '90%', color: '#808080' }}>
                                 Barani Institute of Information Technology
                 </Text>
                         </View>
-                    </TouchableOpacity>
+                    </View>
 
                     <View>
 
@@ -238,7 +212,7 @@ class courses extends Component {
                                 style={{ marginLeft: 15 }}
                             /> */}
                                 <Text style={{ marginLeft: 20, color: 'green', fontSize: 16 }}>
-                                    {lib.SemNo}
+                                    {lib.SemNoAF}
                                     {/* Week Numbers */}
                                 </Text>
                                 <View

@@ -4,7 +4,7 @@ import React,{useState} from 'react';
 import { createAppContainer } from 'react-navigation';
 import CourseStack from './CourseStack';
 import PaperSettingStack from './PaperSettingStack';
-import AllFolderStack from './AllFolderStack';
+import AllFolderViewStack from './AllFolderStack';
 import ProfileStack from './ProfileStack';
 import ChangePwdStack from './ChangePwdStack';
 import LogOutStack from './LogOut';
@@ -130,7 +130,7 @@ const CustomDrawerComponent = (props) => {
                     <Text style={[colorsps?{margin:10,fontSize:16,fontWeight:'bold',color:'black'}:
                     {margin:10,fontSize:16,fontWeight:'bold',color:'#606060'}]}>Paper Setting</Text>
                 </TouchableOpacity>
-                 {lib.TStatus==='DAF' &&
+                 {lib.TStatus==='true' &&
                 //  props.navigation.getParam('status') === 'DAF' && 
                     <TouchableOpacity 
                     style={
@@ -211,7 +211,7 @@ const RootDrawerNavigator = createDrawerNavigator({
 
     AllFolderStack: {
 
-        screen: AllFolderStack,
+        screen: AllFolderViewStack,
         // navigationOptions: {
         //     // title: 'All Folders',
 

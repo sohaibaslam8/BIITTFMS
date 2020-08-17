@@ -171,7 +171,7 @@ export default class CoursesDetail extends React.Component {
     ShowSection(){
 
         this.setState({ isLoading: true })
-        const url = `http://192.168.10.11/FWebAPI/api/Users/AllSections?id=${lib.TId}&courseno=${lib.CNo}&semno=${lib.SemNo}`
+        const url = `http://192.168.10.2/FWebAPI/api/Users/AllSections?id=${lib.TId}&courseno=${lib.CNo}&semno=${lib.SemNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

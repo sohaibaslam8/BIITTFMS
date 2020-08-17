@@ -12,19 +12,16 @@ export default function Header({navigation,title})
     return(
         <View style={styles.header}>
              <TouchableOpacity onPress={OpenMenu}>
-             {/* <Image
-                    source={require('./img/images.png')}
-                    style={{ height: 25, width: 30,marginRight:100}}
-            ></Image> */}
+            
             <Icon name={'md-menu'} size={32} color={'#fff'}
-            style={{ marginRight:100}}
-                            />
+            style={{ marginRight:30}}
+            />
 
 
              </TouchableOpacity>
     
     
-        {/* <Ionicons name="menu" size={32} onPress={OpenMenu} style={styles.icon} /> */}
+     
        
             <View>
                 <Text style={styles.headerText}>
@@ -39,39 +36,6 @@ export default function Header({navigation,title})
 
 }
 
-
-// class Header extends Component({navigation}){
-//     OpenMenu=()=>{
-//         navigation.OpenMenu();
-//     }   
-
-//   render()
-//   {
-//     return(
-//         <View style={styles.header}>
-//         {/* <Ionicons name="menu" size={32} onPress={OpenMenu} style={styles.icon} /> */}
-//         <Image
-//                     source={require('./img/images.png')}
-//                     style={{ height: 25, width: 30,marginRight:100}}
-//                     onPress={OpenMenu}
-
-//                 ></Image>
-//             <View>
-//                 <Text style={styles.headerText}>
-//                     Courses
-
-//                 </Text>
-//             </View>
-//         </View>
-
-//     );
-//   }
-
-
-
-// }
-
-// export default Header;
 
 const styles=StyleSheet.create({
     header:{
