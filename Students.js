@@ -74,7 +74,7 @@ class Students extends Component {
     //////////////////////// Get Students ////////////////////////////////////////
     getStudents() {
 
-        const url = `http://192.168.10.6/FWebAPI/api/users/AllStudents?empno=${lib.TId}&semesterno=${lib.SemNo}&discipline=${lib.Discipline}&section=${lib.Section}&courseno=${lib.CNo}`
+        const url = `http://192.168.10.5/FWebAPI/api/users/AllStudents?empno=${lib.TIdTemp}&semesterno=${lib.SemNoTemp}&discipline=${lib.Discipline}&section=${lib.Section}&courseno=${lib.CNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

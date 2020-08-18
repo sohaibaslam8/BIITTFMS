@@ -117,11 +117,11 @@ class Assignments extends Component {
 
   //////////////////  Show Files ///////////////////////////////////////////////////////
   ShowFiles = (name) => {
-    Linking.canOpenURL('http://192.168.10.6/FWebAPI/File/' + name).then(supported => {
+    Linking.canOpenURL('http://192.168.10.5/FWebAPI/File/' + name).then(supported => {
       if (supported) {
-        Linking.openURL('http://192.168.10.6/FWebAPI/File/' + name);
+        Linking.openURL('http://192.168.10.5/FWebAPI/File/' + name);
       } else {
-        console.log("Don't know how to open URI: " + 'http://192.168.10.6/FWebAPI/File/' + name);
+        console.log("Don't know how to open URI: " + 'http://192.168.10.5/FWebAPI/File/' + name);
       }
     });
   };
@@ -140,7 +140,7 @@ class Assignments extends Component {
   //     })
   // }
   DeleteFolderDocument = (filedata) => {
-    const url = `http://192.168.10.6/FWebAPI/api/Users/DeleteFolderDocument?id=${filedata}`
+    const url = `http://192.168.10.5/FWebAPI/api/Users/DeleteFolderDocument?id=${filedata}`
     fetch(url)
       .then((response) => response.json())
       .then((responsejson) => {
@@ -199,6 +199,7 @@ class Assignments extends Component {
           <Text style={{ fontSize: 14, color: 'black', fontWeight: '600', width: '80%', }}>
             {item.Doc_Name}
           </Text>
+          {lib.Token!=='true' &&
           <TouchableOpacity
             style={{ right: 30, position: 'absolute', padding: 4 }}
             onPress={this.CheckFilesDeleteOrNot.bind(this, item.FDoc_Id)}
@@ -206,6 +207,7 @@ class Assignments extends Component {
             <Icon name={'delete'} size={21} color={'black'}
             />
           </TouchableOpacity>
+          }
 
         </View>
 
@@ -224,7 +226,7 @@ class Assignments extends Component {
   //////////////// ComponentDidMount ////////////////////////////////////
   componentDidMount() {
     // this.setState({isloading:true})
-    const url = `http://192.168.10.6/FWebAPI/api/users/AllDocumentShowSubFolderQuizAndAssignment?courseno=${lib.CNo}&section=${lib.Section}&discipline=${lib.Discipline}&semc=${lib.Semc}&semno=${lib.SemNo}&empno=${lib.TId}&dtype=${this.state.dtype}&dstatus=${lib.WeekNoAssignments}`
+    const url = `http://192.168.10.5/FWebAPI/api/users/AllDocumentShowSubFolderQuizAndAssignment?courseno=${lib.CNo}&section=${lib.Section}&discipline=${lib.Discipline}&semc=${lib.Semc}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtype}&dstatus=${lib.WeekNoAssignments}`
     fetch(url)
       .then((response) => response.json())
       .then((responsejson) => {
@@ -261,7 +263,7 @@ class Assignments extends Component {
     }
 
 
-    fetch('http://192.168.10.6/FWebAPI/api/users/AddFolderDocument', {
+    fetch('http://192.168.10.5/FWebAPI/api/users/AddFolderDocument', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -289,7 +291,7 @@ class Assignments extends Component {
     collection.Doc_Status = lib.WeekNoAssignments;
 
 
-    fetch('http://192.168.10.6/FWebAPI/api/users/AddFolderDetail', {
+    fetch('http://192.168.10.5/FWebAPI/api/users/AddFolderDetail', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -309,7 +311,7 @@ class Assignments extends Component {
   }
 
   GetFolderDetailId() {
-    const url = `http://192.168.10.6/FWebAPI/api/Users/GetFolderDetailIdSubFolderQuizAndAssignment?courseno=${lib.CNo}&section=${lib.Section}&discipline=${lib.Discipline}&semc=${lib.Semc}&semno=${lib.SemNo}&empno=${lib.TId}&dtype=${this.state.dtype}&dstatus=${lib.WeekNoAssignments}`
+    const url = `http://192.168.10.5/FWebAPI/api/Users/GetFolderDetailIdSubFolderQuizAndAssignment?courseno=${lib.CNo}&section=${lib.Section}&discipline=${lib.Discipline}&semc=${lib.Semc}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtype}&dstatus=${lib.WeekNoAssignments}`
     fetch(url)
       .then((response) => response.json())
       .then((responsejson) => {
@@ -385,7 +387,7 @@ class Assignments extends Component {
   };
   UploadFiles = () => {
     this.setState({ showModal: false });
-    fetch("http://192.168.10.6/FWebAPI/api/Users/UploadFilenewcode", {
+    fetch("http://192.168.10.5/FWebAPI/api/Users/UploadFilenewcode", {
       method: "POST",
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -558,8 +560,7 @@ class Assignments extends Component {
               />
             </View>
           </Modal>
-          
-
+          {lib.Token!=='true' &&
           <TouchableOpacity
             onPress={this.selectFile.bind(this)}
             style={styles.inputicon}
@@ -567,6 +568,7 @@ class Assignments extends Component {
             <Icon name={'pluscircle'} size={50} color={'green'}
             />
           </TouchableOpacity>
+          }
           <View style={styles.container}>
             <FlatList
               data={this.state.multipleFile}

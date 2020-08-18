@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet,TouchableOpacity, ActivityIndicator, FlatList,Modal, Platform,Alert, Dimensions,ScrollView,TextInput } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ActivityIndicator, FlatList, Modal, Platform, Alert, Dimensions, ScrollView, TextInput } from 'react-native';
 import { Appbar } from 'react-native-paper';
 import Iconm from 'react-native-vector-icons/FontAwesome';
 import Iconw from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -114,7 +114,7 @@ class WeeklyPlanMainFolder extends Component {
 
         }
 
-        fetch('http://192.168.10.6/FWebAPI/api/users/AddCoveredSubTopic', {
+        fetch('http://192.168.10.5/FWebAPI/api/users/AddCoveredSubTopic', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -173,15 +173,20 @@ class WeeklyPlanMainFolder extends Component {
                     style={{ margin: 20 }}
                 />
                 <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', }}>
-                    <Text style={{ fontSize: 14, color: '#3a3a3a', fontWeight: '600',width: '80%' }}>
+                    <Text style={{ fontSize: 14, color: '#3a3a3a', fontWeight: '600', width: '80%' }}>
                         {item.ST_Name}
                     </Text>
-                    <View style={{ right: 40, position: 'absolute',}}>
-                       <CheckBox checked={item.isChecked} color="green"
-                
-                       onPress={() =>item.isChecked!==true?this.setState({ rowkey: item.ST_Id, modalShowST: true }):Alert.alert("The checkbox is already checked.")}
+                    <View style={{ right: 40, position: 'absolute', }}>
 
-                        />
+                        {lib.Token === 'true' &&
+                            <CheckBox checked={item.isChecked} color="green" />
+
+                        }
+                        {lib.Token !== 'true' &&
+                            <CheckBox checked={item.isChecked} color="green"
+                                onPress={() => item.isChecked !== true ? this.setState({ rowkey: item.ST_Id, modalShowST: true }) : Alert.alert("The checkbox is already checked.")}
+                            />
+                        }
                     </View>
 
                 </View>
@@ -224,7 +229,7 @@ class WeeklyPlanMainFolder extends Component {
 
     SubTopicCheckboxCheckOrNot(id) {
 
-        const url = `http://192.168.10.6/FWebAPI/api/users/SubTopicCheckboxCheckOrNot?id=${id}&section=${lib.Section}&discipline=${lib.Discipline}&semc=${lib.Semc}&semester_no=${lib.SemNo}&empno=${lib.TId}`
+        const url = `http://192.168.10.5/FWebAPI/api/users/SubTopicCheckboxCheckOrNot?id=${id}&section=${lib.Section}&discipline=${lib.Discipline}&semc=${lib.Semc}&semester_no=${lib.SemNoTemp}&empno=${lib.TIdTemp}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -240,9 +245,9 @@ class WeeklyPlanMainFolder extends Component {
 
     }
 
-      /////////   Move Week numbers //////////////////////////////////
+    /////////   Move Week numbers //////////////////////////////////
 
-      MoveLeftFunction() {
+    MoveLeftFunction() {
         var week = lib.WeekNoSubFolder.split('-')[0]
         var weekno = lib.WeekNoSubFolder.split('-')[1]
         if (weekno > 1) {
@@ -273,7 +278,7 @@ class WeeklyPlanMainFolder extends Component {
 
         //   lib.WeekNoSST='Week-1'
         //   lib.CNo='CS-686'
-        const url = `http://192.168.10.6/FWebAPI/api/users/AllSubTopic?weekno=${lib.WeekNoSubFolder}&courseno=${lib.CNo}`
+        const url = `http://192.168.10.5/FWebAPI/api/users/AllSubTopic?weekno=${lib.WeekNoSubFolder}&courseno=${lib.CNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -312,7 +317,7 @@ class WeeklyPlanMainFolder extends Component {
                 :
 
                 <View style={styles.maincontainer}>
-                   
+
                     <Modals
                         //  ref={this.state.modalShowST}
                         // visible={this.state.modalShowST}
@@ -345,7 +350,7 @@ class WeeklyPlanMainFolder extends Component {
                         <Item stackedLabel style={{
                             height: 40,
                             borderBottomColor: 'gray',
-                          marginLeft: 30,
+                            marginLeft: 30,
                             marginRight: 30,
                             marginTop: 20,
                             marginBottom: 10,
@@ -355,7 +360,7 @@ class WeeklyPlanMainFolder extends Component {
                         }}>
                             <Label>Week Number</Label>
                             <Input defaultValue={lib.WeekNoSubFolder} onChangeText={(text) => this.setState({ weekno: text })} />
-                      
+
                         </Item>
 
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
@@ -398,69 +403,69 @@ class WeeklyPlanMainFolder extends Component {
                     </Modals>
                     <ScrollView>
 
-                    <View style={styles.container}>
-                        <TouchableOpacity
-                            onPress={() => { this.setState({ modalShow: true }) }}
-                        >
-                            <View style={{ borderWidth: 1, borderColor: 'white', backgroundColor: 'white', height: 35, margin: 15, flexDirection: 'row', alignItems: 'center' }}>
-                                <Iconm name={'folder'} size={20} color={'green'}
-                                    style={{ marginLeft: 15 }}
-                                />
-                                <Text style={{ marginLeft: 10, color: 'green', fontSize: 16 }}>
-                                    {lib.WeekNoSubFolder}
-                                </Text>
-                                <View
-                                    style={{
-                                        right: 15,
-                                        position: "absolute",
-                                    }}
-                                >
-                                    <Iconsm name={'caretdown'} size={14} color={'green'}
+                        <View style={styles.container}>
+                            <TouchableOpacity
+                                onPress={() => { this.setState({ modalShow: true }) }}
+                            >
+                                <View style={{ borderWidth: 1, borderColor: 'white', backgroundColor: 'white', height: 35, margin: 15, flexDirection: 'row', alignItems: 'center' }}>
+                                    <Iconm name={'folder'} size={20} color={'green'}
+                                        style={{ marginLeft: 15 }}
+                                    />
+                                    <Text style={{ marginLeft: 10, color: 'green', fontSize: 16 }}>
+                                        {lib.WeekNoSubFolder}
+                                    </Text>
+                                    <View
+                                        style={{
+                                            right: 15,
+                                            position: "absolute",
+                                        }}
+                                    >
+                                        <Iconsm name={'caretdown'} size={14} color={'green'}
 
 
+                                        />
+                                    </View>
+
+
+                                </View>
+                            </TouchableOpacity>
+                            <Modal
+                                transparent={true}
+                                visible={this.state.modalShow}>
+                                {/* <View style={{backgroundColor: '#000000aa', flex:1}}>  */}
+                                <View style={{ backgroundColor: '#ffffff', flex: 1, }}>
+
+                                    <Appbar.Header
+                                        style={{ backgroundColor: "green" }}
+                                    >
+
+                                        <Appbar.Content
+                                            title="Select Week"
+
+
+                                        />
+
+                                        <Appbar.Action icon="close" onPress={() => { this.setState({ modalShow: false }) }} />
+                                    </Appbar.Header>
+
+                                    <FlatList
+                                        data={this.state.datasource}
+                                        renderItem={this.renderItemm}
+                                        keyExtractor={(item, index) => index.toString()}
+                                        ItemSeparatorComponent={this.renderseparatorm}
                                     />
                                 </View>
 
-
-                            </View>
-                        </TouchableOpacity>
-                        <Modal
-                            transparent={true}
-                            visible={this.state.modalShow}>
-                            {/* <View style={{backgroundColor: '#000000aa', flex:1}}>  */}
-                            <View style={{ backgroundColor: '#ffffff', flex: 1, }}>
-
-                                <Appbar.Header
-                                    style={{ backgroundColor: "green" }}
-                                >
-
-                                    <Appbar.Content
-                                        title="Select Week"
-
-
-                                    />
-
-                                    <Appbar.Action icon="close" onPress={() => { this.setState({ modalShow: false }) }} />
-                                </Appbar.Header>
-
+                                {/* </View> */}
+                            </Modal>
+                            <View style={{ backgroundColor: '#FFFFFF' }}>
                                 <FlatList
-                                    data={this.state.datasource}
-                                    renderItem={this.renderItemm}
+                                    data={this.state.SubTopics}
+                                    renderItem={this.renderItem}
                                     keyExtractor={(item, index) => index.toString()}
-                                    ItemSeparatorComponent={this.renderseparatorm}
+                                    ItemSeparatorComponent={this.renderseparator}
+
                                 />
-                            </View>
-
-                            {/* </View> */}
-                        </Modal>
-                        <View style={{ backgroundColor: '#FFFFFF' }}>
-                            <FlatList
-                                data={this.state.SubTopics}
-                                renderItem={this.renderItem}
-                                keyExtractor={(item, index) => index.toString()}
-                                ItemSeparatorComponent={this.renderseparator}
-
-                            />
                             </View>
                             {/* {this.state.SubTopics=='' &&
                                 <View style={{marginTop:'10%',marginBottom:'10%',alignItems:'center'}}>
@@ -476,16 +481,16 @@ class WeeklyPlanMainFolder extends Component {
                                         style={{ marginRight: 4 }}
                                     />
                                 </TouchableOpacity>
-                                 {/* }  */}
+                                {/* }  */}
                                 {/* {lib.WeekNoSubFolder!='Week-16' && */}
                                 <TouchableOpacity onPress={() => this.MoveRightFunction()}>
                                     <RightIcon name={'rightsquare'} size={40} color={'green'} />
                                 </TouchableOpacity>
-                                 {/* }  */}
+                                {/* }  */}
                             </View>
-                    
 
-                    </View>
+
+                        </View>
                     </ScrollView>
                 </View>
 

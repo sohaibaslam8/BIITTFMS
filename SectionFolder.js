@@ -115,9 +115,6 @@ class section extends Component {
             
                
                 <View style={styles.container}>
-                    {/* <View style={{alignItems:'center',marginTop:5}}>
-        <Text style={{fontSize:28,fontWeight:'bold',borderBottomWidth:3,}}>{lib.Discipline} {lib.Semc}-{lib.Section}</Text>
-                    </View> */}
                        <View style={{ alignItems: 'center', backgroundColor: '#FFFFFF', }}>
                             <Text style={{fontSize:20,width:'95%',textAlign:'center'}}>{lib.Discipline} {lib.Semc}-{lib.Section}</Text>
 

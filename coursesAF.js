@@ -21,7 +21,7 @@ class courses extends Component {
             selectedLabel: '',
             modalShow: false,
             Tid: '',
-            SemNo: '2018SM',
+           
 
 
         }
@@ -31,6 +31,8 @@ class courses extends Component {
 
         lib.CNo = cno;
         lib.CName = cname;
+        lib.TokenAF='true';
+        lib.Token='true';
         this.props.navigation.navigate('CoursesDetailAF')
     }
 
@@ -69,11 +71,13 @@ class courses extends Component {
     }
     ////////////////// Modal Functions /////////////////////////////////////////////////////
     HideModel(semno) {
+        console.log(semno);
+        console.log(lib.TIdAF);
         lib.SemNoAF = semno;
 
         this.setState({ modalShow: false });
         this.getcourses();
-
+        
 
     }
     renderItemm = ({ item }) => {
@@ -109,11 +113,11 @@ class courses extends Component {
 
     //////////////////////// Get Teachers Courses ////////////////////////////////////////
     getcourses() {
-        const url = `http://192.168.10.2/FWebAPI/api/Users/AllCourses?id=${lib.TIdAF}&semno=${lib.SemNoAF}`
+        const url = `http://192.168.10.5/FWebAPI/api/Users/AllCourses?id=${lib.TIdAF}&semno=${lib.SemNoAF}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
-                // console.log(responsejson)
+                console.log(responsejson)
                 this.setState(
                     {
                         datasource: responsejson,
@@ -131,7 +135,7 @@ class courses extends Component {
     }
     ///////////////////////// Get Semester Number //////////////////////////////////////////
     getsemesternumber() {
-        const url = `http://192.168.10.2/FWebAPI/api/Users/AllSemesterNumber`
+        const url = `http://192.168.10.5/FWebAPI/api/Users/AllSemesterNumber`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -159,9 +163,16 @@ class courses extends Component {
     }
 
 
-    async componentDidMount() {
-        this.getsemesternumber();
-        this.getcourses();
+    componentDidMount() {
+        lib.SemNoAF='2018SM';
+
+
+        setTimeout(()=>{
+            this.getsemesternumber();
+            this.getcourses();
+
+        },1000)
+       
 }
 
 

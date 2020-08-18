@@ -125,7 +125,7 @@ class WeeklyPlanMainFolder extends Component {
 
 
     componentDidMount() {
-        const url = `http://192.168.10.11/FWebAPI/api/users/AllSubTopic?weekno=${lib.WeekNoMainFolder}&courseno=${lib.CNo}`
+        const url = `http://192.168.10.5/FWebAPI/api/users/AllSubTopic?weekno=${lib.WeekNoMainFolder}&courseno=${lib.CNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

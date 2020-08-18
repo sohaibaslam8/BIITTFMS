@@ -4,6 +4,7 @@ import SegmentedControlTab from "react-native-segmented-control-tab";
 import { Header, Item, Input, Icon } from 'native-base';
 import * as lib from './storeData'
 import _ from 'lodash'
+import a from 'lodash'
 
 
 export default class CoursesDetail extends React.Component {
@@ -119,7 +120,7 @@ export default class CoursesDetail extends React.Component {
     //////////////////////// Get Teachers ////////////////////////////////////////
     getTeachers() {
 
-        const url = `http://192.168.10.2/FWebAPI/api/users/AllTeachers`
+        const url = `http://192.168.10.5/FWebAPI/api/users/AllTeachers`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -190,9 +191,9 @@ export default class CoursesDetail extends React.Component {
     }
 
     handleSearchC = (text) => {
-        const formattedQuery = text.toUpperCase()
-        const Cdata = _.filter(this.state.Cfulldata, photo => {
-            if (photo.title.includes(formattedQuery)) {
+        const formattedQueryC = text.toUpperCase()
+        const Cdata = a.filter(this.state.Cfulldata, photo => {
+            if (photo.title.includes(formattedQueryC)) {
                 return true
             }
             return false
@@ -206,11 +207,11 @@ export default class CoursesDetail extends React.Component {
     //////////////////////// Get Courses ////////////////////////////////////////
     getCourses() {
 
-        const url = `http://192.168.10.2/FWebAPI/api/users/AllCourses`
+        const url = `http://192.168.10.5/FWebAPI/api/users/AllCourses`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
-                console.log(responsejson)
+                // console.log(responsejson)
                 this.setState(
                     {
                         Cdata: responsejson,

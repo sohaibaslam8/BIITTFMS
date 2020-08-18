@@ -41,6 +41,7 @@ class courses extends Component {
 
         lib.CNo = cno;
         lib.CName = cname;
+        lib.Token='false';
         this.props.navigation.navigate('coursedetail')
     }
 
@@ -120,7 +121,7 @@ class courses extends Component {
 
     //////////////////////// Get Teachers Courses ////////////////////////////////////////
     getcourses() {
-        const url = `http://192.168.10.2/FWebAPI/api/Users/AllCourses?id=${lib.TId}&semno=${lib.SemNo}`
+        const url = `http://192.168.10.5/FWebAPI/api/Users/AllCourses?id=${lib.TId}&semno=${lib.SemNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -142,7 +143,7 @@ class courses extends Component {
     }
     ///////////////////////// Get Semester Number //////////////////////////////////////////
     getsemesternumber() {
-        const url = `http://192.168.10.2/FWebAPI/api/Users/AllSemesterNumber`
+        const url = `http://192.168.10.5/FWebAPI/api/Users/AllSemesterNumber`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -171,6 +172,9 @@ class courses extends Component {
 
 
     async componentDidMount() {
+        // lib.TIdAF='null';
+        lib.SemNo='2018SM';
+   
 
         // await AsyncStorage.getItem('TId').then((value)=>this.setState({Tid:value}));
         lib.TId = await AsyncStorage.getItem('TId');
@@ -287,7 +291,7 @@ class courses extends Component {
                         </Modal>
                     </View>
 
-                    <View style={{ backgroundColor: '#FFFFFF' }}>
+                    <View style={{ backgroundColor: '#FFFFFF',flex:1 }}>
                         <FlatList
                             data={this.state.datasource}
                             renderItem={this.renderItem}
