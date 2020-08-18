@@ -171,7 +171,7 @@ export default class CoursesDetail extends React.Component {
     ShowSection(){
 
         this.setState({ isLoading: true })
-        const url = `http://192.168.10.5/FWebAPI/api/Users/AllSections?id=${lib.TIdTemp}&courseno=${lib.CNo}&semno=${lib.SemNoTemp}`
+        const url = `http://192.168.43.143/FWebAPI/api/Users/AllSections?id=${lib.TIdTemp}&courseno=${lib.CNo}&semno=${lib.SemNoTemp}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -194,7 +194,7 @@ export default class CoursesDetail extends React.Component {
 
     MainFolderManage()
     {
-        const url = `http://192.168.10.5/FWebAPI/api/Users/MainFolderManage?tid=${lib.TId}&courseno=${lib.CNo}&semesterno=${lib.SemNo}`
+        const url = `http://192.168.43.143/FWebAPI/api/Users/MainFolderManage?tid=${lib.TId}&courseno=${lib.CNo}&semesterno=${lib.SemNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -276,7 +276,7 @@ export default class CoursesDetail extends React.Component {
                             tabStyle={styles.tabstyle}
                         />
 
-                        <View style={{ backgroundColor:'#FFFFFF' }}>
+                        <View style={{ backgroundColor:'#FFFFFF',flex:1 }}>
 
                             <FlatList
                                 data={this.state.datasource}

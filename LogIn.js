@@ -68,7 +68,7 @@ class LogIn extends Component {
         // }
         // else
         // {
-            fetch(`http://192.168.10.5/FWebAPI/api/Users/LoginTeacher?id=${this.state.email}&password=${this.state.password}`)
+            fetch(`http://192.168.43.143/FWebAPI/api/Users/LoginTeacher?id=${this.state.email}&password=${this.state.password}`)
             .then(data => data.json())
             .then(data2 => {
                 // this.setState({isloading:false});

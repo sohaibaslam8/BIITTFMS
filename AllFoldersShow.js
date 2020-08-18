@@ -120,7 +120,7 @@ export default class CoursesDetail extends React.Component {
     //////////////////////// Get Teachers ////////////////////////////////////////
     getTeachers() {
 
-        const url = `http://192.168.10.5/FWebAPI/api/users/AllTeachers`
+        const url = `http://192.168.43.143/FWebAPI/api/users/AllTeachers`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -207,7 +207,7 @@ export default class CoursesDetail extends React.Component {
     //////////////////////// Get Courses ////////////////////////////////////////
     getCourses() {
 
-        const url = `http://192.168.10.5/FWebAPI/api/users/AllCourses`
+        const url = `http://192.168.43.143/FWebAPI/api/users/AllCourses`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
