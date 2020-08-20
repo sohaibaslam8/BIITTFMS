@@ -39,9 +39,10 @@ class courses extends Component {
 
     ShowNewScreen(cno, cname) {
 
+        lib.Token='false';
         lib.CNo = cno;
         lib.CName = cname;
-        lib.Token='false';
+        
         this.props.navigation.navigate('coursedetail')
     }
 
@@ -291,7 +292,7 @@ class courses extends Component {
                         </Modal>
                     </View>
 
-                    <View style={{ backgroundColor: '#FFFFFF',flex:1 }}>
+                    <View style={{ backgroundColor: '#FFFFFF', }}>
                         <FlatList
                             data={this.state.datasource}
                             renderItem={this.renderItem}

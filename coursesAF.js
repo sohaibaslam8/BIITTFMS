@@ -29,10 +29,11 @@ class courses extends Component {
 
     ShowNewScreen(cno, cname) {
 
-        lib.CNo = cno;
-        lib.CName = cname;
         lib.TokenAF='true';
         lib.Token='true';
+        lib.CNo = cno;
+        lib.CName = cname;
+       
         this.props.navigation.navigate('CoursesDetailAF')
     }
 

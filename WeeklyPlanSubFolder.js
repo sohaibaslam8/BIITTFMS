@@ -467,12 +467,12 @@ class WeeklyPlanMainFolder extends Component {
 
                                 />
                             </View>
-                            {/* {this.state.SubTopics=='' &&
+                            {this.state.SubTopics=='' &&
                                 <View style={{marginTop:'10%',marginBottom:'10%',alignItems:'center'}}>
                                     <Text style={{fontSize:20}}>No content available at the moment.</Text>
 
                                 </View>
-                            } */}
+                            }
 
                             <View style={{ marginLeft: '70%', flexDirection: 'row', margin: 20, }}>
                                 {/* {lib.WeekNoSubFolder!='Week-1' && */}

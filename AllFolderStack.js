@@ -25,6 +25,7 @@ import FinalResult from './FinalResult';
 import FCR from './FCR';
 
 
+import CourseDetailCAF from './CoursesDetailAF';
 const screens={
   courses:{
     screen:AllFolders,
@@ -170,6 +171,15 @@ FCR:{
     title:'FCR',
     headerTintColor: '#fff',
 },
+},
+
+CoursesDetailCAF:{
+  screen:CourseDetailCAF,
+  navigationOptions:{
+    title:'Course Detail',
+    headerTintColor: '#fff',
+    //  headerStyle:{backgroundColor:'#eee'}
+  },
 },
 
 

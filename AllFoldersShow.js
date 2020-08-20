@@ -147,7 +147,11 @@ export default class CoursesDetail extends React.Component {
     ////////////////////////// Display All Courses //////////////////////////////////////////////////////
 
 
-    ShowNewScreenC(empno) {
+    ShowNewScreenC(cno,cname) {
+        lib.CNo=cno;
+        lib.CName=cname;
+        this.props.navigation.navigate('CoursesDetailCAF');
+
 
 
     }
@@ -157,7 +161,7 @@ export default class CoursesDetail extends React.Component {
         return (
             <TouchableOpacity
                 style={{ flex: 1, flexDirection: 'row' }}
-                onPress={this.ShowNewScreenC.bind(this, item.emp_no)}
+                onPress={this.ShowNewScreenC.bind(this,item.course_no,item.title)}
             >
                 <View style={{ margin: 10, width: 60, height: 60, borderRadius: 60 / 2, backgroundColor: 'green', alignItems: 'center', justifyContent: 'center' }}>
                     <Text style={{ color: 'white', fontSize: 14, }}>{item.course_desc}</Text>
