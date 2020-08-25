@@ -28,7 +28,6 @@ class courses extends Component {
     }
 
     ShowNewScreen(cno, cname) {
-
         lib.TokenAF='true';
         lib.Token='true';
         lib.CNo = cno;

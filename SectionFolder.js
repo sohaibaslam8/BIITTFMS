@@ -119,6 +119,7 @@ class section extends Component {
                             <Text style={{fontSize:20,width:'95%',textAlign:'center'}}>{lib.Discipline} {lib.Semc}-{lib.Section}</Text>
 
                         </View>
+                        <View style={{flex: 1, marginTop: 10,backgroundColor:'#FFFFFF'}}>
                     <FlatList
 
                         data={this.state.datasource}
@@ -126,6 +127,7 @@ class section extends Component {
                         keyExtractor={(item, index) => index.toString()}
                         ItemSeparatorComponent={this.renderseparator}
                     />
+                    </View>
 
                 </View>
             

@@ -276,7 +276,7 @@ export default class CoursesDetail extends React.Component {
                             tabStyle={styles.tabstyle}
                         />
 
-                        <View style={{ backgroundColor:'#FFFFFF',flex:1 }}>
+                        <View style={{ backgroundColor:'#FFFFFF', }}>
 
                             <FlatList
                                 data={this.state.datasource}
@@ -305,7 +305,7 @@ export default class CoursesDetail extends React.Component {
                                 tabStyle={styles.tabstyle}
                             />
 
-                            <View style={{ flex: 1, marginTop: 10 }}>
+                            <View style={{ flex: 1, marginTop: 0,backgroundColor:'#FFFFFF' }}>
 
 
 

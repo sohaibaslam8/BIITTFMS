@@ -72,7 +72,7 @@ class LogIn extends Component {
             .then(data => data.json())
             .then(data2 => {
                 // this.setState({isloading:false});
-                //  console.log(data2)
+                 console.log(data2)
                 if (data2 != 'false') {
                     if(data2[0].email==null)
                     {
@@ -93,10 +93,18 @@ class LogIn extends Component {
                     AsyncStorage.setItem('TEmail','**********');
                     AsyncStorage.setItem('TPhone','**********');
                     AsyncStorage.setItem('TPwd',data2[0].pwd);
-                    AsyncStorage.setItem('TImg',data2[0].Img);
+                    if(data2[0].Img!=null)
+                    {
+                        AsyncStorage.setItem('TImg',data2[0].Img);
+                    }
                     if(data2[0].status!=null)
                     {
                         AsyncStorage.setItem('TStatus',data2[0].status);
+                    }
+
+                    if(data2[0].Position!=null)
+                    {
+                        AsyncStorage.setItem('TPosition',data2[0].Position);
                     }
                     
                 
@@ -120,10 +128,18 @@ class LogIn extends Component {
                     AsyncStorage.setItem('TEmail',data2[0].email);
                     AsyncStorage.setItem('TPhone',data2[0].PhoneNo);
                     AsyncStorage.setItem('TPwd',data2[0].pwd);
-                    AsyncStorage.setItem('TImg',data2[0].Img);
+                    
+                    if(data2[0].Img!=null)
+                    {
+                        AsyncStorage.setItem('TImg',data2[0].Img);
+                    }
                     if(data2[0].status!=null)
                     {
                         AsyncStorage.setItem('TStatus',data2[0].status);
+                    }
+                    if(data2[0].Position!=null)
+                    {
+                        AsyncStorage.setItem('TPosition',data2[0].Position);
                     }
                     
                     }

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 
-import { Text, View, FlatList, StyleSheet, Alert, ActivityIndicator, TouchableOpacity, Image, Dimensions, Linking } from 'react-native';
+import { Text, View, FlatList, StyleSheet, Alert, ActivityIndicator, TextInput, TouchableOpacity, Image, Dimensions, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import Iconpw from 'react-native-vector-icons/FontAwesome';
 import * as lib from './storeData'
 import SegmentedControlTab from "react-native-segmented-control-tab";
 import DocumentPicker from 'react-native-document-picker';
 import { Item, Input, Label } from 'native-base';
 import Modals from 'react-native-modalbox';
+import ModalPW from 'react-native-modalbox';
 var screen = Dimensions.get('window')
 
 
@@ -27,6 +29,7 @@ export default class Exams extends React.Component {
                 dtypeme: 'MidExam',
                 FileOriginalNameme: '',
                 showModalme: false,
+                showModalPWme: false,
 
                 singleFilefe: '',
                 multipleFilefe: [],
@@ -39,13 +42,23 @@ export default class Exams extends React.Component {
                 selectedIndex: 0,
                 status: true,
                 finalstatus: false,
+
+                ///////// Notification ///////////////
+
+                FDoc_IdN: '',
+                Sender_IdN: '',
+                Receiver_IdN: '',
+                MessageNme: '',
+                StatusN: '',
+                course_noN: '',
+
             };
     }
 
     ////////////////////////////////////////////////////////////////////////////
     ////////////////  Mid Exams ////////////////////////////////////////////////
 
-
+   
     /////////       Show Files ////////////
     ShowFilesme = (name) => {
         Linking.canOpenURL('http://192.168.43.143/FWebAPI/File/' + name).then(supported => {
@@ -126,14 +139,14 @@ export default class Exams extends React.Component {
                     <Text style={{ fontSize: 14, color: 'black', fontWeight: '600', width: '80%', }}>
                         {item.Doc_Name}
                     </Text>
-                    {lib.MainFM==='true' &&
-                    <TouchableOpacity
-                        style={{ right: 30, position: 'absolute', padding: 4 }}
-                        onPress={this.CheckFilesDeleteOrNotme.bind(this, item.FDoc_Id)}
-                    >
-                        <Icon name={'delete'} size={21} color={'black'}
-                        />
-                    </TouchableOpacity>
+                    {lib.MainFM === 'true' &&
+                        <TouchableOpacity
+                            style={{ right: 30, position: 'absolute', padding: 4 }}
+                            onPress={this.CheckFilesDeleteOrNotme.bind(this, item.FDoc_Id)}
+                        >
+                            <Icon name={'delete'} size={21} color={'black'}
+                            />
+                        </TouchableOpacity>
                     }
 
                 </View>
@@ -409,15 +422,15 @@ export default class Exams extends React.Component {
                     <Text style={{ fontSize: 14, color: 'black', fontWeight: '600', width: '80%', }}>
                         {item.Doc_Name}
                     </Text>
-                    {lib.MainFM==='true' &&
-                    <TouchableOpacity
-                        style={{ right: 30, position: 'absolute', padding: 4 }}
-                        onPress={this.CheckFilesDeleteOrNotfe.bind(this, item.FDoc_Id)}
-                    >
-                        <Icon name={'delete'} size={21} color={'black'}
-                        />
-                    </TouchableOpacity>
-                     } 
+                    {lib.MainFM === 'true' &&
+                        <TouchableOpacity
+                            style={{ right: 30, position: 'absolute', padding: 4 }}
+                            onPress={this.CheckFilesDeleteOrNotfe.bind(this, item.FDoc_Id)}
+                        >
+                            <Icon name={'delete'} size={21} color={'black'}
+                            />
+                        </TouchableOpacity>
+                    }
 
                 </View>
 
@@ -761,14 +774,14 @@ export default class Exams extends React.Component {
                                 </TouchableOpacity>
                             </View>
                         </Modals>
-                        {lib.MainFM==='true' &&
-                        <TouchableOpacity
-                            onPress={this.selectFileme.bind(this)}
-                            style={styles.inputicon}
-                        >
-                            <Icon name={'pluscircle'} size={50} color={'green'}
-                            />
-                        </TouchableOpacity>
+                        {lib.MainFM === 'true' &&
+                            <TouchableOpacity
+                                onPress={this.selectFileme.bind(this)}
+                                style={styles.inputicon}
+                            >
+                                <Icon name={'pluscircle'} size={50} color={'green'}
+                                />
+                            </TouchableOpacity>
                         }
                         <View style={{ marginTop: 10, backgroundColor: '#FFFFFF' }}>
                             <FlatList
@@ -879,14 +892,14 @@ export default class Exams extends React.Component {
                                     </TouchableOpacity>
                                 </View>
                             </Modals>
-                            {lib.MainFM==='true' &&
-                            <TouchableOpacity
-                                onPress={this.selectFilefe.bind(this)}
-                                style={styles.inputicon}
-                            >
-                                <Icon name={'pluscircle'} size={50} color={'green'}
-                                />
-                            </TouchableOpacity>
+                            {lib.MainFM === 'true' &&
+                                <TouchableOpacity
+                                    onPress={this.selectFilefe.bind(this)}
+                                    style={styles.inputicon}
+                                >
+                                    <Icon name={'pluscircle'} size={50} color={'green'}
+                                    />
+                                </TouchableOpacity>
                             }
                             <View style={{ marginTop: 10, backgroundColor: '#FFFFFF' }}>
                                 <FlatList
@@ -916,6 +929,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         marginTop: 10,
+        // marginBottom:0,
         // borderColor:'green'
 
 
@@ -937,6 +951,15 @@ const styles = StyleSheet.create({
         right: 35,
         position: "absolute",
         zIndex: 1
+    },
+    input: {
+        paddingRight: 10,
+        lineHeight: 23,
+        flex: 2,
+        textAlignVertical: 'top',
+        borderWidth: 1,
+        margin: 5,
+        // marginBottom:0,
     },
 });
 

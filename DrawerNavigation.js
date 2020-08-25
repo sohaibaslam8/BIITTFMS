@@ -14,7 +14,10 @@ import Iconc from 'react-native-vector-icons/MaterialCommunityIcons';
 import Iconl from 'react-native-vector-icons/AntDesign';
 import Iconps from 'react-native-vector-icons/Feather';
 import Iconf from 'react-native-vector-icons/FontAwesome';
+import Iconpw from 'react-native-vector-icons/Foundation';
 import * as lib from './storeData'
+
+import PaperWettingViewStack from './PaperWettingStack';
 
 
 
@@ -27,6 +30,7 @@ const CustomDrawerComponent = (props) => {
     const [colorsc,setcolorsc]=useState(true);
     const [colorsps,setcolorsps]=useState(false);
     const [colorsaf,setcolorsaf]=useState(false);
+    const [colorspw,setcolorspw]=useState(false);
     const [colorsp,setcolorsp]=useState(false);
     const [colorscp,setcolorscp]=useState(false);
     const [colorsl,setcolorsl]=useState(false);
@@ -38,6 +42,7 @@ const CustomDrawerComponent = (props) => {
         setcolorsp(false);
         setcolorscp(false);
         setcolorsl(false);
+        setcolorspw(false);
     }
     const functionCombinedPS=()=> {
         // alert("helloo")
@@ -48,6 +53,7 @@ const CustomDrawerComponent = (props) => {
         setcolorsp(false);
         setcolorscp(false);
         setcolorsl(false);
+        setcolorspw(false);
     }
         const functionCombinedAF=()=> {
              props.navigation.navigate('AllFolderStack')
@@ -57,7 +63,18 @@ const CustomDrawerComponent = (props) => {
             setcolorsp(false);
             setcolorscp(false);
             setcolorsl(false);
+            setcolorspw(false);
         } 
+        const functionCombinedPW=()=> {
+            props.navigation.navigate('PaperWettingStack')
+            setcolorspw(true);
+           setcolorsaf(false);
+           setcolorsps(false);
+           setcolorsc(false);
+           setcolorsp(false);
+           setcolorscp(false);
+           setcolorsl(false);
+       } 
             const functionCombinedP=()=> {
                 props.navigation.navigate('Profile')
                 setcolorsp(true);
@@ -66,6 +83,7 @@ const CustomDrawerComponent = (props) => {
                 setcolorsaf(false);
                 setcolorscp(false);
                 setcolorsl(false);
+                setcolorspw(false);
 
 
                 }
@@ -78,6 +96,7 @@ const CustomDrawerComponent = (props) => {
                     setcolorsaf(false);
                     setcolorsp(false);
                     setcolorsl(false);
+                    setcolorspw(false);
                     }
                     const functionCombinedl=()=> {
                         props.navigation.navigate('LogOut')
@@ -87,6 +106,7 @@ const CustomDrawerComponent = (props) => {
                         setcolorsc(false);
                         setcolorsaf(false);
                         setcolorsp(false);
+                        setcolorspw(false);
                         }
     
     // console.log("How i work :",props.navigation.getParam('status'));
@@ -142,6 +162,19 @@ const CustomDrawerComponent = (props) => {
                         <Iconf name={'folder'} size={24} style={[colorsaf?{margin:20,color:'black'}:{margin:20,color:'#606060'}]}/>
                     <Text style={[colorsaf?{margin:10,fontSize:16,fontWeight:'bold',color:'black'}:
                     {margin:10,fontSize:16,fontWeight:'bold',color:'#606060'}]}>All Folders</Text>
+                    </TouchableOpacity>
+                }
+                 {lib.TPosition==='Dir' && 
+                    <TouchableOpacity 
+                    style={
+                        [colorspw?
+                            {flexDirection:'row',height:50,alignItems:'center',backgroundColor:'#e9e9e9'}:
+                        {flexDirection:'row',height:50,alignItems:'center'}
+                        ]}
+                    onPress={() => functionCombinedPW()}>
+                        <Iconpw name={'clipboard-notes'} size={30} style={[colorspw?{margin:20,color:'black'}:{margin:20,color:'#606060'}]}/>
+                    <Text style={[colorspw?{margin:15,fontSize:16,fontWeight:'bold',color:'black'}:
+                    {margin:15,fontSize:16,fontWeight:'bold',color:'#606060'}]}>Paper Wetting</Text>
                     </TouchableOpacity>
                 }
                 <TouchableOpacity 
@@ -223,6 +256,10 @@ const RootDrawerNavigator = createDrawerNavigator({
         //         />
         //     )
         // }
+    },
+    PaperWettingStack:{
+        screen:PaperWettingViewStack,
+
     },
     Profile: {
         screen: ProfileStack,

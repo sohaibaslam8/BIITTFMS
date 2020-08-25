@@ -190,6 +190,7 @@ class courses extends Component {
         lib.TPwd = await AsyncStorage.getItem('TPwd');
         lib.TImg = await AsyncStorage.getItem('TImg');
         lib.TStatus = await AsyncStorage.getItem('TStatus');
+        lib.TPosition=await AsyncStorage.getItem('TPosition');
         this.getsemesternumber();
         this.getcourses();
 

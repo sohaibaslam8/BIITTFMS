@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { Text, View, FlatList, StyleSheet,Alert, ActivityIndicator,TouchableOpacity, Image, Dimensions, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import Iconpw from 'react-native-vector-icons/FontAwesome';
 import * as lib from './storeData'
 import SegmentedControlTab from "react-native-segmented-control-tab";
 import DocumentPicker from 'react-native-document-picker';
@@ -132,6 +133,15 @@ export default class ExamsSolution extends React.Component {
                         onPress={this.CheckFilesDeleteOrNotme.bind(this, item.FDoc_Id)}
                     >
                         <Icon name={'delete'} size={21} color={'black'}
+                        />
+                    </TouchableOpacity>
+                    }
+                      {lib.TokenPW==='true' &&
+                    <TouchableOpacity
+                        style={{ right: 30, position: 'absolute', padding: 4 }}
+                        onPress={this.CheckFilesDeleteOrNotme.bind(this, item.FDoc_Id)}
+                    >
+                        <Iconpw name={'comment'} size={21} color={'black'}
                         />
                     </TouchableOpacity>
                     }
@@ -419,6 +429,15 @@ export default class ExamsSolution extends React.Component {
                         onPress={this.CheckFilesDeleteOrNotfe.bind(this, item.FDoc_Id)}
                     >
                         <Icon name={'delete'} size={21} color={'black'}
+                        />
+                    </TouchableOpacity>
+                    }
+                      {lib.TokenPW==='true' &&
+                    <TouchableOpacity
+                        style={{ right: 30, position: 'absolute', padding: 4 }}
+                        onPress={this.CheckFilesDeleteOrNotme.bind(this, item.FDoc_Id)}
+                    >
+                        <Iconpw name={'comment'} size={21} color={'black'}
                         />
                     </TouchableOpacity>
                     }
