@@ -28,20 +28,7 @@ export default function Header({ navigation, title }) {
 
                 </Text>
             </View>
-            {/* <TouchableOpacity
-            onPress={()=>this.props.navigation.navigate('Notification')}
-            style={styles.container}>
-                <View style={styles.row}>
-                    <Icon type="ionicon" name="ios-notifications" size={35} color='#fff' />
-                 {lib.TMsgCount!='0' &&
-                    <Badge
-                        value={lib.TMsgCount}
-                        status="error"
-                        containerStyle={styles.badgeStyle}
-                    />
-                 }
-                </View>
-            </TouchableOpacity> */}
+           
         </View>
 
     );

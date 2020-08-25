@@ -221,7 +221,7 @@ class courses extends Component {
        
 
         setTimeout(() => {
-            if(this.state.data!='')
+            if(this.state.data!=='')
             {
                 lib.TMsgCount=this.state.data.length;
             }

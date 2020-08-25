@@ -45,14 +45,7 @@ const screens={
       //  headerStyle:{backgroundColor:'#eee'}
     },
   },
-  Header:{
-    screen:<Header></Header>,
-    navigationOptions:{
-      title:'Notifications',
-      headerTintColor: '#fff',
-      //  headerStyle:{backgroundColor:'#eee'}
-    },
-  },
+
   
 
    coursedetail:{
