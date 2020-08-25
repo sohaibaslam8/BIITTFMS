@@ -18,7 +18,7 @@ class LogOut extends Component {
   componentDidMount() {
     setTimeout(()=> {
       this.LogoutApplication();
-    }, 3000);
+    }, 2000);
 
   }
   

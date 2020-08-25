@@ -11,7 +11,7 @@ const screens={
     screen:TeacherCoursesPS,
     navigationOptions:({navigation}) => {
       return{
-        headerTitle:()=> <Header navigation={navigation} title='Courses'/>,
+        headerTitle:()=> <Header navigation={navigation} title='Paper Setting'/>,
 
       }
     }

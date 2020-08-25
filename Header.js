@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image, Alert, TouchableOpacity } from 'react-native';
 import Icons from 'react-native-vector-icons/Ionicons';
 import { Badge, Icon } from 'react-native-elements';
-
+import * as lib from './storeData'
 export default function Header({ navigation, title }) {
     OpenMenu = () => {
         // Alert.alert("hel");
@@ -28,16 +28,20 @@ export default function Header({ navigation, title }) {
 
                 </Text>
             </View>
-            {/* <View style={styles.container}>
+            {/* <TouchableOpacity
+            onPress={()=>this.props.navigation.navigate('Notification')}
+            style={styles.container}>
                 <View style={styles.row}>
                     <Icon type="ionicon" name="ios-notifications" size={35} color='#fff' />
+                 {lib.TMsgCount!='0' &&
                     <Badge
-                        value="7"
+                        value={lib.TMsgCount}
                         status="error"
                         containerStyle={styles.badgeStyle}
                     />
+                 }
                 </View>
-            </View> */}
+            </TouchableOpacity> */}
         </View>
 
     );
@@ -69,7 +73,7 @@ const styles = StyleSheet.create({
         // justifyContent: 'center',
         // alignItems: 'center',
         
-        marginLeft: 120,
+        marginLeft: 140,
         // marginRight: 100,
         
         

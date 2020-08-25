@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 
 import ChangePassword from './ChangePassword';
-import Header from './HeaderCpwd'
+import Header from './Header'
 
 const screens={
   ChangePassword:{

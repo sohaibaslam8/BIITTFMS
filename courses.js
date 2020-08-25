@@ -22,6 +22,8 @@ class courses extends Component {
             modalShow: false,
             Tid: '',
             SemNo: '2018SM',
+            data:[],
+            status:'false'
 
 
         }
@@ -171,9 +173,32 @@ class courses extends Component {
 
     }
 
+     //////////////////////// Get Notifications ////////////////////////////////////////
+    getNotifications() {
+
+        const url = `http://192.168.43.143/FWebAPI/api/users/ShowAllMessages?id=${lib.TId}&status=${this.state.status}`
+        fetch(url)
+            .then((response) => response.json())
+            .then((responsejson) => {
+                console.log(responsejson)
+                this.setState(
+                    {
+                        data: responsejson,
+                    }
+                )
+
+
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
+    }
+
 
     async componentDidMount() {
         // lib.TIdAF='null';
+        this.getNotifications();
         lib.SemNo='2018SM';
    
 
@@ -193,6 +218,14 @@ class courses extends Component {
         lib.TPosition=await AsyncStorage.getItem('TPosition');
         this.getsemesternumber();
         this.getcourses();
+       
+
+        setTimeout(() => {
+            if(this.state.data!='')
+            {
+                lib.TMsgCount=this.state.data.length;
+            }
+        }, 2000);
 
     }
 

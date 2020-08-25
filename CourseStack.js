@@ -23,6 +23,8 @@ import SamplesStack from './SamplesStack';
 import FinalResult from './FinalResult';
 import FCR from './FCR';
 
+import Notification from './Notifications';
+
 
 const screens={
   courses:{
@@ -35,6 +37,24 @@ const screens={
     }
 
   },
+  Notification:{
+    screen:Notification,
+    navigationOptions:{
+      title:'Notifications',
+      headerTintColor: '#fff',
+      //  headerStyle:{backgroundColor:'#eee'}
+    },
+  },
+  Header:{
+    screen:<Header></Header>,
+    navigationOptions:{
+      title:'Notifications',
+      headerTintColor: '#fff',
+      //  headerStyle:{backgroundColor:'#eee'}
+    },
+  },
+  
+
    coursedetail:{
     screen:CourseDetail,
     navigationOptions:{

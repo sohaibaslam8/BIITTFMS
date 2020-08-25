@@ -8,16 +8,19 @@ import AllFolderViewStack from './AllFolderStack';
 import ProfileStack from './ProfileStack';
 import ChangePwdStack from './ChangePwdStack';
 import LogOutStack from './LogOut';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Iconcc from 'react-native-vector-icons/FontAwesome';
 import Iconp from 'react-native-vector-icons/Fontisto';
 import Iconc from 'react-native-vector-icons/MaterialCommunityIcons';
 import Iconl from 'react-native-vector-icons/AntDesign';
 import Iconps from 'react-native-vector-icons/Feather';
 import Iconf from 'react-native-vector-icons/FontAwesome';
 import Iconpw from 'react-native-vector-icons/Foundation';
+import Iconn from 'react-native-vector-icons/MaterialIcons';
 import * as lib from './storeData'
 
 import PaperWettingViewStack from './PaperWettingStack';
+import NotificationsViewStack from './NotificationsStack';
+import { Badge,} from 'react-native-elements';
 
 
 
@@ -34,8 +37,10 @@ const CustomDrawerComponent = (props) => {
     const [colorsp,setcolorsp]=useState(false);
     const [colorscp,setcolorscp]=useState(false);
     const [colorsl,setcolorsl]=useState(false);
+    const [colorsn,setcolorsn]=useState(false);
     const functionCombinedC=()=> {
         props.navigation.navigate('Courses')
+
         setcolorsc(true);
         setcolorsps(false);
         setcolorsaf(false);
@@ -43,6 +48,7 @@ const CustomDrawerComponent = (props) => {
         setcolorscp(false);
         setcolorsl(false);
         setcolorspw(false);
+        setcolorsn(false);
     }
     const functionCombinedPS=()=> {
         // alert("helloo")
@@ -54,6 +60,7 @@ const CustomDrawerComponent = (props) => {
         setcolorscp(false);
         setcolorsl(false);
         setcolorspw(false);
+        setcolorsn(false);
     }
         const functionCombinedAF=()=> {
              props.navigation.navigate('AllFolderStack')
@@ -64,6 +71,7 @@ const CustomDrawerComponent = (props) => {
             setcolorscp(false);
             setcolorsl(false);
             setcolorspw(false);
+            setcolorsn(false);
         } 
         const functionCombinedPW=()=> {
             props.navigation.navigate('PaperWettingStack')
@@ -74,6 +82,7 @@ const CustomDrawerComponent = (props) => {
            setcolorsp(false);
            setcolorscp(false);
            setcolorsl(false);
+           setcolorsn(false);
        } 
             const functionCombinedP=()=> {
                 props.navigation.navigate('Profile')
@@ -84,9 +93,23 @@ const CustomDrawerComponent = (props) => {
                 setcolorscp(false);
                 setcolorsl(false);
                 setcolorspw(false);
+                setcolorsn(false);
 
 
                 }
+                const functionCombinedN=()=> {
+                    props.navigation.navigate('NotificationStack')
+                    setcolorsn(true);
+                    setcolorsp(false);
+                    setcolorsps(false);
+                    setcolorsc(false);
+                    setcolorsaf(false);
+                    setcolorscp(false);
+                    setcolorsl(false);
+                    setcolorspw(false);
+    
+    
+                    }
                 const functionCombinedCP=()=> {
                     props.navigation.navigate('ChangePassword')
                     
@@ -97,6 +120,7 @@ const CustomDrawerComponent = (props) => {
                     setcolorsp(false);
                     setcolorsl(false);
                     setcolorspw(false);
+                    setcolorsn(false);
                     }
                     const functionCombinedl=()=> {
                         props.navigation.navigate('LogOut')
@@ -107,6 +131,7 @@ const CustomDrawerComponent = (props) => {
                         setcolorsaf(false);
                         setcolorsp(false);
                         setcolorspw(false);
+                        setcolorsn(false);
                         }
     
     // console.log("How i work :",props.navigation.getParam('status'));
@@ -135,7 +160,7 @@ const CustomDrawerComponent = (props) => {
                     {flexDirection:'row',height:50,alignItems:'center',backgroundColor:'#d9d9d9'}:
                     {flexDirection:'row',height:50,alignItems:'center'}]}
                      onPress={() =>functionCombinedC()}>
-                <Icon  name={'book'} size={24} style={[colorsc?{margin:20,color:'black'}:{margin:20,color:'#606060'}]}
+                <Iconcc  name={'book'} size={24} style={[colorsc?{margin:20,color:'black'}:{margin:20,color:'#606060'}]}
                 />
                     <Text style={[colorsc?{margin:10,fontSize:16,fontWeight:'bold',color:'black'}:
                     {margin:10,fontSize:16,fontWeight:'bold',color:'#606060'}]}>Courses</Text>
@@ -177,6 +202,30 @@ const CustomDrawerComponent = (props) => {
                     {margin:15,fontSize:16,fontWeight:'bold',color:'#606060'}]}>Paper Wetting</Text>
                     </TouchableOpacity>
                 }
+                 <TouchableOpacity 
+                style={
+                    [colorsn?
+                        {flexDirection:'row',height:50,alignItems:'center',backgroundColor:'#e9e9e9'}:
+                    {flexDirection:'row',height:50,alignItems:'center'}
+                    ]}
+                onPress={() => functionCombinedN()}>
+                    <View style={{flexDirection: 'row'}}>
+                    <Iconn name={'notifications'} size={24} style={[colorsn?{margin:20,color:'black'}:{margin:20,color:'#606060'}]}/>
+                    {lib.TMsgCount!='0' &&
+                    <Badge
+                        value={lib.TMsgCount}
+                        status="error"
+                        containerStyle={{  position: 'absolute',
+                        top: +12,
+                        right: +14 }}
+                    />
+                }
+                
+                </View>
+                     
+                    <Text style={[colorsn?{margin:10,fontSize:16,fontWeight:'bold',color:'black'}:
+                    {margin:10,fontSize:16,fontWeight:'bold',color:'#606060'}]}>Notifications</Text>
+                </TouchableOpacity>
                 <TouchableOpacity 
                 style={
                     [colorsp?
@@ -184,7 +233,7 @@ const CustomDrawerComponent = (props) => {
                     {flexDirection:'row',height:50,alignItems:'center'}
                     ]}
                 onPress={() => functionCombinedP()}>
-                     <Iconp name={'person'} size={24} style={[colorsp?{margin:20,color:'black'}:{margin:20,color:'#606060'}]}/>
+                     <Iconp name={'person'} size={22} style={[colorsp?{margin:20,color:'black'}:{margin:20,color:'#606060'}]}/>
                     <Text style={[colorsp?{margin:15,fontSize:16,fontWeight:'bold',color:'black'}:
                     {margin:15,fontSize:16,fontWeight:'bold',color:'#606060'}]}>Profile</Text>
                 </TouchableOpacity>
@@ -259,6 +308,10 @@ const RootDrawerNavigator = createDrawerNavigator({
     },
     PaperWettingStack:{
         screen:PaperWettingViewStack,
+
+    },
+    NotificationStack:{
+        screen:NotificationsViewStack,
 
     },
     Profile: {
