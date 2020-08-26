@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import * as lib from './storeData'
 
 class LogOut extends Component {
 
@@ -11,7 +12,7 @@ class LogOut extends Component {
     };
   }
   async LogoutApplication() {
-    
+    lib.TMsgCount='0';
     await AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
   }

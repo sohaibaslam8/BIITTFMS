@@ -925,12 +925,12 @@ export default class ExamsSamples extends React.Component {
                                 ItemSeparatorComponent={this.renderseparatorme}
                             />
                         </View>
-                        {/* {this.state.multipleFileme=='' &&
+                        {this.state.multipleFileme=='' &&
                                 <View style={{marginTop:'15%',marginBottom:'15%',alignItems:'center'}}>
                                     <Text style={{fontSize:20}}>No content available at the moment.</Text>
 
                                 </View>
-                            } */}
+                            }
 
                     </View>
                     :
@@ -1088,12 +1088,12 @@ export default class ExamsSamples extends React.Component {
                                 ItemSeparatorComponent={this.renderseparatorfe}
                             />
                         </View>
-                        {/* {this.state.multipleFilefe=='' &&
+                        {this.state.multipleFilefe=='' &&
                                 <View style={{marginTop:'15%',marginBottom:'15%',alignItems:'center'}}>
                                     <Text style={{fontSize:20}}>No content available at the moment.</Text>
 
                                 </View>
-                            } */}
+                            }
 
                         </View>
                         :

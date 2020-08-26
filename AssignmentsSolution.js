@@ -577,12 +577,12 @@ class AssignmentsSolution extends Component {
               ItemSeparatorComponent={this.renderseparator}
             />
           </View>
-          {/* {this.state.multipleFile=='' &&
+          {this.state.multipleFile=='' &&
                                 <View style={{marginTop:'15%',marginBottom:'15%',alignItems:'center'}}>
                                     <Text style={{fontSize:20}}>No content available at the moment.</Text>
 
                                 </View>
-                            } */}
+                            }
 
           <View style={{ marginLeft: '70%', flexDirection: 'row', margin: 20 }}>
             {/* {lib.WeekNoAssignmentsSolutions!='Week-1' && */}

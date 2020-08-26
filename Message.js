@@ -45,7 +45,7 @@ class Students extends Component {
         return (
         <View style={styles.container}>
             <View style={{ backgroundColor: '#FFFFFF',margin:10 }}>
-                <Text style={{fontSize:16}}>{lib.TMsg}</Text>
+                <Text style={{fontSize:16,padding:10}}>{lib.TMsg}</Text>
             </View>
         </View>
         );

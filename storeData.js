@@ -26,6 +26,7 @@ export const WeekNoAssignmentsSolutions='Week-1'
 export const CNoPS=''
 export const CNamePS=''
 export const countPS=''
+export const TopicIdPS=''
 // Main Folder Manage
 export const MainFM=''
 export const TIdTemp=''

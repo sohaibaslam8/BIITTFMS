@@ -44,7 +44,7 @@ class Students extends Component {
                         {item.emp_firstname} {item.emp_middle} {item.emp_lastname}
 
                     </Text>
-                    <Text>sent you in a message.</Text>
+                    <Text>sent you a message.</Text>
                 </View>
 
             </TouchableOpacity>

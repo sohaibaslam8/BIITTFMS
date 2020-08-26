@@ -85,42 +85,34 @@ export default class CoursesDetail extends React.Component {
 
     }
 
-    ShowNewScreenTopicDetail(id)
-    {
-        console.log("Sub Topic ID:"+id);
-        lib.TopicIdPS=id;
-        this.props.navigation.navigate('TopicDetail');
-
-    }
-
 
 
     renderItem = ({ item }) => {
         // console.log("helleoldkjfk" + item.isChecked)
         return (
-            <TouchableOpacity
-            onPress={this.ShowNewScreenTopicDetail.bind(this, item.ST_Id)}
+            <View
                 style={{ flex: 1, flexDirection: 'row', }}
             >
                 <Iconw name={'calendar-week'} size={30} color={'#3a3a3a'}
                     style={{ margin: 20 }}
                 />
                 <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', }}>
-                    <Text style={{ fontSize: 14, color: '#3a3a3a', fontWeight: '600', width: '65%' }}>
+                    <Text style={{ fontSize: 14, color: '#3a3a3a', fontWeight: '600', width: '70%' }}>
                         {item.ST_Name}
                     </Text>
                     <View style={{ right: 30, position: 'absolute', }}>
-                        <CheckBox checked={item.isChecked} color="green"
+                        {/* <CheckBox checked={item.isChecked} color="green"
 
                         //    onPress={() =>item.isChecked!==true?this.setState({ rowkey: item.ST_Id, modalShowST: true }):Alert.alert("The checkbox is already checked.")}
 
-                        />
-                        <Text>{item.week_no}</Text>
+                        /> */}
+                        <Text>({item.week_no})</Text>
+                        
                     </View>
 
                 </View>
 
-            </TouchableOpacity>
+            </View>
 
         )
     }
@@ -189,19 +181,19 @@ export default class CoursesDetail extends React.Component {
     }
 
     ShowTopics() {
-        lib.countPS = this.state.CourseAllocate.length;
-        console.log("Course Count" + lib.countPS);
+        // lib.countPS = this.state.CourseAllocate.length;
+        // console.log("Course Count" + lib.countPS);
 
-        this.state.SubTopics.map((data) => {
-            var o = Object.assign({}, data);
-            o.isChecked = false;
-            return o;
+        // this.state.SubTopics.map((data) => {
+        //     var o = Object.assign({}, data);
+        //     o.isChecked = false;
+        //     return o;
 
-        });
+        // });
 
         //   lib.WeekNoSST='Week-1'
         //   lib.CNo='CS-686'
-        const url = `http://192.168.43.143/FWebAPI/api/users/AllSubTopicPaperSetting?courseno=${lib.CNoPS}`
+        const url = `http://192.168.43.143/FWebAPI/api/users/AllCoveredSubTopic?courseno=${lib.CNoPS}&semno=${this.state.SemNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -215,11 +207,11 @@ export default class CoursesDetail extends React.Component {
                     }
                 )
 
-                for (var i = 0; i < this.state.SubTopics.length; i++) {
+                // for (var i = 0; i < this.state.SubTopics.length; i++) {
 
-                    this.SubTopicCheckboxCheckOrNot(this.state.SubTopics[i].ST_Id);
+                //     this.SubTopicCheckboxCheckOrNot(this.state.SubTopics[i].ST_Id);
 
-                }
+                // }
 
 
 
@@ -405,7 +397,8 @@ export default class CoursesDetail extends React.Component {
 
 
     componentDidMount() {
-
+        // this.ShowTopics();
+        // this.getTeachers();
 
         this.CourseAllocateDetail();
     }
@@ -443,8 +436,6 @@ export default class CoursesDetail extends React.Component {
                             onTabPress={this.handleIndexChange}
                             tabStyle={styles.tabstyle}
                         />
-                         
-
                         <View style={styles.container}>
                             <View searchBar rounded style={{ marginLeft: 10, marginRight: 10, }}>
                                 <Item>

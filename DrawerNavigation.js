@@ -212,7 +212,7 @@ const CustomDrawerComponent = (props) => {
                 onPress={() => functionCombinedN()}>
                     <View style={{flexDirection: 'row'}}>
                     <Iconn name={'notifications'} size={24} style={[colorsn?{margin:20,color:'black'}:{margin:20,color:'#606060'}]}/>
-                    {/* {lib.TMsgCount!='0' && */}
+                    {lib.TMsgCount!='0' &&
                     <Badge
                         value={lib.TMsgCount}
                         status="error"
@@ -220,7 +220,7 @@ const CustomDrawerComponent = (props) => {
                         top: +12,
                         right: +14 }}
                     />
-                {/* } */}
+                }
                 
                 </View>
                      

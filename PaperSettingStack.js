@@ -4,6 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import TeacherCoursesPS from './TeacherCoursesPS';
 import PaperSetting from './PaperSetting';
+import PaperSettingTopicDetail from './PaperSettingTopicDetail';
 import Header from './Header'
 
 const screens={
@@ -20,6 +21,14 @@ const screens={
     screen:PaperSetting,
     navigationOptions:{
       title:'Paper Setting',
+      headerTintColor: '#fff',
+      //  headerStyle:{backgroundColor:'#eee'}
+    },
+  },
+  TopicDetail:{
+    screen:PaperSettingTopicDetail,
+    navigationOptions:{
+      title:'Topic Detail',
       headerTintColor: '#fff',
       //  headerStyle:{backgroundColor:'#eee'}
     },

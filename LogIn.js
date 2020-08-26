@@ -41,8 +41,8 @@ class LogIn extends Component {
         }
     }
     loginfunction=async()=> {
-        // this.setState({isloading:true});
-        lib.Id=10023;
+       
+        // lib.Id=10023;
         // lib.name='sohaib';
       //  this.props.navigation.navigate('Drawer')
 
@@ -54,24 +54,25 @@ class LogIn extends Component {
 
         
 
-        // if(this.state.email=="" && this.state.password=="")
-        // {
-        //     Alert.alert('Warning','Please Enter Email and Password.');
-        // }
-        // else if(this.state.email=="")
-        // {
-        //     Alert.alert('Warning','Please Enter Email.');
-        // }
-        // else if(this.state.password=="")
-        // {
-        //     Alert.alert('Warning','Please Enter Password.');
-        // }
-        // else
-        // {
+        if(this.state.email=="" && this.state.password=="")
+        {
+            Alert.alert('Warning','Please Enter Email and Password.');
+        }
+        else if(this.state.email=="")
+        {
+            Alert.alert('Warning','Please Enter Email.');
+        }
+        else if(this.state.password=="")
+        {
+            Alert.alert('Warning','Please Enter Password.');
+        }
+        else
+        {
+            this.setState({isloading:true});
             fetch(`http://192.168.43.143/FWebAPI/api/Users/LoginTeacher?id=${this.state.email}&password=${this.state.password}`)
             .then(data => data.json())
             .then(data2 => {
-                // this.setState({isloading:false});
+                this.setState({isloading:false});
                  console.log(data2)
                 if (data2 != 'false') {
                     if(data2[0].email==null)
@@ -150,7 +151,7 @@ class LogIn extends Component {
                     Alert.alert('Warning','Account Not Exist.');
                 }
             })
-        // }
+        }
     }
 
 

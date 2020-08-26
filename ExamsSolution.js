@@ -800,6 +800,12 @@ export default class ExamsSolution extends React.Component {
                                 ItemSeparatorComponent={this.renderseparatorme}
                             />
                         </View>
+                        {this.state.multipleFileme=='' &&
+                                <View style={{marginTop:'15%',marginBottom:'10%',alignItems:'center'}}>
+                                    <Text style={{fontSize:20}}>No content available at the moment.</Text>
+
+                                </View>
+                            }
 
                     </View>
                     :
@@ -918,6 +924,12 @@ export default class ExamsSolution extends React.Component {
                                     ItemSeparatorComponent={this.renderseparatorfe}
                                 />
                             </View>
+                            {this.state.multipleFilefe=='' &&
+                                <View style={{marginTop:'15%',marginBottom:'10%',alignItems:'center'}}>
+                                    <Text style={{fontSize:20}}>No content available at the moment.</Text>
+
+                                </View>
+                            }
 
                         </View>
                         :

@@ -413,6 +413,12 @@ class CourseObjective extends Component {
               ItemSeparatorComponent={this.renderseparator}
             />
           </View>
+          {this.state.multipleFile=='' &&
+                                <View style={{marginTop:'15%',marginBottom:'10%',alignItems:'center'}}>
+                                    <Text style={{fontSize:20}}>No content available at the moment.</Text>
+
+                                </View>
+                            }
         </View>
 
     );

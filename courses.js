@@ -22,8 +22,8 @@ class courses extends Component {
             modalShow: false,
             Tid: '',
             SemNo: '2018SM',
-            data:[],
-            status:'false'
+            data: [],
+            status: 'false'
 
 
         }
@@ -41,10 +41,10 @@ class courses extends Component {
 
     ShowNewScreen(cno, cname) {
 
-        lib.Token='false';
+        lib.Token = 'false';
         lib.CNo = cno;
         lib.CName = cname;
-        
+
         this.props.navigation.navigate('coursedetail')
     }
 
@@ -173,7 +173,7 @@ class courses extends Component {
 
     }
 
-     //////////////////////// Get Notifications ////////////////////////////////////////
+    //////////////////////// Get Notifications ////////////////////////////////////////
     getNotifications() {
 
         const url = `http://192.168.43.143/FWebAPI/api/users/ShowAllMessages?id=${lib.TId}&status=${this.state.status}`
@@ -188,6 +188,9 @@ class courses extends Component {
                 )
 
 
+
+
+
             })
             .catch((error) => {
                 console.log(error)
@@ -198,9 +201,9 @@ class courses extends Component {
 
     async componentDidMount() {
         // lib.TIdAF='null';
-        this.getNotifications();
-        lib.SemNo='2018SM';
-   
+
+        lib.SemNo = '2018SM';
+
 
         // await AsyncStorage.getItem('TId').then((value)=>this.setState({Tid:value}));
         lib.TId = await AsyncStorage.getItem('TId');
@@ -215,17 +218,20 @@ class courses extends Component {
         lib.TPwd = await AsyncStorage.getItem('TPwd');
         lib.TImg = await AsyncStorage.getItem('TImg');
         lib.TStatus = await AsyncStorage.getItem('TStatus');
-        lib.TPosition=await AsyncStorage.getItem('TPosition');
+        lib.TPosition = await AsyncStorage.getItem('TPosition');
+        this.getNotifications();
         this.getsemesternumber();
         this.getcourses();
-       
+
+
+
 
         setTimeout(() => {
-            if(this.state.data!=='')
-            {
-                lib.TMsgCount=this.state.data.length;
+            if (this.state.data !== '') {
+                console.log(this.state.data.length);
+                lib.TMsgCount = this.state.data.length;
             }
-        }, 2000);
+        }, 1000);
 
     }
 
@@ -245,9 +251,9 @@ class courses extends Component {
                 :
 
                 <View style={styles.container}>
-                    <TouchableOpacity 
-                    onPress={()=>this.props.navigation.navigate('profile')}
-                    style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#FFFFFF' }}>
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('profile')}
+                        style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#FFFFFF' }}>
                         <Image style={{ height: 60, width: 60, borderRadius: 30, margin: 15 }}
                             source={lib.TImg != null ? { uri: 'data:image/jpeg;base64,' + lib.TImg } :
                                 require('./img/demoprofile.jpg')
