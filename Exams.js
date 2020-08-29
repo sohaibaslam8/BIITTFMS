@@ -30,6 +30,7 @@ export default class Exams extends React.Component {
                 FileOriginalNameme: '',
                 showModalme: false,
                 showModalPWme: false,
+                dateme: '',
 
                 singleFilefe: '',
                 multipleFilefe: [],
@@ -42,6 +43,7 @@ export default class Exams extends React.Component {
                 selectedIndex: 0,
                 status: true,
                 finalstatus: false,
+                datefe: '',
 
                 ///////// Notification ///////////////
 
@@ -58,7 +60,7 @@ export default class Exams extends React.Component {
     ////////////////////////////////////////////////////////////////////////////
     ////////////////  Mid Exams ////////////////////////////////////////////////
 
-   
+
     /////////       Show Files ////////////
     ShowFilesme = (name) => {
         Linking.canOpenURL('http://192.168.43.143/FWebAPI/File/' + name).then(supported => {
@@ -100,7 +102,7 @@ export default class Exams extends React.Component {
 
     DeleteFilesme = (filedata) => {
         // console.log(filedata);
-        console.log("heelooo:", filedata)
+        // console.log("heelooo:", filedata)
         // this.DeleteFolderDetailme(filedata);
         this.DeleteFolderDocumentme(filedata);
 
@@ -167,18 +169,20 @@ export default class Exams extends React.Component {
 
 
     addFolderDocumentme() {
-        console.log(this.state.FileOriginalName);
+        // console.log("File Original Name",this.state.FileOriginalNameme);
         let collection = {}
 
         if (this.state.FileOriginalNameme == undefined) {
             collection.FD_Id = this.state.FDidme;
             collection.Name = this.state.Dnameme;
             collection.Doc_Name = this.state.Dnameme;
+
         }
         else {
             collection.FD_Id = this.state.FDidme;
             collection.Name = this.state.Dnameme;
             collection.Doc_Name = this.state.FileOriginalNameme;
+
 
         }
 
@@ -205,6 +209,7 @@ export default class Exams extends React.Component {
         collection.EMP_NO = lib.TId;
         collection.Doc_Type = 'MidExam';
         collection.SEMESTER_NO = lib.SemNo;
+        collection.Doc_Date = this.state.dateme;
 
         fetch('http://192.168.43.143/FWebAPI/api/users/AddFolderDetail', {
             method: 'POST', // or 'PUT'
@@ -225,7 +230,7 @@ export default class Exams extends React.Component {
             });
     }
     GetFolderDetailIdme() {
-        const url = `http://192.168.43.143/FWebAPI/api/Users/GetFolderDetailIdMainFolder?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtypeme}`
+        const url = `http://192.168.43.143/FWebAPI/api/Users/GetFolderDetailIdMainFolderPaper?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtypeme}&ddate=${this.state.dateme}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -245,6 +250,35 @@ export default class Exams extends React.Component {
             })
     }
 
+
+    ///////////////////////// Previous File Delete /////////////////////////////////////////
+
+
+    PreviousFileDeleteme() {
+        // console.log("Delete Paper Id: ", this.state.multipleFileme[0].FDoc_Id);
+        this.DeleteFolderDocumentme(this.state.multipleFileme[0].FDoc_Id);
+        this.setState({ showModalme: true })
+
+    }
+
+
+    CheckPreviousFileDeleteme() {
+
+        Alert.alert(
+            "Previos file delete",
+            "Do you want to delete previous file?\nYou cannot undo this action.",
+            [
+                {
+                    text: "CANCEL",
+                    // onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                { text: "DELETE", onPress: () => this.PreviousFileDeleteme() }
+            ],
+            { cancelable: false }
+        );
+    }
+
     ///////// Select files //////////////////////////////////
     selectFileme = async () => {
         try {
@@ -253,18 +287,36 @@ export default class Exams extends React.Component {
             });
             var d = new Date();
             const fileName = d.getTime()
-
             const fileType = res.type.split('/')[1]
             // const fileType = res.name.split(".")[1];
-
             res.newURL = `${fileName}.${fileType}`;
+
+            var date = new Date().getDate(); //Current Date
+            var month = new Date().getMonth() + 1; //Current Month
+            var year = new Date().getFullYear(); //Current Year
+
+            this.setState({
+                //Setting the value of the date time
+                dateme: date + '/' + month + '/' + year
+            });
+            // console.log("data ", this.state.dateme);
+
 
 
             console.log('res : ' + JSON.stringify(res));
             this.setState({ singleFileme: res, FileOriginalNameme: res.name, Dnameme: res.newURL });
-            this.setState({ showModalme: true })
-            console.log(this.state.singleFileme);
-            console.log(this.state.FileOriginalNameme);
+
+            // console.log("Length ",this.state.multipleFileme.length);
+            if (this.state.multipleFileme.length === 0) {
+                this.setState({ showModalme: true })
+                
+            }
+            else {
+                this.CheckPreviousFileDeleteme();
+            }
+
+            // console.log(this.state.singleFileme);
+            // console.log(this.state.FileOriginalNameme);
 
         } catch (err) {
             setSingleFile(null);
@@ -458,11 +510,13 @@ export default class Exams extends React.Component {
             collection.FD_Id = this.state.FDidfe;
             collection.Name = this.state.Dnamefe;
             collection.Doc_Name = this.state.Dnamefe;
+
         }
         else {
             collection.FD_Id = this.state.FDidfe;
             collection.Name = this.state.Dnamefe;
             collection.Doc_Name = this.state.FileOriginalNamefe;
+
 
         }
 
@@ -489,7 +543,7 @@ export default class Exams extends React.Component {
         collection.EMP_NO = lib.TId;
         collection.Doc_Type = 'FinalExam';
         collection.SEMESTER_NO = lib.SemNo;
-
+        collection.Doc_Date = this.state.datefe;
         fetch('http://192.168.43.143/FWebAPI/api/users/AddFolderDetail', {
             method: 'POST', // or 'PUT'
             headers: {
@@ -509,11 +563,11 @@ export default class Exams extends React.Component {
             });
     }
     GetFolderDetailIdfe() {
-        const url = `http://192.168.43.143/FWebAPI/api/Users/GetFolderDetailIdMainFolder?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtypefe}`
+        const url = `http://192.168.43.143/FWebAPI/api/Users/GetFolderDetailIdMainFolderPaper?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtypefe}&ddate=${this.state.datefe}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
-                console.log(responsejson)
+                // console.log(responsejson)
                 if (responsejson != 'false') {
                     this.setState({ FDidfe: responsejson[0].FD_Id })
                     this.addFolderDocumentfe();
@@ -529,6 +583,34 @@ export default class Exams extends React.Component {
             })
     }
 
+    ///////////////////////// Previous File Delete. /////////////////////////////////////
+
+    PreviousFileDeletefe() {
+        // console.log("Delete Paper Id: ", this.state.multipleFileme[0].FDoc_Id);
+        this.DeleteFolderDocumentfe(this.state.multipleFilefe[0].FDoc_Id);
+        this.setState({ showModalfe: true })
+
+    }
+
+
+    CheckPreviousFileDeletefe() {
+
+        Alert.alert(
+            "Previos file delete",
+            "Do you want to delete previous file?\nYou cannot undo this action.",
+            [
+                {
+                    text: "CANCEL",
+                    // onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                { text: "DELETE", onPress: () => this.PreviousFileDeletefe() }
+            ],
+            { cancelable: false }
+        );
+    }
+
+
 
 
     ///////// Select files ///////////////////////////////////////////
@@ -539,18 +621,33 @@ export default class Exams extends React.Component {
             });
             var d = new Date();
             const fileName = d.getTime()
-
             const fileType = res.type.split('/')[1]
             // const fileType = res.name.split(".")[1];
-
             res.newURL = `${fileName}.${fileType}`;
 
+            var date = new Date().getDate(); //Current Date
+            var month = new Date().getMonth() + 1; //Current Month
+            var year = new Date().getFullYear(); //Current Year
+
+            this.setState({
+                //Setting the value of the date time
+                datefe: date + '/' + month + '/' + year
+            });
+            // console.log("data ", this.state.datefe);
 
             console.log('res : ' + JSON.stringify(res));
             this.setState({ singleFilefe: res, FileOriginalNamefe: res.name, Dnamefe: res.newURL });
-            this.setState({ showModalfe: true })
-            console.log(this.state.singleFilefe);
-            console.log(this.state.FileOriginalNamefe);
+
+            if (this.state.multipleFilefe.length === 0) {
+                this.setState({ showModalfe: true })
+                
+            }
+            else {
+                this.CheckPreviousFileDeletefe();
+            }
+            // this.setState({ showModalfe: true })
+            // console.log(this.state.singleFilefe);
+            // console.log(this.state.FileOriginalNamefe);
 
         } catch (err) {
             setSingleFile(null);
@@ -791,12 +888,12 @@ export default class Exams extends React.Component {
                                 ItemSeparatorComponent={this.renderseparatorme}
                             />
                         </View>
-                        {this.state.multipleFileme=='' &&
-                                <View style={{marginTop:'15%',marginBottom:'10%',alignItems:'center'}}>
-                                    <Text style={{fontSize:20}}>No content available at the moment.</Text>
+                        {this.state.multipleFileme == '' &&
+                            <View style={{ marginTop: '15%', marginBottom: '10%', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 20 }}>No content available at the moment.</Text>
 
-                                </View>
-                            }
+                            </View>
+                        }
 
                     </View>
                     :
@@ -915,9 +1012,9 @@ export default class Exams extends React.Component {
                                     ItemSeparatorComponent={this.renderseparatorfe}
                                 />
                             </View>
-                            {this.state.multipleFilefe=='' &&
-                                <View style={{marginTop:'15%',marginBottom:'10%',alignItems:'center'}}>
-                                    <Text style={{fontSize:20}}>No content available at the moment.</Text>
+                            {this.state.multipleFilefe == '' &&
+                                <View style={{ marginTop: '15%', marginBottom: '10%', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 20 }}>No content available at the moment.</Text>
 
                                 </View>
                             }

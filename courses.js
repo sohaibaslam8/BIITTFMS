@@ -180,7 +180,7 @@ class courses extends Component {
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
-                console.log(responsejson)
+                // console.log(responsejson)
                 this.setState(
                     {
                         data: responsejson,

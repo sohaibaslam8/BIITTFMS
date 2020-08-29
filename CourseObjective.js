@@ -6,6 +6,7 @@ import { Item, Input, Label } from 'native-base';
 import Modals from 'react-native-modalbox';
 import * as lib from './storeData'
 var screen = Dimensions.get('window')
+import moment from 'moment';
 
 class CourseObjective extends Component {
   constructor(props) {
@@ -20,10 +21,11 @@ class CourseObjective extends Component {
         Dname: '',
         dtype: 'CourseObjective',
         FileOriginalName: '',
-        showModal: false
+        showModal: false,
+        date:'',
       };
   }
-  
+
   /////////       Show Files ////////////
   ShowFiles = (name) => {
     Linking.canOpenURL('http://192.168.43.143/FWebAPI/File/' + name).then(supported => {
@@ -37,7 +39,7 @@ class CourseObjective extends Component {
 
   /////////  Delete Files ///////////////////////////
 
- 
+
   DeleteFolderDocument = (filedata) => {
     const url = `http://192.168.43.143/FWebAPI/api/Users/DeleteFolderDocument?id=${filedata}`
     fetch(url)
@@ -97,14 +99,14 @@ class CourseObjective extends Component {
           <Text style={{ fontSize: 14, color: 'black', fontWeight: '600', width: '80%', }}>
             {item.Doc_Name}
           </Text>
-          {lib.MainFM==='true' &&
-          <TouchableOpacity
-            style={{ right: 30, position: 'absolute', padding: 4 }}
-            onPress={this.CheckFilesDeleteOrNot.bind(this, item.FDoc_Id)}
-          >
-            <Icon name={'delete'} size={21} color={'black'}
-            />
-          </TouchableOpacity>
+          {lib.MainFM === 'true' &&
+            <TouchableOpacity
+              style={{ right: 30, position: 'absolute', padding: 4 }}
+              onPress={this.CheckFilesDeleteOrNot.bind(this, item.FDoc_Id)}
+            >
+              <Icon name={'delete'} size={21} color={'black'}
+              />
+            </TouchableOpacity>
           }
 
         </View>
@@ -194,37 +196,34 @@ class CourseObjective extends Component {
       .then((response) => response.json())
       .then((data) => {
 
-     
-         console.log('Success:', data);
+
+        console.log('Success:', data);
         this.setState({ FDid: data })
-       this.addFolderDocument();
+        this.addFolderDocument();
       })
       .catch((error) => {
         console.error('Error:', error);
       });
   }
-  GetFolderDetailId()
-  {
+  GetFolderDetailId() {
     const url = `http://192.168.43.143/FWebAPI/api/Users/GetFolderDetailIdMainFolder?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtype}`
     fetch(url)
-        .then((response) => response.json())
-        .then((responsejson) => {
-            console.log(responsejson)
-           if(responsejson != 'false')
-           {
-             this.setState({FDid: responsejson[0].FD_Id})
-             this.addFolderDocument();
-           }
-           else
-           {
-             this.addFolderDetail();
+      .then((response) => response.json())
+      .then((responsejson) => {
+        console.log(responsejson)
+        if (responsejson != 'false') {
+          this.setState({ FDid: responsejson[0].FD_Id })
+          this.addFolderDocument();
+        }
+        else {
+          this.addFolderDetail();
 
-           }
+        }
 
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
 
@@ -237,12 +236,24 @@ class CourseObjective extends Component {
       });
       var d = new Date();
       const fileName = d.getTime()
-
       const fileType = res.type.split('/')[1]
-      // const fileType = res.name.split(".")[1];
-
       res.newURL = `${fileName}.${fileType}`;
 
+    
+      // var date = new Date().getDate(); //Current Date
+      // var month = new Date().getMonth() + 1; //Current Month
+      // var year = new Date().getFullYear(); //Current Year
+      // var hours = new Date().getHours(); //Current Hours
+      // var min = new Date().getMinutes(); //Current Minutes
+      // var sec = new Date().getSeconds(); //Current Seconds
+      // var date = moment()
+      // .utcOffset('+05:30')
+      // .format('YYYY-MM-DD hh:mm:ss a');
+      // this.setState({
+      //   //Setting the value of the date time
+      //   date:date + '/' + month + '/' + year 
+      // });
+      // console.log("data ",this.state.date);
 
       console.log('res : ' + JSON.stringify(res));
       this.setState({ singlefile: res, FileOriginalName: res.name, Dname: res.newURL });
@@ -251,7 +262,7 @@ class CourseObjective extends Component {
       console.log(this.state.FileOriginalName);
 
     } catch (err) {
-      setSingleFile(null);
+      this.setState({singleFile:null});
       //Handling any exception (If any)
       if (DocumentPicker.isCancel(err)) {
         //If user canceled the document selection
@@ -404,14 +415,14 @@ class CourseObjective extends Component {
               </TouchableOpacity>
             </View>
           </Modals>
-          {lib.MainFM==='true' &&
-          <TouchableOpacity
-            onPress={this.selectFile.bind(this)}
-            style={styles.inputicon}
-          >
-            <Icon name={'pluscircle'} size={50} color={'green'}
-            />
-          </TouchableOpacity>
+          {lib.MainFM === 'true' &&
+            <TouchableOpacity
+              onPress={this.selectFile.bind(this)}
+              style={styles.inputicon}
+            >
+              <Icon name={'pluscircle'} size={50} color={'green'}
+              />
+            </TouchableOpacity>
           }
           <View style={styles.container}>
             <FlatList
@@ -421,12 +432,12 @@ class CourseObjective extends Component {
               ItemSeparatorComponent={this.renderseparator}
             />
           </View>
-          {this.state.multipleFile=='' &&
-                                <View style={{marginTop:'15%',marginBottom:'10%',alignItems:'center'}}>
-                                    <Text style={{fontSize:20}}>No content available at the moment.</Text>
+          {this.state.multipleFile == '' &&
+            <View style={{ marginTop: '15%', marginBottom: '10%', alignItems: 'center' }}>
+              <Text style={{ fontSize: 20 }}>No content available at the moment.</Text>
 
-                                </View>
-                            }
+            </View>
+          }
         </View>
 
     );

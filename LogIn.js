@@ -73,7 +73,7 @@ class LogIn extends Component {
             .then(data => data.json())
             .then(data2 => {
                 this.setState({isloading:false});
-                 console.log(data2)
+                //  console.log(data2)
                 if (data2 != 'false') {
                     if(data2[0].email==null)
                     {

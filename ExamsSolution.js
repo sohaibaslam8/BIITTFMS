@@ -28,6 +28,7 @@ export default class ExamsSolution extends React.Component {
                 dtypeme: 'MidExamSolution',
                 FileOriginalNameme: '',
                 showModalme: false,
+                dateme: '',
 
                 singleFilefe: '',
                 multipleFilefe: [],
@@ -40,10 +41,11 @@ export default class ExamsSolution extends React.Component {
                 selectedIndex: 0,
                 status: true,
                 finalstatus: false,
+                datefe: '',
             };
     }
 
-    ////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
     ////////////////  Mid Exams ////////////////////////////////////////////////
 
 
@@ -127,23 +129,14 @@ export default class ExamsSolution extends React.Component {
                     <Text style={{ fontSize: 14, color: 'black', fontWeight: '600', width: '80%', }}>
                         {item.Doc_Name}
                     </Text>
-                    {lib.MainFM==='true' &&
-                    <TouchableOpacity
-                        style={{ right: 30, position: 'absolute', padding: 4 }}
-                        onPress={this.CheckFilesDeleteOrNotme.bind(this, item.FDoc_Id)}
-                    >
-                        <Icon name={'delete'} size={21} color={'black'}
-                        />
-                    </TouchableOpacity>
-                    }
-                      {lib.TokenPW==='true' &&
-                    <TouchableOpacity
-                        style={{ right: 30, position: 'absolute', padding: 4 }}
-                        onPress={this.CheckFilesDeleteOrNotme.bind(this, item.FDoc_Id)}
-                    >
-                        <Iconpw name={'comment'} size={21} color={'black'}
-                        />
-                    </TouchableOpacity>
+                    {lib.MainFM === 'true' &&
+                        <TouchableOpacity
+                            style={{ right: 30, position: 'absolute', padding: 4 }}
+                            onPress={this.CheckFilesDeleteOrNotme.bind(this, item.FDoc_Id)}
+                        >
+                            <Icon name={'delete'} size={21} color={'black'}
+                            />
+                        </TouchableOpacity>
                     }
 
                 </View>
@@ -164,18 +157,20 @@ export default class ExamsSolution extends React.Component {
 
 
     addFolderDocumentme() {
-        console.log(this.state.FileOriginalName);
+        // console.log("File Original Name",this.state.FileOriginalNameme);
         let collection = {}
 
         if (this.state.FileOriginalNameme == undefined) {
             collection.FD_Id = this.state.FDidme;
             collection.Name = this.state.Dnameme;
             collection.Doc_Name = this.state.Dnameme;
+
         }
         else {
             collection.FD_Id = this.state.FDidme;
             collection.Name = this.state.Dnameme;
             collection.Doc_Name = this.state.FileOriginalNameme;
+
 
         }
 
@@ -202,6 +197,7 @@ export default class ExamsSolution extends React.Component {
         collection.EMP_NO = lib.TId;
         collection.Doc_Type = 'MidExamSolution';
         collection.SEMESTER_NO = lib.SemNo;
+        collection.Doc_Date = this.state.dateme;
 
         fetch('http://192.168.43.143/FWebAPI/api/users/AddFolderDetail', {
             method: 'POST', // or 'PUT'
@@ -221,31 +217,56 @@ export default class ExamsSolution extends React.Component {
                 console.error('Error:', error);
             });
     }
+    GetFolderDetailIdme() {
+        const url = `http://192.168.43.143/FWebAPI/api/Users/GetFolderDetailIdMainFolderPaper?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtypeme}&ddate=${this.state.dateme}`
+        fetch(url)
+            .then((response) => response.json())
+            .then((responsejson) => {
+                console.log(responsejson)
+                if (responsejson != 'false') {
+                    this.setState({ FDidme: responsejson[0].FD_Id })
+                    this.addFolderDocumentme();
+                }
+                else {
+                    this.addFolderDetailme();
 
-    GetFolderDetailIdme()
-    {
-      const url = `http://192.168.43.143/FWebAPI/api/Users/GetFolderDetailIdMainFolder?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtypeme}`
-      fetch(url)
-          .then((response) => response.json())
-          .then((responsejson) => {
-              console.log(responsejson)
-             if(responsejson != 'false')
-             {
-               this.setState({FDidme: responsejson[0].FD_Id})
-               this.addFolderDocumentme();
-             }
-             else
-             {
-               this.addFolderDetailme();
-  
-             }
-  
-          })
-          .catch((error) => {
-              console.log(error)
-          })
+                }
+
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
-  
+
+
+    ///////////////////////// Previous File Delete /////////////////////////////////////////
+
+
+    PreviousFileDeleteme() {
+        // console.log("Delete Paper Id: ", this.state.multipleFileme[0].FDoc_Id);
+        this.DeleteFolderDocumentme(this.state.multipleFileme[0].FDoc_Id);
+        this.setState({ showModalme: true })
+
+    }
+
+
+    CheckPreviousFileDeleteme() {
+
+        Alert.alert(
+            "Previos file delete",
+            "Do you want to delete previous file?\nYou cannot undo this action.",
+            [
+                {
+                    text: "CANCEL",
+                    // onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                { text: "DELETE", onPress: () => this.PreviousFileDeleteme() }
+            ],
+            { cancelable: false }
+        );
+    }
+
     ///////// Select files //////////////////////////////////
     selectFileme = async () => {
         try {
@@ -254,18 +275,36 @@ export default class ExamsSolution extends React.Component {
             });
             var d = new Date();
             const fileName = d.getTime()
-
             const fileType = res.type.split('/')[1]
             // const fileType = res.name.split(".")[1];
-
             res.newURL = `${fileName}.${fileType}`;
+
+            var date = new Date().getDate(); //Current Date
+            var month = new Date().getMonth() + 1; //Current Month
+            var year = new Date().getFullYear(); //Current Year
+
+            this.setState({
+                //Setting the value of the date time
+                dateme: date + '/' + month + '/' + year
+            });
+            // console.log("data ", this.state.dateme);
+
 
 
             console.log('res : ' + JSON.stringify(res));
             this.setState({ singleFileme: res, FileOriginalNameme: res.name, Dnameme: res.newURL });
-            this.setState({ showModalme: true })
-            console.log(this.state.singleFileme);
-            console.log(this.state.FileOriginalNameme);
+
+            // console.log("Length ",this.state.multipleFileme.length);
+            if (this.state.multipleFileme.length === 0) {
+                this.setState({ showModalme: true })
+                
+            }
+            else {
+                this.CheckPreviousFileDeleteme();
+            }
+
+            // console.log(this.state.singleFileme);
+            // console.log(this.state.FileOriginalNameme);
 
         } catch (err) {
             setSingleFile(null);
@@ -384,7 +423,7 @@ export default class ExamsSolution extends React.Component {
 
     DeleteFilesfe = (filedata) => {
         // console.log(filedata);
-        console.log("heelooo:", filedata)
+        // console.log("heelooo:", filedata)
         // this.DeleteFolderDetailfe(filedata);
         this.DeleteFolderDocumentfe(filedata);
 
@@ -423,23 +462,14 @@ export default class ExamsSolution extends React.Component {
                     <Text style={{ fontSize: 14, color: 'black', fontWeight: '600', width: '80%', }}>
                         {item.Doc_Name}
                     </Text>
-                    {lib.MainFM==='true' &&
-                    <TouchableOpacity
-                        style={{ right: 30, position: 'absolute', padding: 4 }}
-                        onPress={this.CheckFilesDeleteOrNotfe.bind(this, item.FDoc_Id)}
-                    >
-                        <Icon name={'delete'} size={21} color={'black'}
-                        />
-                    </TouchableOpacity>
-                    }
-                      {lib.TokenPW==='true' &&
-                    <TouchableOpacity
-                        style={{ right: 30, position: 'absolute', padding: 4 }}
-                        onPress={this.CheckFilesDeleteOrNotme.bind(this, item.FDoc_Id)}
-                    >
-                        <Iconpw name={'comment'} size={21} color={'black'}
-                        />
-                    </TouchableOpacity>
+                    {lib.MainFM === 'true' &&
+                        <TouchableOpacity
+                            style={{ right: 30, position: 'absolute', padding: 4 }}
+                            onPress={this.CheckFilesDeleteOrNotfe.bind(this, item.FDoc_Id)}
+                        >
+                            <Icon name={'delete'} size={21} color={'black'}
+                            />
+                        </TouchableOpacity>
                     }
 
                 </View>
@@ -461,17 +491,20 @@ export default class ExamsSolution extends React.Component {
 
     addFolderDocumentfe() {
         console.log(this.state.FileOriginalName);
+        console.log(this.state.FDidfe);
         let collection = {}
 
         if (this.state.FileOriginalNamefe == undefined) {
             collection.FD_Id = this.state.FDidfe;
             collection.Name = this.state.Dnamefe;
             collection.Doc_Name = this.state.Dnamefe;
+
         }
         else {
             collection.FD_Id = this.state.FDidfe;
             collection.Name = this.state.Dnamefe;
             collection.Doc_Name = this.state.FileOriginalNamefe;
+
 
         }
 
@@ -498,7 +531,7 @@ export default class ExamsSolution extends React.Component {
         collection.EMP_NO = lib.TId;
         collection.Doc_Type = 'FinalExamSolution';
         collection.SEMESTER_NO = lib.SemNo;
-
+        collection.Doc_Date = this.state.datefe;
         fetch('http://192.168.43.143/FWebAPI/api/users/AddFolderDetail', {
             method: 'POST', // or 'PUT'
             headers: {
@@ -517,29 +550,57 @@ export default class ExamsSolution extends React.Component {
                 console.error('Error:', error);
             });
     }
-    GetFolderDetailIdfe()
-    {
-      const url = `http://192.168.43.143/FWebAPI/api/Users/GetFolderDetailIdMainFolder?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtypefe}`
-      fetch(url)
-          .then((response) => response.json())
-          .then((responsejson) => {
-              console.log(responsejson)
-             if(responsejson != 'false')
-             {
-               this.setState({FDidfe: responsejson[0].FD_Id})
-               this.addFolderDocumentfe();
-             }
-             else
-             {
-               this.addFolderDetailfe();
-  
-             }
-  
-          })
-          .catch((error) => {
-              console.log(error)
-          })
+    GetFolderDetailIdfe() {
+        const url = `http://192.168.43.143/FWebAPI/api/Users/GetFolderDetailIdMainFolderPaper?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtypefe}&ddate=${this.state.datefe}`
+        fetch(url)
+            .then((response) => response.json())
+            .then((responsejson) => {
+                // console.log(responsejson)
+                if (responsejson != 'false') {
+                    this.setState({ FDidfe: responsejson[0].FD_Id })
+                    this.addFolderDocumentfe();
+                }
+                else {
+                    this.addFolderDetailfe();
+
+                }
+
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
+
+    ///////////////////////// Previous File Delete. /////////////////////////////////////
+
+    PreviousFileDeletefe() {
+        // console.log("Delete Paper Id: ", this.state.multipleFileme[0].FDoc_Id);
+        this.DeleteFolderDocumentfe(this.state.multipleFilefe[0].FDoc_Id);
+        this.setState({ showModalfe: true })
+
+    }
+
+
+    CheckPreviousFileDeletefe() {
+
+        Alert.alert(
+            "Previos file delete",
+            "Do you want to delete previous file?\nYou cannot undo this action.",
+            [
+                {
+                    text: "CANCEL",
+                    // onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                { text: "DELETE", onPress: () => this.PreviousFileDeletefe() }
+            ],
+            { cancelable: false }
+        );
+    }
+
+
+
+
     ///////// Select files ///////////////////////////////////////////
     selectFilefe = async () => {
         try {
@@ -548,18 +609,33 @@ export default class ExamsSolution extends React.Component {
             });
             var d = new Date();
             const fileName = d.getTime()
-
             const fileType = res.type.split('/')[1]
             // const fileType = res.name.split(".")[1];
-
             res.newURL = `${fileName}.${fileType}`;
 
+            var date = new Date().getDate(); //Current Date
+            var month = new Date().getMonth() + 1; //Current Month
+            var year = new Date().getFullYear(); //Current Year
+
+            this.setState({
+                //Setting the value of the date time
+                datefe: date + '/' + month + '/' + year
+            });
+            // console.log("data ", this.state.datefe);
 
             console.log('res : ' + JSON.stringify(res));
             this.setState({ singleFilefe: res, FileOriginalNamefe: res.name, Dnamefe: res.newURL });
-            this.setState({ showModalfe: true })
-            console.log(this.state.singleFilefe);
-            console.log(this.state.FileOriginalNamefe);
+
+            if (this.state.multipleFilefe.length === 0) {
+                this.setState({ showModalfe: true })
+                
+            }
+            else {
+                this.CheckPreviousFileDeletefe();
+            }
+            // this.setState({ showModalfe: true })
+            // console.log(this.state.singleFilefe);
+            // console.log(this.state.FileOriginalNamefe);
 
         } catch (err) {
             setSingleFile(null);
@@ -689,7 +765,7 @@ export default class ExamsSolution extends React.Component {
                     <View style={{ flex: 1, backgroundColor: '#e9e9e9' }}>
                         <SegmentedControlTab
                             tabTextStyle={styles.tabTextStyle}
-                            values={["Mid Exam Solution", "Final Exam Solution"]}
+                            values={["Mid Exams", "Final Exams"]}
                             tabsContainerStyle={styles.tabsContainerStyle}
                             activeTabStyle={styles.activeTabStyle}
                             selectedIndex={this.state.selectedIndex}
@@ -783,14 +859,14 @@ export default class ExamsSolution extends React.Component {
                                 </TouchableOpacity>
                             </View>
                         </Modals>
-                        {lib.MainFM==='true' &&
-                        <TouchableOpacity
-                            onPress={this.selectFileme.bind(this)}
-                            style={styles.inputicon}
-                        >
-                            <Icon name={'pluscircle'} size={50} color={'green'}
-                            />
-                        </TouchableOpacity>
+                        {lib.MainFM === 'true' &&
+                            <TouchableOpacity
+                                onPress={this.selectFileme.bind(this)}
+                                style={styles.inputicon}
+                            >
+                                <Icon name={'pluscircle'} size={50} color={'green'}
+                                />
+                            </TouchableOpacity>
                         }
                         <View style={{ marginTop: 10, backgroundColor: '#FFFFFF' }}>
                             <FlatList
@@ -800,12 +876,12 @@ export default class ExamsSolution extends React.Component {
                                 ItemSeparatorComponent={this.renderseparatorme}
                             />
                         </View>
-                        {this.state.multipleFileme=='' &&
-                                <View style={{marginTop:'15%',marginBottom:'10%',alignItems:'center'}}>
-                                    <Text style={{fontSize:20}}>No content available at the moment.</Text>
+                        {this.state.multipleFileme == '' &&
+                            <View style={{ marginTop: '15%', marginBottom: '10%', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 20 }}>No content available at the moment.</Text>
 
-                                </View>
-                            }
+                            </View>
+                        }
 
                     </View>
                     :
@@ -813,7 +889,7 @@ export default class ExamsSolution extends React.Component {
                         <View style={{ flex: 1, backgroundColor: '#e9e9e9' }}>
                             <SegmentedControlTab
                                 tabTextStyle={styles.tabTextStyle}
-                                values={["Mid Exam Solution", "Final Exam Solution"]}
+                                values={["Mid Exams", "Final Exams"]}
                                 tabsContainerStyle={styles.tabsContainerStyle}
                                 activeTabStyle={styles.activeTabStyle}
                                 selectedIndex={this.state.selectedIndex}
@@ -907,14 +983,14 @@ export default class ExamsSolution extends React.Component {
                                     </TouchableOpacity>
                                 </View>
                             </Modals>
-                            {lib.MainFM==='true' &&
-                            <TouchableOpacity
-                                onPress={this.selectFilefe.bind(this)}
-                                style={styles.inputicon}
-                            >
-                                <Icon name={'pluscircle'} size={50} color={'green'}
-                                />
-                            </TouchableOpacity>
+                            {lib.MainFM === 'true' &&
+                                <TouchableOpacity
+                                    onPress={this.selectFilefe.bind(this)}
+                                    style={styles.inputicon}
+                                >
+                                    <Icon name={'pluscircle'} size={50} color={'green'}
+                                    />
+                                </TouchableOpacity>
                             }
                             <View style={{ marginTop: 10, backgroundColor: '#FFFFFF' }}>
                                 <FlatList
@@ -924,9 +1000,9 @@ export default class ExamsSolution extends React.Component {
                                     ItemSeparatorComponent={this.renderseparatorfe}
                                 />
                             </View>
-                            {this.state.multipleFilefe=='' &&
-                                <View style={{marginTop:'15%',marginBottom:'10%',alignItems:'center'}}>
-                                    <Text style={{fontSize:20}}>No content available at the moment.</Text>
+                            {this.state.multipleFilefe == '' &&
+                                <View style={{ marginTop: '15%', marginBottom: '10%', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 20 }}>No content available at the moment.</Text>
 
                                 </View>
                             }
@@ -950,6 +1026,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         marginTop: 10,
+        // marginBottom:0,
         // borderColor:'green'
 
 
@@ -971,6 +1048,15 @@ const styles = StyleSheet.create({
         right: 35,
         position: "absolute",
         zIndex: 1
+    },
+    input: {
+        paddingRight: 10,
+        lineHeight: 23,
+        flex: 2,
+        textAlignVertical: 'top',
+        borderWidth: 1,
+        margin: 5,
+        // marginBottom:0,
     },
 });
 
