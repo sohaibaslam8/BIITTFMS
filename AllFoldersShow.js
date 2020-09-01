@@ -187,7 +187,7 @@ export default class CoursesDetail extends React.Component {
 
     renderseparatorC = () => {
         return (
-            <View style={{ height: 1, width: '90%', backgroundColor: '#cccccc', marginLeft: 77 }} >
+            <View style={{ height: 1, width: '90%', backgroundColor: '#cccccc', marginLeft: 85 }} >
 
             </View>
         )

@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import TeacherCoursesPS from './TeacherCoursesPS';
 import PaperSetting from './PaperSetting';
-import PaperSettingTopicDetail from './PaperSettingTopicDetail';
+import PaperSettingTopicDetail from './PaperSettingFullTopicDetail';
 import Header from './Header'
 
 const screens={

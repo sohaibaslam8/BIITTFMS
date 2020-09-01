@@ -85,10 +85,9 @@ export default class CoursesDetail extends React.Component {
 
     }
 
-    ShowNewScreenTopicDetail(id)
-    {
-        console.log("Sub Topic ID:"+id);
-        lib.TopicIdPS=id;
+    ShowNewScreenTopicDetail(id) {
+        console.log("Sub Topic ID:" + id);
+        lib.TopicIdPS = id;
         this.props.navigation.navigate('TopicDetail');
 
     }
@@ -99,7 +98,7 @@ export default class CoursesDetail extends React.Component {
         // console.log("helleoldkjfk" + item.isChecked)
         return (
             <TouchableOpacity
-            onPress={this.ShowNewScreenTopicDetail.bind(this, item.ST_Id)}
+                onPress={this.ShowNewScreenTopicDetail.bind(this, item.ST_Id)}
                 style={{ flex: 1, flexDirection: 'row', }}
             >
                 <Iconw name={'calendar-week'} size={30} color={'#3a3a3a'}
@@ -110,7 +109,10 @@ export default class CoursesDetail extends React.Component {
                         {item.ST_Name}
                     </Text>
                     <View style={{ right: 30, position: 'absolute', }}>
-                        <CheckBox checked={item.isChecked} color="green"
+
+
+
+                        <CheckBox checked={item.isChecked} color={item.isColor}
 
                         //    onPress={() =>item.isChecked!==true?this.setState({ rowkey: item.ST_Id, modalShowST: true }):Alert.alert("The checkbox is already checked.")}
 
@@ -149,7 +151,19 @@ export default class CoursesDetail extends React.Component {
         var foundindex = this.findIndex(taskId);
 
         var newsubtopic = this.state.SubTopics;
+        // newsubtopic[foundindex].isChecked = !newsubtopic[foundindex].isChecked;
+        newsubtopic[foundindex].isColor = "green";
+        this.setState({
+            SubTopics: newsubtopic
+        });
+
+    }
+    CheckBoxSelectGray(taskId) {
+        var foundindex = this.findIndex(taskId);
+
+        var newsubtopic = this.state.SubTopics;
         newsubtopic[foundindex].isChecked = !newsubtopic[foundindex].isChecked;
+        newsubtopic[foundindex].isColor = "gray";
         this.setState({
             SubTopics: newsubtopic
         });
@@ -158,7 +172,9 @@ export default class CoursesDetail extends React.Component {
 
     SubTopicCheckboxCheckOrNot(id) {
 
+
         var c = 0;
+        var a=0;
         for (var i = 0; i < lib.countPS; i++) {
             const url = `http://192.168.43.143/FWebAPI/api/users/SubTopicCheckboxCheckOrNot?id=${id}&section=${this.state.CourseAllocate[i].SECTION}&discipline=${this.state.CourseAllocate[i].DISCIPLINE}&semc=${this.state.CourseAllocate[i].SemC}&semester_no=${this.state.CourseAllocate[i].SEMESTER_NO}&empno=${this.state.CourseAllocate[i].EMP_NO}`
             fetch(url)
@@ -167,23 +183,29 @@ export default class CoursesDetail extends React.Component {
                     // console.log(responsejson);
                     if (responsejson == 'true') {
 
+
                         c++;
-                        if (c == lib.countPS) {
-
-
-                            this.CheckBoxSelect(id);
+                        a++;
+                         if (c == lib.countPS) {
+                             this.CheckBoxSelect(id);
                         }
-
+                        if(a==1){
+                            this.CheckBoxSelectGray(id);
+                        }
+                        
+                        
 
                     }
+                    
 
                 })
                 .catch((error) => {
                     console.log(error)
                 })
-
-
         }
+        
+       
+
 
 
     }
@@ -195,6 +217,12 @@ export default class CoursesDetail extends React.Component {
         this.state.SubTopics.map((data) => {
             var o = Object.assign({}, data);
             o.isChecked = false;
+            return o;
+
+        });
+        this.state.SubTopics.map((data) => {
+            var o = Object.assign({}, data);
+            o.isColor = "green";
             return o;
 
         });
@@ -218,7 +246,7 @@ export default class CoursesDetail extends React.Component {
                 for (var i = 0; i < this.state.SubTopics.length; i++) {
 
                     this.SubTopicCheckboxCheckOrNot(this.state.SubTopics[i].ST_Id);
-
+                   
                 }
 
 
@@ -227,10 +255,10 @@ export default class CoursesDetail extends React.Component {
             .catch((error) => {
                 console.log(error)
             })
-        
+
     }
     handleSearch = (text) => {
-        const formattedQuery = text.toUpperCase()
+        const formattedQuery = text
         const SubTopics = _.filter(this.state.fulldata, photo => {
             if (photo.ST_Name.includes(formattedQuery)) {
                 return true
@@ -381,7 +409,7 @@ export default class CoursesDetail extends React.Component {
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
-                  console.log("Course Allocate Detail",responsejson)
+                console.log("Course Allocate Detail", responsejson)
                 this.setState(
                     {
                         CourseAllocate: responsejson,
@@ -443,7 +471,7 @@ export default class CoursesDetail extends React.Component {
                             onTabPress={this.handleIndexChange}
                             tabStyle={styles.tabstyle}
                         />
-                         
+
 
                         <View style={styles.container}>
                             <View searchBar rounded style={{ marginLeft: 10, marginRight: 10, }}>

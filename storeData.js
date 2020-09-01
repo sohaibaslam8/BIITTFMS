@@ -27,6 +27,8 @@ export const CNoPS=''
 export const CNamePS=''
 export const countPS=''
 export const TopicIdPS=''
+export const countColorPS=0
+export const CCourseAllocate=''
 // Main Folder Manage
 export const MainFM=''
 export const TIdTemp=''
@@ -47,3 +49,5 @@ export const CNamePW=''
 export const TMsg=''
 export const TMsgId=''
 export const TMsgCount='0'
+
+

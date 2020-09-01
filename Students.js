@@ -127,8 +127,8 @@ class Students extends Component {
 
                     </View>
 
-
-                    <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }}>
+                    <View style={{backgroundColor: '#FFFFFF'}}>
+                    <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }} >
                         <FlatList
                             data={this.state.data}
                             renderItem={this.renderItem}
@@ -136,6 +136,7 @@ class Students extends Component {
                             ItemSeparatorComponent={this.renderseparator}
                         />
                     </TouchableWithoutFeedback>
+                    </View>
 
                 </View>
 
