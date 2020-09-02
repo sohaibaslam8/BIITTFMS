@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { Text, View, FlatList, StyleSheet, Modal, TouchableOpacity, ActivityIndicator } from 'react-native';
 import Iconw from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CheckBox } from 'native-base';
@@ -9,13 +8,10 @@ import * as lib from './storeData'
 import SegmentedControlTab from "react-native-segmented-control-tab";
 import { Item, Input, Icon } from 'native-base';
 import _ from 'lodash'
-
 export default class CoursesDetail extends React.Component {
-
     constructor() {
         super()
         this.state = {
-
             fulldata: [],
             data: [],
             isLoading: true,
@@ -31,8 +27,6 @@ export default class CoursesDetail extends React.Component {
             CourseAllocate: [],
             modalShow: false,
             query: '',
-
-
         }
     }
 
@@ -203,11 +197,6 @@ export default class CoursesDetail extends React.Component {
                     console.log(error)
                 })
         }
-        
-       
-
-
-
     }
 
     ShowTopics() {
@@ -218,15 +207,12 @@ export default class CoursesDetail extends React.Component {
             var o = Object.assign({}, data);
             o.isChecked = false;
             return o;
-
         });
         this.state.SubTopics.map((data) => {
             var o = Object.assign({}, data);
-            o.isColor = "green";
+            o.isColor = "red";
             return o;
-
         });
-
         //   lib.WeekNoSST='Week-1'
         //   lib.CNo='CS-686'
         const url = `http://192.168.43.143/FWebAPI/api/users/AllSubTopicPaperSetting?courseno=${lib.CNoPS}`
@@ -238,24 +224,16 @@ export default class CoursesDetail extends React.Component {
                     {
                         SubTopics: responsejson,
                         isLoading: false,
-
                         fulldata: responsejson
                     }
                 )
-
                 for (var i = 0; i < this.state.SubTopics.length; i++) {
-
                     this.SubTopicCheckboxCheckOrNot(this.state.SubTopics[i].ST_Id);
-                   
                 }
-
-
-
             })
             .catch((error) => {
                 console.log(error)
             })
-
     }
     handleSearch = (text) => {
         const formattedQuery = text

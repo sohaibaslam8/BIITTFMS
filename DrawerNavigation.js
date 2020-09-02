@@ -21,6 +21,7 @@ import * as lib from './storeData'
 import PaperWettingViewStack from './PaperWettingStack';
 import NotificationsViewStack from './NotificationsStack';
 import { Badge,} from 'react-native-elements';
+import MainFolderManageViewStack from './MainFolderManageStack';
 
 
 
@@ -34,6 +35,7 @@ const CustomDrawerComponent = (props) => {
     const [colorsc,setcolorsc]=useState(true);
     const [colorsps,setcolorsps]=useState(false);
     const [colorsaf,setcolorsaf]=useState(false);
+    const [colorsmf,setcolorsmf]=useState(false);
     const [colorspw,setcolorspw]=useState(false);
     const [colorsp,setcolorsp]=useState(false);
     const [colorscp,setcolorscp]=useState(false);
@@ -50,6 +52,7 @@ const CustomDrawerComponent = (props) => {
         setcolorsl(false);
         setcolorspw(false);
         setcolorsn(false);
+        setcolorsmf(false);
     }
     const functionCombinedPS=()=> {
         // alert("helloo")
@@ -62,6 +65,7 @@ const CustomDrawerComponent = (props) => {
         setcolorsl(false);
         setcolorspw(false);
         setcolorsn(false);
+        setcolorsmf(false);
     }
         const functionCombinedAF=()=> {
              props.navigation.navigate('AllFolderStack')
@@ -73,7 +77,20 @@ const CustomDrawerComponent = (props) => {
             setcolorsl(false);
             setcolorspw(false);
             setcolorsn(false);
+            setcolorsmf(false);
         } 
+        const functionCombinedMF=()=> {
+            props.navigation.navigate('MainFolderStack')
+            setcolorsmf(true);
+           setcolorsaf(false);
+           setcolorsps(false);
+           setcolorsc(false);
+           setcolorsp(false);
+           setcolorscp(false);
+           setcolorsl(false);
+           setcolorspw(false);
+           setcolorsn(false);
+       } 
         const functionCombinedPW=()=> {
             props.navigation.navigate('PaperWettingStack')
             setcolorspw(true);
@@ -84,7 +101,9 @@ const CustomDrawerComponent = (props) => {
            setcolorscp(false);
            setcolorsl(false);
            setcolorsn(false);
+           setcolorsmf(false);
        } 
+       
             const functionCombinedP=()=> {
                 props.navigation.navigate('Profile')
                 setcolorsp(true);
@@ -95,6 +114,7 @@ const CustomDrawerComponent = (props) => {
                 setcolorsl(false);
                 setcolorspw(false);
                 setcolorsn(false);
+                setcolorsmf(false);
 
 
                 }
@@ -108,6 +128,7 @@ const CustomDrawerComponent = (props) => {
                     setcolorscp(false);
                     setcolorsl(false);
                     setcolorspw(false);
+                    setcolorsmf(false);
     
     
                     }
@@ -122,6 +143,7 @@ const CustomDrawerComponent = (props) => {
                     setcolorsl(false);
                     setcolorspw(false);
                     setcolorsn(false);
+                    setcolorsmf(false);
                     }
                     const functionCombinedl=()=> {
                         props.navigation.navigate('LogOut')
@@ -133,6 +155,7 @@ const CustomDrawerComponent = (props) => {
                         setcolorsp(false);
                         setcolorspw(false);
                         setcolorsn(false);
+                        setcolorsmf(false);
                         }
     
     // console.log("How i work :",props.navigation.getParam('status'));
@@ -188,6 +211,20 @@ const CustomDrawerComponent = (props) => {
                         <Iconf name={'folder'} size={24} style={[colorsaf?{margin:20,color:'black'}:{margin:20,color:'#606060'}]}/>
                     <Text style={[colorsaf?{margin:10,fontSize:16,fontWeight:'bold',color:'black'}:
                     {margin:10,fontSize:16,fontWeight:'bold',color:'#606060'}]}>All Folders</Text>
+                    </TouchableOpacity>
+                }
+                 {lib.TStatus==='true' &&
+                //  props.navigation.getParam('status') === 'DAF' && 
+                    <TouchableOpacity 
+                    style={
+                        [colorsmf?
+                            {flexDirection:'row',height:50,alignItems:'center',backgroundColor:'#e9e9e9'}:
+                        {flexDirection:'row',height:50,alignItems:'center'}
+                        ]}
+                    onPress={() => functionCombinedMF()}>
+                        <Iconf name={'folder'} size={24} style={[colorsmf?{margin:20,color:'black'}:{margin:20,color:'#606060'}]}/>
+                    <Text style={[colorsmf?{margin:10,fontSize:16,fontWeight:'bold',color:'black'}:
+                    {margin:10,fontSize:16,fontWeight:'bold',color:'#606060'}]}>Manage Main Folder</Text>
                     </TouchableOpacity>
                 }
                  {lib.TPosition==='Dir' && 
@@ -295,6 +332,21 @@ const RootDrawerNavigator = createDrawerNavigator({
     AllFolderStack: {
 
         screen: AllFolderViewStack,
+        // navigationOptions: {
+        //     // title: 'All Folders',
+
+
+
+        //      drawerLabel: lib.TStatus=='DAF'?'All Folders':()=>null,
+        //     drawerIcon:lib.TStatus!='DAF'?null:(tabInfo) => (
+        //         <Icon name={'book'} size={24} color={tabInfo.tintColor}
+        //         />
+        //     )
+        // }
+    },
+    MainFolderStack: {
+
+        screen: MainFolderManageViewStack,
         // navigationOptions: {
         //     // title: 'All Folders',
 

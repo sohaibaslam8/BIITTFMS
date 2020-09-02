@@ -49,5 +49,12 @@ export const CNamePW=''
 export const TMsg=''
 export const TMsgId=''
 export const TMsgCount='0'
+export const CNoMFM=''
+export const CNameMFM=''
+export const TIdMFM=''
+export const TFNameMFM=''
+export const TMNameMFM=''
+export const TLNameMFM=''
+export const SemNoMFM='2018SM'
 
 
