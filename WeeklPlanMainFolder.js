@@ -1,24 +1,34 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, FlatList, Modal, ScrollView, ActivityIndicator } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, FlatList,TextInput, Modal, ScrollView, ActivityIndicator, Alert, Dimensions, Linking } from 'react-native';
 import { Appbar } from 'react-native-paper';
 import Iconm from 'react-native-vector-icons/FontAwesome';
 import Iconw from 'react-native-vector-icons/MaterialCommunityIcons';
 import Iconsm from 'react-native-vector-icons/AntDesign';
 import LeftIcon from 'react-native-vector-icons/AntDesign';
 import RightIcon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/AntDesign';
+import Iconedit from 'react-native-vector-icons/AntDesign';
+import { Item, Input, Label } from 'native-base';
 import * as lib from './storeData'
-
+import Modals from 'react-native-modalbox';
+var screen = Dimensions.get('window')
 class WeeklyPlanMainFolder extends Component {
     constructor(props) {
         super(props);
         //Initialization of the state to store the selected file related attribute
         this.state = {
-
             SubTopics: [],
             selectedLabel: '',
             modalShow: false,
             checked: false,
             isloading: true,
+            showModalAddTopic: false,
+            TopicId:'',
+            TopicName:'',
+            UpdateTopicId:'',
+            UpdateTopicName:'',
+            OriginalTopicName:'',
+            UpdateTNModel:false,
             datasource: [
                 { name: 'Week-1', key: '1' },
                 { name: 'Week-2', key: '2' },
@@ -36,17 +46,13 @@ class WeeklyPlanMainFolder extends Component {
                 { name: 'Week-14', key: '14' },
                 { name: 'Week-15', key: '15' },
                 { name: 'Week-16', key: '16' },
-
             ],
-
         };
     }
     HideModel(week) {
         lib.WeekNoMainFolder = week;
-
         this.setState({ modalShow: false });
         this.componentDidMount();
-
     }
     renderItemm = ({ item }) => {
         return (
@@ -73,9 +79,44 @@ class WeeklyPlanMainFolder extends Component {
 
             </View>
         )
-
     }
 
+
+    EditTopicName()
+    {
+        if(this.state.UpdateTopicName!==this.state.OriginalTopicName)
+        {
+            console.log(this.state.UpdateTopicId);
+            console.log(this.state.UpdateTopicName);
+             let collection = {}
+             collection.ST_Id=this.state.UpdateTopicId,
+             collection.ST_Name = this.state.UpdateTopicName,
+             fetch('http://192.168.43.143/FWebAPI/api/users/ModifyTopicName', {
+                 method: 'POST', // or 'PUT'
+                 headers: {
+                     'Content-Type': 'application/json',
+                 },
+                 body: JSON.stringify(collection),
+             })
+                 .then((response) => response.json())
+                 .then((data) => {
+                     console.log('Success:', data);
+                     this.setState({
+                         UpdateTopicName:'',
+                         UpdateTNModel:false
+                     })
+                     this.componentDidMount();
+                 })
+                 .catch((error) => {
+                     console.error('Error:', error);
+                 });
+            }
+            else
+            {
+                alert("Please change the topic name.")
+            }
+      
+    }
 
     renderItem = ({ item }) => {
         return (
@@ -85,17 +126,22 @@ class WeeklyPlanMainFolder extends Component {
                 <Iconw name={'calendar-week'} size={35} color={'#3a3a3a'}
                     style={{ margin: 20 }}
                 />
-                <View style={{ flex: 1, }}>
-                    <Text style={{ fontSize: 14, color: '#3a3a3a', fontWeight: '600', width: '90%' }}>
+                <View style={{ flex: 1,flexDirection: 'row', alignItems: 'center',  }}>
+                    <Text style={{ fontSize: 14, color: '#3a3a3a', fontWeight: '600', width: '80%' }}>
                         {item.ST_Name}
                     </Text>
+                    <TouchableOpacity style={{ right: 30, position: 'absolute', padding: 4}}
+                     onPress={()=>this.setState({UpdateTNModel:true,UpdateTopicId:item.ST_Id,UpdateTopicName:item.ST_Name,OriginalTopicName:item.ST_Name})}
+                    >
+                    <Iconedit name={'edit'} size={21} color={'black'} />
+                    </TouchableOpacity>
                 </View>
             </View>
         )
     }
     renderseparator = () => {
         return (
-            <View style={{ height: 1, width: '94%', backgroundColor: '#cccccc', marginLeft: 79 }} ></View>
+            <View style={{ height: 1, width: '94%', backgroundColor: '#cccccc', marginLeft: 76 }} ></View>
         )
     }
 
@@ -122,8 +168,57 @@ class WeeklyPlanMainFolder extends Component {
         }
     }
 
+    //////////////////////////// SubTopic ////////////////////////////////////////////////////
 
+    AddSubTopic()
+    {
+        let collection = {}
+        collection.ST_Name = this.state.TopicName;
+        collection.TId = this.state.TopicId;
+        fetch('http://192.168.43.143/FWebAPI/api/users/AddSubTopic', {
+          method: 'POST', // or 'PUT'
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(collection),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('Success:', data);
+            this.setState({showModalAddTopic:false,TopicName:''})
+            this.componentDidMount();
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+    }
 
+    /////////////////////////////// Add Topic //////////////////////////////////////////////
+    AddTopic()
+    {
+        let collection = {}
+        collection.course_no = lib.CNo;
+        collection.week_no = lib.WeekNoMainFolder;
+        fetch('http://192.168.43.143/FWebAPI/api/users/AddTopic', {
+          method: 'POST', // or 'PUT'
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(collection),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+    
+    
+            console.log('Success:', data);
+            this.setState({ TopicId: data })
+            this.AddSubTopic();
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+    }
+      
     componentDidMount() {
         const url = `http://192.168.43.143/FWebAPI/api/users/AllSubTopic?weekno=${lib.WeekNoMainFolder}&courseno=${lib.CNo}`
         fetch(url)
@@ -135,13 +230,12 @@ class WeeklyPlanMainFolder extends Component {
                         SubTopics: responsejson,
                         isloading: false
                     })
-                console.log(this.state.SubTopics);
+                // console.log(this.state.SubTopics);
             })
             .catch((error) => {
                 console.log(error)
             })
     }
-
     render() {
         console.disableYellowBox = true;
         return (
@@ -151,8 +245,156 @@ class WeeklyPlanMainFolder extends Component {
                     <ActivityIndicator size="large" color="#330066" animating />
                 </View>
                 :
-
                 <View style={styles.maincontainer}>
+                     <Modals
+                        isOpen={this.state.UpdateTNModel}
+                        style={{
+                            justifyContent: 'center',
+                            borderRadius: Platform.OS === 'ios' ? 30 : 30,
+                            shadowRadius: 10,
+                            width: screen.width - 80,
+                            height: 240,
+                        }}
+                        position='center'
+                        backdrop={true}
+                        backdropPressToClose={false}
+                        onClosed={() => {
+                        }}
+                    >
+                        <Text
+                            style={{
+                                fontSize: 18,
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                marginTop: 10
+                            }}
+                        >Update Topic Name</Text>
+                        <Text
+                            style={{
+                                fontSize: 14,
+                                marginTop: 15,
+                                marginLeft: 30
+                            }}
+                        >Do you want to Update this Topic?</Text>
+                        <TextInput
+                            style={{marginLeft:30}}
+                            // placeholder={'Enter Topic Name'}
+                            value={this.state.UpdateTopicName}
+                            // placeholderTextColor={'black'}
+                            underlineColorAndroid='transparent'
+                            onChangeText={(text) => this.setState({ UpdateTopicName: text })}
+                        />
+                        <View style={{borderWidth:0.5,borderColor:'gray',marginLeft: 30,marginRight: 30,}}></View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
+                            <TouchableOpacity
+                                onPress={() => this.setState({UpdateTNModel: false })}
+                                style={{
+                                    borderWidth: 1,
+                                    padding: 10,
+                                    alignItems: 'center',
+                                    borderColor: 'green',
+                                    backgroundColor: 'green',
+                                    width: '40%',
+                                    borderRadius: 35,
+                                    marginLeft: 20
+                                }}>
+                                <Text style={{ fontSize: 20, color: 'white' }}>
+                                    Cancel
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={this.state.UpdateTopicName!==''?()=>this.EditTopicName():()=>alert("Please enter topic name.")}
+                                style={{
+                                    borderWidth: 1,
+                                    padding: 10,
+                                    alignItems: 'center',
+                                    borderColor: 'green',
+                                    backgroundColor: 'green',
+                                    width: '40%',
+                                    borderRadius: 35,
+                                    marginLeft: 20
+                                }}>
+                                <Text style={{ fontSize: 20, color: 'white' }}>
+                                    OK
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </Modals>
+
+
+                    <Modals
+                        isOpen={this.state.showModalAddTopic}
+                        style={{
+                            justifyContent: 'center',
+                            borderRadius: Platform.OS === 'ios' ? 30 : 30,
+                            shadowRadius: 10,
+                            width: screen.width - 80,
+                            height: 240,
+                        }}
+                        position='center'
+                        backdrop={true}
+                        backdropPressToClose={false}
+                        onClosed={() => {
+                        }}
+                    >
+                        <Text
+                            style={{
+                                fontSize: 18,
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                marginTop: 10
+                            }}
+                        >Add Topic</Text>
+                        <Text
+                            style={{
+                                fontSize: 14,
+                                marginTop: 15,
+                                marginLeft: 30
+                            }}
+                        >Do you want to Add this Topic?</Text>
+                        <TextInput
+                            style={{marginLeft:30}}
+                            placeholder={'Enter Topic Name'}
+                            placeholderTextColor={'black'}
+                            underlineColorAndroid='transparent'
+                            onChangeText={(text) => this.setState({ TopicName: text })}
+                        />
+                        <View style={{borderWidth:0.5,borderColor:'gray',marginLeft: 30,marginRight: 30,}}></View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
+                            <TouchableOpacity
+                                onPress={() => this.setState({ showModalAddTopic: false })}
+                                style={{
+                                    borderWidth: 1,
+                                    padding: 10,
+                                    alignItems: 'center',
+                                    borderColor: 'green',
+                                    backgroundColor: 'green',
+                                    width: '40%',
+                                    borderRadius: 35,
+                                    marginLeft: 20
+                                }}>
+                                <Text style={{ fontSize: 20, color: 'white' }}>
+                                    Cancel
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={this.state.TopicName!=''?() => this.AddTopic():()=>alert("Please Enter Topic Name.")}
+                                style={{
+                                    borderWidth: 1,
+                                    padding: 10,
+                                    alignItems: 'center',
+                                    borderColor: 'green',
+                                    backgroundColor: 'green',
+                                    width: '40%',
+                                    borderRadius: 35,
+                                    marginLeft: 20
+                                }}>
+                                <Text style={{ fontSize: 20, color: 'white' }}>
+                                    OK
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </Modals>
                     <ScrollView>
                         <View style={styles.container}>
                             <TouchableOpacity
@@ -207,9 +449,9 @@ class WeeklyPlanMainFolder extends Component {
 
                                 />
                             </View>
-                            {this.state.SubTopics=='' &&
-                                <View style={{marginTop:'10%',marginBottom:'10%',alignItems:'center'}}>
-                                    <Text style={{fontSize:20}}>No content available at the moment.</Text>
+                            {this.state.SubTopics == '' &&
+                                <View style={{ marginTop: '10%', marginBottom: '10%', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 20 }}>No content available at the moment.</Text>
 
                                 </View>
                             }
@@ -228,13 +470,20 @@ class WeeklyPlanMainFolder extends Component {
                                 </TouchableOpacity>
                                 {/* } */}
                             </View>
-
+                            {lib.MainFM === 'true' &&
+                                <TouchableOpacity
+                                 onPress={() => { this.setState({ showModalAddTopic: true }) }}
+                                    style={{ marginLeft: '75%' }}
+                                >
+                                    <Icon name={'pluscircle'} size={50} color={'green'}
+                                    />
+                                </TouchableOpacity>
+                            }
                         </View>
                     </ScrollView>
                 </View>
-
-        );
-    }
+            );
+        }
 }
 export default WeeklyPlanMainFolder;
 const styles = StyleSheet.create(

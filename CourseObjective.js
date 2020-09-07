@@ -147,7 +147,7 @@ class CourseObjective extends Component {
 
 
   addFolderDocument() {
-    console.log(this.state.FileOriginalName);
+    // console.log(this.state.FileOriginalName);
     let collection = {}
 
     if (this.state.FileOriginalName == undefined) {

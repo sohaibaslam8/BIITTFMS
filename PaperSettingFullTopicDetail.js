@@ -198,7 +198,7 @@ export default class CoursesDetail extends React.Component {
             <View style={{ flex: 1, backgroundColor: '#e9e9e9' }}>
                 <SegmentedControlTab
                         tabTextStyle={styles.tabTextStyle}
-                        values={["Complete", "Uncomplete"]}
+                        values={["Complete", "Incomplete"]}
                         tabsContainerStyle={styles.tabsContainerStyle}
                         activeTabStyle={styles.activeTabStyle}
                         selectedIndex={this.state.selectedIndex}
@@ -226,7 +226,7 @@ export default class CoursesDetail extends React.Component {
                     <View style={{ flex: 1, backgroundColor: '#e9e9e9' }}>
                         <SegmentedControlTab
                             tabTextStyle={styles.tabTextStyle}
-                            values={["Complete", "Uncomplete"]}
+                            values={["Complete", "Incomplete"]}
                             tabsContainerStyle={styles.tabsContainerStyle}
                             activeTabStyle={styles.activeTabStyle}
                             selectedIndex={this.state.selectedIndex}
