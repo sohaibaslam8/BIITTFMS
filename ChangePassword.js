@@ -20,7 +20,7 @@ class ChangePassword extends Component{
         let collection = {}
         collection.emp_no=lib.TId,
         collection.pwd = this.state.npwd,
-        fetch('http://192.168.43.143/FWebAPI/api/users/ModifyTeachersPassword', {
+        fetch(`${lib.IpAddress}/users/ModifyTeachersPassword`, {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',

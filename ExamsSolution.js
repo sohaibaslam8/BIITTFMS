@@ -51,11 +51,11 @@ export default class ExamsSolution extends React.Component {
 
     /////////       Show Files ////////////
     ShowFilesme = (name) => {
-        Linking.canOpenURL('http://192.168.43.143/FWebAPI/File/' + name).then(supported => {
+        Linking.canOpenURL(`${lib.IpAddressFileOpen}`+name).then(supported => {
             if (supported) {
-                Linking.openURL('http://192.168.43.143/FWebAPI/File/' + name);
+                Linking.openURL(`${lib.IpAddressFileOpen}`+name);
             } else {
-                console.log("Don't know how to open URI: " + 'http://192.168.43.143/FWebAPI/File/' + name);
+                console.log("Don't know how to open URI: " +`${lib.IpAddressFileOpen}`+ name);
             }
         });
     };
@@ -73,7 +73,7 @@ export default class ExamsSolution extends React.Component {
     //         })
     // }
     DeleteFolderDocumentme = (filedata) => {
-        const url = `http://192.168.43.143/FWebAPI/api/Users/DeleteFolderDocument?id=${filedata}`
+        const url = `${lib.IpAddress}/Users/DeleteFolderDocument?id=${filedata}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -175,7 +175,7 @@ export default class ExamsSolution extends React.Component {
         }
 
 
-        fetch('http://192.168.43.143/FWebAPI/api/users/AddFolderDocument', {
+        fetch(`${lib.IpAddress}/users/AddFolderDocument`, {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -199,7 +199,7 @@ export default class ExamsSolution extends React.Component {
         collection.SEMESTER_NO = lib.SemNo;
         collection.Doc_Date = this.state.dateme;
 
-        fetch('http://192.168.43.143/FWebAPI/api/users/AddFolderDetail', {
+        fetch(`${lib.IpAddress}/users/AddFolderDetail`, {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -218,7 +218,7 @@ export default class ExamsSolution extends React.Component {
             });
     }
     GetFolderDetailIdme() {
-        const url = `http://192.168.43.143/FWebAPI/api/Users/GetFolderDetailIdMainFolderPaper?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtypeme}&ddate=${this.state.dateme}`
+        const url = `${lib.IpAddress}/Users/GetFolderDetailIdMainFolderPaper?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtypeme}&ddate=${this.state.dateme}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -339,7 +339,7 @@ export default class ExamsSolution extends React.Component {
     };
     UploadFilesme = () => {
         this.setState({ showModalme: false });
-        fetch("http://192.168.43.143/FWebAPI/api/Users/UploadFilenewcode", {
+        fetch(`${lib.IpAddress}/Users/UploadFilenewcode`, {
             method: "POST",
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -359,7 +359,7 @@ export default class ExamsSolution extends React.Component {
     };
 
     DisplayMidExamsFiles() {
-        const url = `http://192.168.43.143/FWebAPI/api/users/AllDocumentShowMainFolder?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&dtype=${this.state.dtypeme}`
+        const url = `${lib.IpAddress}/users/AllDocumentShowMainFolder?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&dtype=${this.state.dtypeme}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -384,11 +384,11 @@ export default class ExamsSolution extends React.Component {
 
     /////////       Show Files ////////////
     ShowFilesfe = (name) => {
-        Linking.canOpenURL('http://192.168.43.143/FWebAPI/File/' + name).then(supported => {
+        Linking.canOpenURL(`${lib.IpAddressFileOpen}`+name).then(supported => {
             if (supported) {
-                Linking.openURL('http://192.168.43.143/FWebAPI/File/' + name);
+                Linking.openURL(`${lib.IpAddressFileOpen}`+ name);
             } else {
-                console.log("Don't know how to open URI: " + 'http://192.168.43.143/FWebAPI/File/' + name);
+                console.log("Don't know how to open URI: " + `${lib.IpAddressFileOpen}`+ name);
             }
         });
     };
@@ -406,7 +406,7 @@ export default class ExamsSolution extends React.Component {
     //         })
     // }
     DeleteFolderDocumentfe = (filedata) => {
-        const url = `http://192.168.43.143/FWebAPI/api/Users/DeleteFolderDocument?id=${filedata}`
+        const url = `${lib.IpAddress}/Users/DeleteFolderDocument?id=${filedata}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -509,7 +509,7 @@ export default class ExamsSolution extends React.Component {
         }
 
 
-        fetch('http://192.168.43.143/FWebAPI/api/users/AddFolderDocument', {
+        fetch(`${lib.IpAddress}/users/AddFolderDocument`, {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -532,7 +532,7 @@ export default class ExamsSolution extends React.Component {
         collection.Doc_Type = 'FinalExamSolution';
         collection.SEMESTER_NO = lib.SemNo;
         collection.Doc_Date = this.state.datefe;
-        fetch('http://192.168.43.143/FWebAPI/api/users/AddFolderDetail', {
+        fetch(`${lib.IpAddress}/users/AddFolderDetail`, {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -551,7 +551,7 @@ export default class ExamsSolution extends React.Component {
             });
     }
     GetFolderDetailIdfe() {
-        const url = `http://192.168.43.143/FWebAPI/api/Users/GetFolderDetailIdMainFolderPaper?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtypefe}&ddate=${this.state.datefe}`
+        const url = `${lib.IpAddress}/Users/GetFolderDetailIdMainFolderPaper?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtypefe}&ddate=${this.state.datefe}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -670,7 +670,7 @@ export default class ExamsSolution extends React.Component {
     };
     UploadFilesfe = () => {
         this.setState({ showModalfe: false });
-        fetch("http://192.168.43.143/FWebAPI/api/Users/UploadFilenewcode", {
+        fetch(`${lib.IpAddress}/Users/UploadFilenewcode`, {
             method: "POST",
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -690,7 +690,7 @@ export default class ExamsSolution extends React.Component {
     };
 
     DisplayFinalExamsFiles() {
-        const url = `http://192.168.43.143/FWebAPI/api/users/AllDocumentShowMainFolder?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&dtype=${this.state.dtypefe}`
+        const url = `${lib.IpAddress}/users/AllDocumentShowMainFolder?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&dtype=${this.state.dtypefe}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

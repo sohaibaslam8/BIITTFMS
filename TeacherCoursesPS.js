@@ -75,7 +75,7 @@ class TeacherCoursesPs extends Component {
 
     //////////////////////// Get Teachers Courses ////////////////////////////////////////
     getcourses() {
-        const url = `http://192.168.43.143/FWebAPI/api/Users/AllCourses?id=${lib.TId}&semno=${lib.SemNo}`
+        const url = `${lib.IpAddress}/Users/AllCourses?id=${lib.TId}&semno=${lib.SemNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

@@ -120,7 +120,7 @@ export default class CoursesDetail extends React.Component {
     //////////////////////// Get Teachers ////////////////////////////////////////
     getTeachers() {
 
-        const url = `http://192.168.43.143/FWebAPI/api/users/AllTeachers`
+        const url = `${lib.IpAddress}/users/AllTeachers`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -148,6 +148,7 @@ export default class CoursesDetail extends React.Component {
 
 
     ShowNewScreenC(cno,cname) {
+        lib.SemNoCAF='2018SM';
         lib.CNo=cno;
         lib.CName=cname;
         this.props.navigation.navigate('CoursesDetailCAF');
@@ -211,7 +212,7 @@ export default class CoursesDetail extends React.Component {
     //////////////////////// Get Courses ////////////////////////////////////////
     getCourses() {
 
-        const url = `http://192.168.43.143/FWebAPI/api/users/AllCourses`
+        const url = `${lib.IpAddress}/users/AllCourses`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

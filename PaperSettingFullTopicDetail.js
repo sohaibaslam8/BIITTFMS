@@ -90,7 +90,7 @@ export default class CoursesDetail extends React.Component {
 
     ///////////////////// Show Complete Topic Section ///////////////////////////////////////////
     ShowCompleteTopicSection() {
-        const url = `http://192.168.43.143/FWebAPI/api/users/TopicDetail?id=${lib.TopicIdPS}`
+        const url = `${lib.IpAddress}/users/TopicDetail?id=${lib.TopicIdPS}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -160,7 +160,7 @@ export default class CoursesDetail extends React.Component {
     }
 
     CourseAllocateDetail() {
-        const url = `http://192.168.43.143/FWebAPI/api/users/AllAllocateCoursesShowPaperSettingTopicDetail?courseno=${lib.CNoPS}&semesterno=${this.state.SemNo}`
+        const url = `${lib.IpAddress}/users/AllAllocateCoursesShowPaperSettingTopicDetail?courseno=${lib.CNoPS}&semesterno=${this.state.SemNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

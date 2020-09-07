@@ -21,7 +21,7 @@ class ForgotpwdScreen extends Component {
     Findpwdfunction()
     {
 
-        fetch(`http://192.168.10.4/MyAPIDemo/api/users/Forgotuser?Id=${this.state.id}&Email=${this.state.email}`)
+        fetch(`${lib.IpAddress}/users/Forgotuser?Id=${this.state.id}&Email=${this.state.email}`)
     .then(data=>data.json())
     .then(data2=>{
       console.log(data2)

@@ -53,6 +53,7 @@ export default class CoursesDetail extends React.Component {
             this.props.navigation.navigate('MarksDistributionGP')
         }
         if (key == 4) {
+            lib.WeekNoMainFolder='Week-1';
             this.props.navigation.navigate('WeeklPlanMainFolder')
         }
         if (key == 5) {
@@ -172,7 +173,7 @@ export default class CoursesDetail extends React.Component {
     ShowCourseDetail() {
 
         this.setState({ isLoading: true })
-        const url = `http://192.168.43.143/FWebAPI/api/Users/CourseDetail?courseno=${lib.CNo}&semno=${lib.SemNoCAF}`
+        const url = `${lib.IpAddress}/Users/CourseDetail?courseno=${lib.CNo}&semno=${lib.SemNoCAF}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -233,7 +234,7 @@ export default class CoursesDetail extends React.Component {
     }
      ///////////////////////// Get Semester Number //////////////////////////////////////////
      getsemesternumber() {
-        const url = `http://192.168.43.143/FWebAPI/api/Users/AllSemesterNumber`
+        const url = `${lib.IpAddress}/Users/AllSemesterNumber`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -268,6 +269,7 @@ export default class CoursesDetail extends React.Component {
     componentDidMount() {
         //    lib.CNo=this.props.navigation.getParam('cno');
 
+        
 
         this.ShowCourseDetail();
         this.getsemesternumber();

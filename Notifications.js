@@ -65,7 +65,7 @@ class Students extends Component {
     //////////////////////// Get Notifications ////////////////////////////////////////
     getNotifications() {
 
-        const url = `http://192.168.43.143/FWebAPI/api/users/ShowAllMessages?id=${lib.TId}&status=${this.state.status}`
+        const url = `${lib.IpAddress}/users/ShowAllMessages?id=${lib.TId}&status=${this.state.status}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

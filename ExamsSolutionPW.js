@@ -64,7 +64,7 @@ export default class ExamsSolution extends React.Component {
             collection.Status = 'false';
             collection.Course_no = this.state.course_noN;
 
-            fetch('http://192.168.43.143/FWebAPI/api/users/SaveMessage', {
+            fetch(`${lib.IpAddress}/users/SaveMessage`, {
                 method: 'POST', // or 'PUT'
                 headers: {
                     'Content-Type': 'application/json',
@@ -92,11 +92,11 @@ export default class ExamsSolution extends React.Component {
 
     /////////       Show Files ////////////
     ShowFilesme = (name) => {
-        Linking.canOpenURL('http://192.168.43.143/FWebAPI/File/' + name).then(supported => {
+        Linking.canOpenURL(`${lib.IpAddressFileOpen}`+name).then(supported => {
             if (supported) {
-                Linking.openURL('http://192.168.43.143/FWebAPI/File/' + name);
+                Linking.openURL(`${lib.IpAddressFileOpen}`+ name);
             } else {
-                console.log("Don't know how to open URI: " + 'http://192.168.43.143/FWebAPI/File/' + name);
+                console.log("Don't know how to open URI: " +`${lib.IpAddressFileOpen}`+ name);
             }
         });
     };
@@ -147,7 +147,7 @@ export default class ExamsSolution extends React.Component {
 
 
     DisplayMidExamsFiles() {
-        const url = `http://192.168.43.143/FWebAPI/api/users/PaperShowPaperWetting?courseno=${lib.CNoPW}&semno=${lib.SemNoPW}&dtype=${this.state.dtypeme}`
+        const url = `${lib.IpAddress}/users/PaperShowPaperWetting?courseno=${lib.CNoPW}&semno=${lib.SemNoPW}&dtype=${this.state.dtypeme}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -186,7 +186,7 @@ export default class ExamsSolution extends React.Component {
             collection.Status = 'false';
             collection.Course_no = this.state.course_noN;
 
-            fetch('http://192.168.43.143/FWebAPI/api/users/SaveMessage', {
+            fetch(`${lib.IpAddress}/users/SaveMessage`, {
                 method: 'POST', // or 'PUT'
                 headers: {
                     'Content-Type': 'application/json',
@@ -214,11 +214,11 @@ export default class ExamsSolution extends React.Component {
 
     /////////       Show Files ////////////
     ShowFilesfe = (name) => {
-        Linking.canOpenURL('http://192.168.43.143/FWebAPI/File/' + name).then(supported => {
+        Linking.canOpenURL(`${lib.IpAddressFileOpen}`+name).then(supported => {
             if (supported) {
-                Linking.openURL('http://192.168.43.143/FWebAPI/File/' + name);
+                Linking.openURL(`${lib.IpAddressFileOpen}`+ name);
             } else {
-                console.log("Don't know how to open URI: " + 'http://192.168.43.143/FWebAPI/File/' + name);
+                console.log("Don't know how to open URI: " + `${lib.IpAddressFileOpen}`+name);
             }
         });
     };
@@ -268,7 +268,7 @@ export default class ExamsSolution extends React.Component {
 
 
     DisplayFinalExamsFiles() {
-        const url = `http://192.168.43.143/FWebAPI/api/users/PaperShowPaperWetting?courseno=${lib.CNoPW}&semno=${lib.SemNoPW}&dtype=${this.state.dtypefe}`
+        const url = `${lib.IpAddress}/users/PaperShowPaperWetting?courseno=${lib.CNoPW}&semno=${lib.SemNoPW}&dtype=${this.state.dtypefe}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

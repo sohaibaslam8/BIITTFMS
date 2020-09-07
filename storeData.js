@@ -56,5 +56,7 @@ export const TFNameMFM=''
 export const TMNameMFM=''
 export const TLNameMFM=''
 export const SemNoMFM='2018SM'
+export const IpAddress='http://192.168.10.3/FWebAPI/api'
+export const IpAddressFileOpen='http://192.168.10.3/FWebAPI/File/'
 
 

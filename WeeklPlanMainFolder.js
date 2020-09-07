@@ -91,7 +91,7 @@ class WeeklyPlanMainFolder extends Component {
              let collection = {}
              collection.ST_Id=this.state.UpdateTopicId,
              collection.ST_Name = this.state.UpdateTopicName,
-             fetch('http://192.168.43.143/FWebAPI/api/users/ModifyTopicName', {
+             fetch(`${lib.IpAddress}/users/ModifyTopicName`, {
                  method: 'POST', // or 'PUT'
                  headers: {
                      'Content-Type': 'application/json',
@@ -130,11 +130,13 @@ class WeeklyPlanMainFolder extends Component {
                     <Text style={{ fontSize: 14, color: '#3a3a3a', fontWeight: '600', width: '80%' }}>
                         {item.ST_Name}
                     </Text>
+                    {lib.MainFM === 'true' &&
                     <TouchableOpacity style={{ right: 30, position: 'absolute', padding: 4}}
                      onPress={()=>this.setState({UpdateTNModel:true,UpdateTopicId:item.ST_Id,UpdateTopicName:item.ST_Name,OriginalTopicName:item.ST_Name})}
                     >
                     <Iconedit name={'edit'} size={21} color={'black'} />
                     </TouchableOpacity>
+                    }
                 </View>
             </View>
         )
@@ -175,7 +177,7 @@ class WeeklyPlanMainFolder extends Component {
         let collection = {}
         collection.ST_Name = this.state.TopicName;
         collection.TId = this.state.TopicId;
-        fetch('http://192.168.43.143/FWebAPI/api/users/AddSubTopic', {
+        fetch(`${lib.IpAddress}/users/AddSubTopic`, {
           method: 'POST', // or 'PUT'
           headers: {
             'Content-Type': 'application/json',
@@ -199,7 +201,7 @@ class WeeklyPlanMainFolder extends Component {
         let collection = {}
         collection.course_no = lib.CNo;
         collection.week_no = lib.WeekNoMainFolder;
-        fetch('http://192.168.43.143/FWebAPI/api/users/AddTopic', {
+        fetch(`${lib.IpAddress}/users/AddTopic`, {
           method: 'POST', // or 'PUT'
           headers: {
             'Content-Type': 'application/json',
@@ -220,7 +222,7 @@ class WeeklyPlanMainFolder extends Component {
     }
       
     componentDidMount() {
-        const url = `http://192.168.43.143/FWebAPI/api/users/AllSubTopic?weekno=${lib.WeekNoMainFolder}&courseno=${lib.CNo}`
+        const url = `${lib.IpAddress}/users/AllSubTopic?weekno=${lib.WeekNoMainFolder}&courseno=${lib.CNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

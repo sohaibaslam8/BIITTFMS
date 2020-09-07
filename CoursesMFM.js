@@ -84,7 +84,7 @@ export default class CoursesPW extends React.Component {
 
     //////////////////////// Get Courses ////////////////////////////////////////
     getCourses() {
-        const url = `http://192.168.43.143/FWebAPI/api/users/AllCourses`
+        const url = `${lib.IpAddress}/users/AllCourses`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

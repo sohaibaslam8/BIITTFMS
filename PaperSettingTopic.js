@@ -152,7 +152,7 @@ export default class CoursesDetail extends React.Component {
 
         var c = 0;
         for (var i = 0; i < lib.countPS; i++) {
-            const url = `http://192.168.43.143/FWebAPI/api/users/SubTopicCheckboxCheckOrNot?id=${id}&section=${this.state.CourseAllocate[i].SECTION}&discipline=${this.state.CourseAllocate[i].DISCIPLINE}&semc=${this.state.CourseAllocate[i].SemC}&semester_no=${this.state.CourseAllocate[i].SEMESTER_NO}&empno=${this.state.CourseAllocate[i].EMP_NO}`
+            const url = `${lib.IpAddress}/users/SubTopicCheckboxCheckOrNot?id=${id}&section=${this.state.CourseAllocate[i].SECTION}&discipline=${this.state.CourseAllocate[i].DISCIPLINE}&semc=${this.state.CourseAllocate[i].SemC}&semester_no=${this.state.CourseAllocate[i].SEMESTER_NO}&empno=${this.state.CourseAllocate[i].EMP_NO}`
             fetch(url)
                 .then((response) => response.json())
                 .then((responsejson) => {
@@ -193,7 +193,7 @@ export default class CoursesDetail extends React.Component {
 
         //   lib.WeekNoSST='Week-1'
         //   lib.CNo='CS-686'
-        const url = `http://192.168.43.143/FWebAPI/api/users/AllCoveredSubTopic?courseno=${lib.CNoPS}&semno=${this.state.SemNo}`
+        const url = `${lib.IpAddress}/users/AllCoveredSubTopic?courseno=${lib.CNoPS}&semno=${this.state.SemNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -287,7 +287,7 @@ export default class CoursesDetail extends React.Component {
     getTeachers() {
         console.log(this.state.CourseAllocate[0].DISCIPLINE);
 
-        const url = `http://192.168.43.143/FWebAPI/api/users/AllTeachersShowPaperSetting?courseno=${lib.CNoPS}&semesterno=${this.state.SemNo}`
+        const url = `${lib.IpAddress}/users/AllTeachersShowPaperSetting?courseno=${lib.CNoPS}&semesterno=${this.state.SemNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -348,7 +348,7 @@ export default class CoursesDetail extends React.Component {
         // console.log(lib.CNo);
         this.setState({ modalShow: true })
         console.log(lib.CName);
-        const url = `http://192.168.43.143/FWebAPI/api/Users/AllSections?id=${Tid}&courseno=${lib.CNoPS}&semno=${this.state.SemNo}`
+        const url = `${lib.IpAddress}/Users/AllSections?id=${Tid}&courseno=${lib.CNoPS}&semno=${this.state.SemNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -369,7 +369,7 @@ export default class CoursesDetail extends React.Component {
     }
 
     CourseAllocateDetail() {
-        const url = `http://192.168.43.143/FWebAPI/api/users/AllAllocateCoursesShowPaperSetting?courseno=${lib.CNoPS}&semesterno=${this.state.SemNo}`
+        const url = `${lib.IpAddress}/users/AllAllocateCoursesShowPaperSetting?courseno=${lib.CNoPS}&semesterno=${this.state.SemNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

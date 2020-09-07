@@ -31,6 +31,7 @@ class section extends Component {
         }
         if(key==1)
         {
+            lib.WeekNoSubFolder='Week-1';
              this.props.navigation.navigate('WeeklyPlanSubFolder')
 
         }
@@ -41,11 +42,15 @@ class section extends Component {
         }
         if(key==3)
         {
+            lib.WeekNoQuizzes='Week-1';
+            lib.WeekNoQuizzesSolutions='Week-1';
             this.props.navigation.navigate('QASStack')
 
         }
         if(key==4)
         {
+            lib.WeekNoAssignments='Week-1';
+            lib.WeekNoAssignmentsSolutions='Week-1';
              this.props.navigation.navigate('AASStack')
 
         }

@@ -68,7 +68,7 @@ class TopicDetail extends Component {
     //////////////// ComponentDidMount ////////////////////////////////////
     componentDidMount() {
         // this.setState({isloading:true})
-        const url = `http://192.168.43.143/FWebAPI/api/users/TopicDetail?id=${lib.TopicIdPS}`
+        const url = `${lib.IpAddress}/users/TopicDetail?id=${lib.TopicIdPS}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

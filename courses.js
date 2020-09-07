@@ -124,7 +124,7 @@ class courses extends Component {
 
     //////////////////////// Get Teachers Courses ////////////////////////////////////////
     getcourses() {
-        const url = `http://192.168.43.143/FWebAPI/api/Users/AllCourses?id=${lib.TId}&semno=${lib.SemNo}`
+        const url = `${lib.IpAddress}/Users/AllCourses?id=${lib.TId}&semno=${lib.SemNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -146,7 +146,7 @@ class courses extends Component {
     }
     ///////////////////////// Get Semester Number //////////////////////////////////////////
     getsemesternumber() {
-        const url = `http://192.168.43.143/FWebAPI/api/Users/AllSemesterNumber`
+        const url = `${lib.IpAddress}/Users/AllSemesterNumber`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -176,7 +176,7 @@ class courses extends Component {
     //////////////////////// Get Notifications ////////////////////////////////////////
     getNotifications() {
 
-        const url = `http://192.168.43.143/FWebAPI/api/users/ShowAllMessages?id=${lib.TId}&status=${this.state.status}`
+        const url = `${lib.IpAddress}/users/ShowAllMessages?id=${lib.TId}&status=${this.state.status}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

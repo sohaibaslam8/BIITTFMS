@@ -39,7 +39,7 @@ class WeeklyPlanMainFolder extends Component {
                 collection.Course_no = lib.CNoMFM,
                 collection.Semester_no = lib.SemNoMFM,
                 
-        fetch('http://192.168.43.143/FWebAPI/api/users/AddMainFolderManageRecord', {
+        fetch(`${lib.IpAddress}/users/AddMainFolderManageRecord`, {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -157,7 +157,7 @@ class WeeklyPlanMainFolder extends Component {
 
 
     SearchMainFolderManageRecord() {
-        const url = `http://192.168.43.143/FWebAPI/api/users/SearchMainFolderManageRecord?courseno=${lib.CNoMFM}&semesterno=${lib.SemNoMFM}`
+        const url = `${lib.IpAddress}/users/SearchMainFolderManageRecord?courseno=${lib.CNoMFM}&semesterno=${lib.SemNoMFM}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -189,7 +189,7 @@ class WeeklyPlanMainFolder extends Component {
 
 
     CoursesAllocateTeachers() {
-        const url = `http://192.168.43.143/FWebAPI/api/users/AllAllocateCoursesShowMainFolderManage?courseno=${lib.CNoMFM}&semesterno=${lib.SemNoMFM}`
+        const url = `${lib.IpAddress}/users/AllAllocateCoursesShowMainFolderManage?courseno=${lib.CNoMFM}&semesterno=${lib.SemNoMFM}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -211,7 +211,7 @@ class WeeklyPlanMainFolder extends Component {
 
      ///////////////////////// Get Semester Number //////////////////////////////////////////
      getsemesternumber() {
-        const url = `http://192.168.43.143/FWebAPI/api/Users/AllSemesterNumber`
+        const url = `${lib.IpAddress}/Users/AllSemesterNumber`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

@@ -20,7 +20,7 @@ class Students extends Component {
         let collection = {}
         collection.Id=lib.TMsgId,
         collection.Status = this.state.status,
-        fetch('http://192.168.43.143/FWebAPI/api/users/ModifyStatus', {
+        fetch(`${lib.IpAddress}/users/ModifyStatus`, {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',

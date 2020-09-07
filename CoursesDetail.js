@@ -45,6 +45,7 @@ export default class CoursesDetail extends React.Component {
             this.props.navigation.navigate('MarksDistributionGP')
         }
         if (key == 4) {
+            lib.WeekNoMainFolder='Week-1'
             this.props.navigation.navigate('WeeklPlanMainFolder')
         }
         if (key == 5) {
@@ -171,7 +172,7 @@ export default class CoursesDetail extends React.Component {
     ShowSection(){
 
         this.setState({ isLoading: true })
-        const url = `http://192.168.43.143/FWebAPI/api/Users/AllSections?id=${lib.TIdTemp}&courseno=${lib.CNo}&semno=${lib.SemNoTemp}`
+        const url = `${lib.IpAddress}/Users/AllSections?id=${lib.TIdTemp}&courseno=${lib.CNo}&semno=${lib.SemNoTemp}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -194,7 +195,7 @@ export default class CoursesDetail extends React.Component {
 
     MainFolderManage()
     {
-        const url = `http://192.168.43.143/FWebAPI/api/Users/MainFolderManage?tid=${lib.TId}&courseno=${lib.CNo}&semesterno=${lib.SemNo}`
+        const url = `${lib.IpAddress}/Users/MainFolderManage?tid=${lib.TId}&courseno=${lib.CNo}&semesterno=${lib.SemNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

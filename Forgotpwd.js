@@ -3,6 +3,7 @@ import {Text,View,StyleSheet,StatusBar,ImageBackground,Image,TextInput,Dimension
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialIcons';
+import * as lib from './storeData'
 
 const {width:WIDTH}=Dimensions.get('window');
 class Forgotpwd extends Component{
@@ -39,7 +40,7 @@ class Forgotpwd extends Component{
         }
         else
         {
-            fetch(`http://192.168.10.8/FWebAPI/api/Users/ForgotPwd?empno=${this.state.id}&email=${this.state.email}`)
+            fetch(`${lib.IpAddress}/Users/ForgotPwd?empno=${this.state.id}&email=${this.state.email}`)
                 .then(data=>data.json())
                 .then(data2=>{
                   //console.log(data2)

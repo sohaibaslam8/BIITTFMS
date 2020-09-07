@@ -114,7 +114,7 @@ class WeeklyPlanMainFolder extends Component {
 
         }
 
-        fetch('http://192.168.43.143/FWebAPI/api/users/AddCoveredSubTopic', {
+        fetch(`${lib.IpAddress}/users/AddCoveredSubTopic`, {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -229,7 +229,7 @@ class WeeklyPlanMainFolder extends Component {
 
     SubTopicCheckboxCheckOrNot(id) {
 
-        const url = `http://192.168.43.143/FWebAPI/api/users/SubTopicCheckboxCheckOrNot?id=${id}&section=${lib.Section}&discipline=${lib.Discipline}&semc=${lib.Semc}&semester_no=${lib.SemNoTemp}&empno=${lib.TIdTemp}`
+        const url = `${lib.IpAddress}/users/SubTopicCheckboxCheckOrNot?id=${id}&section=${lib.Section}&discipline=${lib.Discipline}&semc=${lib.Semc}&semester_no=${lib.SemNoTemp}&empno=${lib.TIdTemp}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -278,7 +278,7 @@ class WeeklyPlanMainFolder extends Component {
 
         //   lib.WeekNoSST='Week-1'
         //   lib.CNo='CS-686'
-        const url = `http://192.168.43.143/FWebAPI/api/users/AllSubTopic?weekno=${lib.WeekNoSubFolder}&courseno=${lib.CNo}`
+        const url = `${lib.IpAddress}/users/AllSubTopic?weekno=${lib.WeekNoSubFolder}&courseno=${lib.CNo}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

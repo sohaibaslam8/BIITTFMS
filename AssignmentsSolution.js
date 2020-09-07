@@ -117,11 +117,11 @@ class AssignmentsSolution extends Component {
 
   //////////////////  Show Files ///////////////////////////////////////////////////////
   ShowFiles = (name) => {
-    Linking.canOpenURL('http://192.168.43.143/FWebAPI/File/' + name).then(supported => {
+    Linking.canOpenURL(`${lib.IpAddressFileOpen}`+name).then(supported => {
       if (supported) {
-        Linking.openURL('http://192.168.43.143/FWebAPI/File/' + name);
+        Linking.openURL(`${lib.IpAddressFileOpen}`+name);
       } else {
-        console.log("Don't know how to open URI: " + 'http://192.168.43.143/FWebAPI/File/' + name);
+        console.log("Don't know how to open URI: " +`${lib.IpAddressFileOpen}`+name);
       }
     });
   };
@@ -140,7 +140,7 @@ class AssignmentsSolution extends Component {
   //     })
   // }
   DeleteFolderDocument = (filedata) => {
-    const url = `http://192.168.43.143/FWebAPI/api/Users/DeleteFolderDocument?id=${filedata}`
+    const url = `${lib.IpAddress}/Users/DeleteFolderDocument?id=${filedata}`
     fetch(url)
       .then((response) => response.json())
       .then((responsejson) => {
@@ -226,7 +226,7 @@ class AssignmentsSolution extends Component {
   //////////////// ComponentDidMount ////////////////////////////////////
   componentDidMount() {
     // this.setState({isloading:true})
-    const url = `http://192.168.43.143/FWebAPI/api/users/AllDocumentShowSubFolderQuizAndAssignment?courseno=${lib.CNo}&section=${lib.Section}&discipline=${lib.Discipline}&semc=${lib.Semc}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtype}&dstatus=${lib.WeekNoAssignmentsSolutions}`
+    const url = `${lib.IpAddress}/users/AllDocumentShowSubFolderQuizAndAssignment?courseno=${lib.CNo}&section=${lib.Section}&discipline=${lib.Discipline}&semc=${lib.Semc}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtype}&dstatus=${lib.WeekNoAssignmentsSolutions}`
     fetch(url)
       .then((response) => response.json())
       .then((responsejson) => {
@@ -263,7 +263,7 @@ class AssignmentsSolution extends Component {
     }
 
 
-    fetch('http://192.168.43.143/FWebAPI/api/users/AddFolderDocument', {
+    fetch(`${lib.IpAddress}/users/AddFolderDocument`, {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -291,7 +291,7 @@ class AssignmentsSolution extends Component {
     collection.Doc_Status = lib.WeekNoAssignmentsSolutions;
 
 
-    fetch('http://192.168.43.143/FWebAPI/api/users/AddFolderDetail', {
+    fetch(`${lib.IpAddress}/users/AddFolderDetail`, {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -310,7 +310,7 @@ class AssignmentsSolution extends Component {
       });
   }
   GetFolderDetailId() {
-    const url = `http://192.168.43.143/FWebAPI/api/Users/GetFolderDetailIdSubFolderQuizAndAssignment?courseno=${lib.CNo}&section=${lib.Section}&discipline=${lib.Discipline}&semc=${lib.Semc}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtype}&dstatus=${lib.WeekNoAssignmentsSolutions}`
+    const url = `${lib.IpAddress}/Users/GetFolderDetailIdSubFolderQuizAndAssignment?courseno=${lib.CNo}&section=${lib.Section}&discipline=${lib.Discipline}&semc=${lib.Semc}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtype}&dstatus=${lib.WeekNoAssignmentsSolutions}`
     fetch(url)
       .then((response) => response.json())
       .then((responsejson) => {
@@ -387,7 +387,7 @@ class AssignmentsSolution extends Component {
   };
   UploadFiles = () => {
     this.setState({ showModal: false });
-    fetch("http://192.168.43.143/FWebAPI/api/Users/UploadFilenewcode", {
+    fetch(`${lib.IpAddress}/Users/UploadFilenewcode`, {
       method: "POST",
       headers: {
         'Content-Type': 'multipart/form-data'
