@@ -265,7 +265,6 @@ export default class CoursesDetail extends React.Component {
                     <View style={{ flex: 1, backgroundColor: '#e9e9e9' }}>
                         <View style={{ alignItems: 'center', backgroundColor: '#FFFFFF', }}>
                             <Text style={{fontSize:20,width:'95%',textAlign:'center'}}>{lib.CName}</Text>
-
                         </View>
                         <SegmentedControlTab
                             tabTextStyle={styles.tabTextStyle}

@@ -2,7 +2,8 @@ import React from "react";
 import { createStackNavigator } from 'react-navigation-stack';
 import Header from './Header'
 import CoursesPW from './CoursesPW';
-import EASStackPW from './EASStackPW';
+import EASStackPW from './ExamsPW';
+import OpenFilePW from './OpenFilePW';
 
 const screens={
   CoursesPW:{
@@ -18,6 +19,14 @@ const screens={
     screen:EASStackPW,
     navigationOptions:{
       title:'Exams',
+      headerTintColor: '#fff',
+      //  headerStyle:{backgroundColor:'#eee'}
+    },
+  },
+  OpenFilePW:{
+    screen:OpenFilePW,
+    navigationOptions:{
+      title:'Paper',
       headerTintColor: '#fff',
       //  headerStyle:{backgroundColor:'#eee'}
     },

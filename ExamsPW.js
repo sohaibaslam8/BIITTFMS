@@ -13,34 +13,36 @@ export default class ExamsPW extends React.Component {
 
     constructor(props) {
         super(props);
-            this.state = {
-              
-                isloadingme: true,
-                dtypeme: 'MidExam',
-                showModalPWme: false,
+        this.state = {
 
-                
-                isloadingfe: true,
-                dtypefe: 'FinalExam',
-                showModalPWfe:false,
-                selectedIndex: 0,
-                status: true,
-                finalstatus: false,
+            isloadingme: true,
+            dtypeme: 'MidExam',
+            showModalPWme: false,
 
-                ///////// Notification ///////////////
+            multipleFileme: [],
+            multipleFilefe: [],
 
-                FDoc_IdN: '',
-                Sender_IdN: '',
-                Receiver_IdN: '',
-                MessageNme: '',
-                MessageNfe:'',
-                StatusN: '',
-                course_noN: '',
-                firstname:'',
-                middlename:'',
-                lastname:''
+            isloadingfe: true,
+            dtypefe: 'FinalExam',
+            showModalPWfe: false,
+            selectedIndex: 0,
+            status: true,
+            finalstatus: false,
 
-            };
+            ///////// Notification ///////////////
+
+            FDoc_IdN: '',
+            Sender_IdN: '',
+            Receiver_IdN: '',
+            MessageNme: '',
+            MessageNfe: '',
+            StatusN: '',
+            course_noN: '',
+            firstname: '',
+            middlename: '',
+            lastname: ''
+
+        };
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -89,20 +91,30 @@ export default class ExamsPW extends React.Component {
     }
 
     /////////       Show Files ////////////
-    ShowFilesme = (name) => {
-        Linking.canOpenURL(`${lib.IpAddressFileOpen}`+name).then(supported => {
-            if (supported) {
-                Linking.openURL(`${lib.IpAddressFileOpen}`+name);
-            } else {
-                console.log("Don't know how to open URI: " +`${lib.IpAddressFileOpen}`+name);
-            }
-        });
+    ShowFilesme = (name, id, rid) => {
+
+        lib.PdfFilePW = name;
+        lib.FDocIdPW = id;
+        lib.ReceiverIdPW = rid;
+        this.props.navigation.navigate('OpenFilePW')
+
+
+
+
+
+        // Linking.canOpenURL(`${lib.IpAddressFileOpen}`+name).then(supported => {
+        //     if (supported) {
+        //         Linking.openURL(`${lib.IpAddressFileOpen}`+name);
+        //     } else {
+        //         console.log("Don't know how to open URI: " +`${lib.IpAddressFileOpen}`+name);
+        //     }
+        // });
     };
 
     renderItemme = ({ item }) => {
         return (
             <TouchableOpacity
-                onPress={this.ShowFilesme.bind(this, item.Name)}
+                onPress={this.ShowFilesme.bind(this, item.Name, item.FDoc_Id, item.EMP_NO)}
                 style={{ flex: 1, flexDirection: 'row', marginBottom: 3, }}
             >
 
@@ -112,21 +124,28 @@ export default class ExamsPW extends React.Component {
 
                 ></Image>
                 <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                    <View style={{flexDirection:'column',flex:1}}>
-                    <Text style={{ fontSize: 14, color: 'black', fontWeight: '600', width: '80%', }}>
-                        {item.Doc_Name}
-                    </Text>
+                    <View style={{ flexDirection: 'column', flex: 1 }}>
+                        <Text style={{ fontSize: 14, color: 'black', fontWeight: '600', width: '80%', }}>
+                            {item.Doc_Name}
+                        </Text>
                         <Text style={{ fontSize: 12, color: 'black', fontWeight: '600', width: '80%', }}>
                             {item.emp_firstname} {item.emp_middle} {item.emp_lastname}
                         </Text>
                     </View>
-                    <TouchableOpacity
+                    <View
+                        style={{ right: 30, position: 'absolute', padding: 4 }}
+                    >
+                        <Text>
+                            {item.Doc_Date}
+                        </Text>
+                    </View>
+                    {/* <TouchableOpacity
                         style={{ right: 30, position: 'absolute', padding: 4 }}
                         onPress={() => this.setState({ showModalPWme: true,firstname:item.emp_firstname,middlename:item.emp_middle,lastname:item.emp_lastname, FDoc_IdN: item.FDoc_Id, Sender_IdN: lib.TId, Receiver_IdN: item.EMP_NO, course_noN: item.course_no })}
                     >
                         <Iconpw name={'comment'} size={21} color={'black'}
                         />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
 
                 </View>
@@ -168,10 +187,10 @@ export default class ExamsPW extends React.Component {
     //////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////// Final Exams ////////////////////////////////////////////
 
-     ///////////// Send Message /////////////////////////////////////////////////
+    ///////////// Send Message /////////////////////////////////////////////////
 
 
-     SendMessagefe() {
+    SendMessagefe() {
         // console.log(this.state.MessageNme)
         if (this.state.MessageNfe !== '') {
             this.setState({ showModalPWfe: false });
@@ -211,43 +230,57 @@ export default class ExamsPW extends React.Component {
     }
 
     /////////       Show Files ////////////
-    ShowFilesfe = (name) => {
-        Linking.canOpenURL(`${lib.IpAddressFileOpen}`+name).then(supported => {
-            if (supported) {
-                Linking.openURL(`${lib.IpAddressFileOpen}`+name);
-            } else {
-                console.log("Don't know how to open URI: " +`${lib.IpAddressFileOpen}`+ name);
-            }
-        });
+    ShowFilesfe = (name, id, rid) => {
+
+        lib.PdfFilePW = name;
+        lib.FDocIdPW = id;
+        lib.ReceiverIdPW = rid;
+        this.props.navigation.navigate('OpenFilePW')
+
+
+        // Linking.canOpenURL(`${lib.IpAddressFileOpen}`+name).then(supported => {
+        //     if (supported) {
+        //         Linking.openURL(`${lib.IpAddressFileOpen}`+name);
+        //     } else {
+        //         console.log("Don't know how to open URI: " +`${lib.IpAddressFileOpen}`+ name);
+        //     }
+        // });
     };
     renderItemfe = ({ item }) => {
         return (
             <TouchableOpacity
-                onPress={this.ShowFilesfe.bind(this, item.Name)}
+                onPress={this.ShowFilesfe.bind(this, item.Name, item.FDoc_Id, item.EMP_NO)}
                 style={{ flex: 1, flexDirection: 'row', marginBottom: 3, }}
             >
 
-<Image
+                <Image
                     source={require('./img/pdf3.jpg')}
                     style={{ height: 40, width: 40, margin: 8 }}
 
                 ></Image>
                 <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                    <View style={{flexDirection:'column',flex:1}}>
-                    <Text style={{ fontSize: 14, color: 'black', fontWeight: '600', width: '80%', }}>
-                        {item.Doc_Name}
-                    </Text>
+                    <View style={{ flexDirection: 'column', flex: 1 }}>
+                        <Text style={{ fontSize: 14, color: 'black', fontWeight: '600', width: '80%', }}>
+                            {item.Doc_Name}
+                        </Text>
                         <Text style={{ fontSize: 12, color: 'black', fontWeight: '600', width: '80%', }}>
                             {item.emp_firstname} {item.emp_middle} {item.emp_lastname}
                         </Text>
                     </View>
-                    <TouchableOpacity
+                    <View
+                        style={{ right: 30, position: 'absolute', padding: 4 }}
+                    >
+                        <Text>
+                            {item.Doc_Date}
+                        </Text>
+                    </View>
+                    {/* <TouchableOpacity
                         style={{ right: 30, position: 'absolute', padding: 4 }}
                         onPress={() => this.setState({ showModalPWfe: true,firstname:item.emp_firstname,middlename:item.emp_middle,lastname:item.emp_lastname, FDoc_IdN: item.FDoc_Id, Sender_IdN: lib.TId, Receiver_IdN: item.EMP_NO, course_noN: item.course_no })}
                     >
                         <Iconpw name={'comment'} size={21} color={'black'}
                         />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
 
                 </View>
@@ -339,6 +372,10 @@ export default class ExamsPW extends React.Component {
                 :
                 this.state.status ?
                     <View style={{ flex: 1, backgroundColor: '#e9e9e9' }}>
+                        <View style={{ alignItems: 'center', backgroundColor: '#FFFFFF', }}>
+                            <Text style={{ fontSize: 20, width: '95%', textAlign: 'center' }}>{lib.CNamePW}</Text>
+
+                        </View>
                         <SegmentedControlTab
                             tabTextStyle={styles.tabTextStyle}
                             values={["Mid Exams", "Final Exams"]}
@@ -373,13 +410,13 @@ export default class ExamsPW extends React.Component {
                                 }}
                             >RECOMMEND CHANGING TO</Text>
                             <Text
-                             style={{
-                                fontSize: 14,
-                                fontWeight: 'bold',
-                                textAlign: 'center',
-                                width:'99%',
-                                // marginTop: 3
-                            }}>{this.state.firstname} {this.state.middlename} {this.state.lastname}</Text>
+                                style={{
+                                    fontSize: 14,
+                                    fontWeight: 'bold',
+                                    textAlign: 'center',
+                                    width: '99%',
+                                    // marginTop: 3
+                                }}>{this.state.firstname} {this.state.middlename} {this.state.lastname}</Text>
 
                             <TextInput
                                 style={styles.input}
@@ -440,11 +477,21 @@ export default class ExamsPW extends React.Component {
                                 ItemSeparatorComponent={this.renderseparatorme}
                             />
                         </View>
+                        {this.state.multipleFileme == '' &&
+                            <View style={{ marginTop: '15%', marginBottom: '10%', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 20 }}>No content available at the moment.</Text>
+
+                            </View>
+                        }
 
                     </View>
                     :
                     this.state.finalstatus ?
                         <View style={{ flex: 1, backgroundColor: '#e9e9e9' }}>
+                            <View style={{ alignItems: 'center', backgroundColor: '#FFFFFF', }}>
+                                <Text style={{ fontSize: 20, width: '95%', textAlign: 'center' }}>{lib.CNamePW}</Text>
+
+                            </View>
                             <SegmentedControlTab
                                 tabTextStyle={styles.tabTextStyle}
                                 values={["Mid Exams", "Final Exams"]}
@@ -455,88 +502,88 @@ export default class ExamsPW extends React.Component {
                                 tabStyle={styles.tabstyle}
                             />
                             <ModalPW
-                            isOpen={this.state.showModalPWfe}
-                            style={{
-                                // justifyContent: 'center',
-                                borderRadius: Platform.OS === 'ios' ? 30 : 30,
-                                shadowRadius: 10,
-                                width: screen.width - 80,
-                                height: 290,
-                            }}
-                            position='center'
-                            backdrop={true}
-                            backdropPressToClose={false}
-                            onClosed={() => {
-                            }}
-                        >
-
-                            <Text
+                                isOpen={this.state.showModalPWfe}
                                 style={{
-                                    fontSize: 16,
-                                    fontWeight: 'bold',
-                                    textAlign: 'center',
-                                    marginTop: 3
+                                    // justifyContent: 'center',
+                                    borderRadius: Platform.OS === 'ios' ? 30 : 30,
+                                    shadowRadius: 10,
+                                    width: screen.width - 80,
+                                    height: 290,
                                 }}
-                            >RECOMMEND CHANGING TO</Text>
-                            <Text
-                             style={{
-                                fontSize: 14,
-                                fontWeight: 'bold',
-                                textAlign: 'center',
-                                width:'99%',
-                                // marginTop: 3
-                            }}>{this.state.firstname} {this.state.middlename} {this.state.lastname}</Text>
+                                position='center'
+                                backdrop={true}
+                                backdropPressToClose={false}
+                                onClosed={() => {
+                                }}
+                            >
 
-                            <TextInput
-                                style={styles.input}
-                                value={this.state.MessageNfe}
-                                placeholder="Description..."
-                                onChangeText={text => this.setState({ MessageNfe: text })}
-                                multiline={true}
-                                underlineColorAndroid='transparent'
-                            />
-
-
-
-
-
-
-
-                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
-                                <TouchableOpacity
-                                    onPress={() => this.setState({ showModalPWfe: false })}
+                                <Text
                                     style={{
-                                        borderWidth: 1,
-                                        padding: 8,
-                                        alignItems: 'center',
-                                        borderColor: 'green',
-                                        backgroundColor: 'green',
-                                        width: '40%',
-                                        borderRadius: 35,
-                                        marginLeft: 20
-                                    }}>
-                                    <Text style={{ fontSize: 20, color: 'white' }}>
-                                        Cancel
-                                </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    onPress={() => this.SendMessagefe()}
+                                        fontSize: 16,
+                                        fontWeight: 'bold',
+                                        textAlign: 'center',
+                                        marginTop: 3
+                                    }}
+                                >RECOMMEND CHANGING TO</Text>
+                                <Text
                                     style={{
-                                        borderWidth: 1,
-                                        padding: 8,
-                                        alignItems: 'center',
-                                        borderColor: 'green',
-                                        backgroundColor: 'green',
-                                        width: '40%',
-                                        borderRadius: 35,
-                                        marginLeft: 20
-                                    }}>
-                                    <Text style={{ fontSize: 20, color: 'white' }}>
-                                        Send
+                                        fontSize: 14,
+                                        fontWeight: 'bold',
+                                        textAlign: 'center',
+                                        width: '99%',
+                                        // marginTop: 3
+                                    }}>{this.state.firstname} {this.state.middlename} {this.state.lastname}</Text>
+
+                                <TextInput
+                                    style={styles.input}
+                                    value={this.state.MessageNfe}
+                                    placeholder="Description..."
+                                    onChangeText={text => this.setState({ MessageNfe: text })}
+                                    multiline={true}
+                                    underlineColorAndroid='transparent'
+                                />
+
+
+
+
+
+
+
+                                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+                                    <TouchableOpacity
+                                        onPress={() => this.setState({ showModalPWfe: false })}
+                                        style={{
+                                            borderWidth: 1,
+                                            padding: 8,
+                                            alignItems: 'center',
+                                            borderColor: 'green',
+                                            backgroundColor: 'green',
+                                            width: '40%',
+                                            borderRadius: 35,
+                                            marginLeft: 20
+                                        }}>
+                                        <Text style={{ fontSize: 20, color: 'white' }}>
+                                            Cancel
                                 </Text>
-                                </TouchableOpacity>
-                            </View>
-                        </ModalPW>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        onPress={() => this.SendMessagefe()}
+                                        style={{
+                                            borderWidth: 1,
+                                            padding: 8,
+                                            alignItems: 'center',
+                                            borderColor: 'green',
+                                            backgroundColor: 'green',
+                                            width: '40%',
+                                            borderRadius: 35,
+                                            marginLeft: 20
+                                        }}>
+                                        <Text style={{ fontSize: 20, color: 'white' }}>
+                                            Send
+                                </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </ModalPW>
 
                             <View style={{ marginTop: 10, backgroundColor: '#FFFFFF' }}>
                                 <FlatList
@@ -546,6 +593,12 @@ export default class ExamsPW extends React.Component {
                                     ItemSeparatorComponent={this.renderseparatorfe}
                                 />
                             </View>
+                            {this.state.multipleFilefe == '' &&
+                                <View style={{ marginTop: '15%', marginBottom: '10%', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 20 }}>No content available at the moment.</Text>
+
+                                </View>
+                            }
 
                         </View>
                         :
