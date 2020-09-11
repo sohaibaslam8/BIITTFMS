@@ -95,8 +95,8 @@ class Students extends Component {
                     <Text>
                     <Text style={{fontWeight:'bold',color: 'black', }}>
                         {item.emp_firstname} {item.emp_middle} {item.emp_lastname}</Text>
-                    <Text style={{color: 'black', }}> HAS RECOMMENDED REPLACING THE</Text>
-                    <Text style={{fontWeight:'bold',color: 'black'}}> {item.title}</Text><Text> PAPER.</Text>
+                    <Text style={{color: 'black', }}> has recommended replacing the</Text>
+                    <Text style={{fontWeight:'bold',color: 'black'}}> {item.title}</Text><Text> paper.</Text>
                     </Text>
                     <Text>
                         {item.NDate}  {item.NTime}
@@ -194,7 +194,7 @@ class Students extends Component {
         lib.TMsgCount='0';
         setTimeout(() => {
             this.setState({ isloading: false})
-        }, 1000);
+        }, 2000);
     }
 
 
