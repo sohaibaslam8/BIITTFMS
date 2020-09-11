@@ -11,16 +11,16 @@ class Students extends Component {
         this.state = {
             data: [],
             isloading: true,
-            status: 'true'
+            seen: 'true'
         }
     }
 
-    UpdateStatus()
+    UpdateSeen()
     {
         let collection = {}
         collection.Id=lib.TMsgId,
-        collection.Status = this.state.status,
-        fetch(`${lib.IpAddress}/users/ModifyStatus`, {
+        collection.Seen = this.state.seen,
+        fetch(`${lib.IpAddress}/users/ModifySeen`, {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -39,13 +39,16 @@ class Students extends Component {
 
     componentDidMount()
     {
-        this.UpdateStatus();
+        this.UpdateSeen();
     }
     render() {
         return (
         <View style={styles.container}>
+              <View style={{ alignItems: 'center', backgroundColor: '#FFFFFF', }}>
+                            <Text style={{fontSize:20,width:'95%',textAlign:'center'}}>{lib.TMsgCName}</Text>
+              </View>
             <View style={{ backgroundColor: '#FFFFFF',margin:10 }}>
-                <Text style={{fontSize:16,padding:10}}>{lib.TMsg}</Text>
+                <Text style={{fontSize:16,padding:15}}>{lib.TMsg}</Text>
             </View>
         </View>
         );

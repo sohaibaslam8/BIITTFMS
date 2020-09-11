@@ -11,41 +11,101 @@ class Students extends Component {
         this.state = {
             data: [],
             isloading: true,
-            status: 'false'
+            status: 'false',
+            seen:'true',
         }
     }
 
-    ShowNewScreen(msg,id) {
-        lib.TMsg = msg;
-        lib.TMsgId=id;
-        this.props.navigation.navigate('Message');
+    findTaskIndex(taskId) {
+
+        let { data } = this.state;
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].Id == taskId) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    toggleCheckForTask(taskId) {
+
+     
+        var foundindex = this.findTaskIndex(taskId);
+
+        var newsubtopic = this.state.data;
+        if(newsubtopic[foundindex].isSeen)
+        {
+            console.log(newsubtopic[foundindex].isSeen);
+          
+        }
+        else
+        {
+            newsubtopic[foundindex].isSeen = !newsubtopic[foundindex].isSeen;
+        
+            this.setState({
+                data: newsubtopic
+            });
+            console.log("index of this task is ", foundindex);
+
+        }
+     
+        // console.log(newsubtopic[foundindex].isSeen);
+
 
     }
 
+    NotificationIconShowOrNot(taskId) {
+        var foundindex = this.findTaskIndex(taskId);
+
+        var newsubtopic = this.state.data;
+        newsubtopic[foundindex].isSeen = !newsubtopic[foundindex].isSeen;
+        
+        this.setState({
+            data: newsubtopic
+        });
+        console.log("index of this task is ", foundindex);
+        // console.log(newsubtopic[foundindex].isSeen);
+       
+    }
+    ShowNewScreen(msg,id,cname) {
+        console.log("Show New Screen");
+        this.toggleCheckForTask(id);
+        lib.TMsg = msg;
+        lib.TMsgId=id;
+        lib.TMsgCName=cname;
+        this.props.navigation.navigate('Message');
+
+    }
+    
     renderItem = ({ item }) => {
         return (
             <TouchableOpacity
-                onPress={this.ShowNewScreen.bind(this, item.Message,item.Id)}
-                style={{ flex: 1, flexDirection: 'row' }}
+                onPress={this.ShowNewScreen.bind(this, item.Message,item.Id,item.title)}
+                style={{ flex: 1, flexDirection: 'row',alignItems:'center' }}
 
             >
 
-                <Image style={{ height: 60, width: 60, borderRadius: 30, margin: 15 }}
+                <Image style={{ height: 65, width: 65, borderRadius: 65/2, margin: 15 }}
                     source={item.Img != null ? { uri: 'data:image/jpeg;base64,' + lib.TImg } :
                         require('./img/demoprofile.jpg')
                     }
+                    />
 
 
-                />
-
-
-                <View style={{ justifyContent: 'center', }}>
-                    <Text style={{ fontWeight: 'bold', color: 'black', }}>
-                        {item.emp_firstname} {item.emp_middle} {item.emp_lastname}
-
+                <View style={{ justifyContent: 'center',width:'65%'}}>
+                    <Text>
+                    <Text style={{fontWeight:'bold',color: 'black', }}>
+                        {item.emp_firstname} {item.emp_middle} {item.emp_lastname}</Text>
+                    <Text style={{color: 'black', }}> HAS RECOMMENDED REPLACING THE</Text>
+                    <Text style={{fontWeight:'bold',color: 'black'}}> {item.title}</Text><Text> PAPER.</Text>
                     </Text>
-                    <Text>sent you a message.</Text>
+                    <Text>
+                        {item.NDate}  {item.NTime}
+                    </Text>
                 </View>
+                {!item.isSeen &&
+                <View style={{marginLeft:3,  width: 12, height: 12, borderRadius: 12 / 2, backgroundColor: 'green', alignItems: 'center', justifyContent: 'center' }}>
+                </View>
+                 } 
 
             </TouchableOpacity>
         )
@@ -61,11 +121,35 @@ class Students extends Component {
     }
 
 
+    /////////////////////// Check Notification Seen Or Not //////////////////////////////
+    CheckNotificationSeenOrNot(id) {
+
+        const url = `${lib.IpAddress}/users/CheckNotificationSeenOrNot?id=${id}&seen=${this.state.seen}`
+        fetch(url)
+            .then((response) => response.json())
+            .then((responsejson) => {
+                console.log(responsejson);
+                if (responsejson == 'true') {
+                    this.NotificationIconShowOrNot(id);
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
+
+    }
 
     //////////////////////// Get Notifications ////////////////////////////////////////
     getNotifications() {
+        this.state.data.map((data) => {
+            var o = Object.assign({}, data);
+            o.isSeen = false;
+            return o;
 
-        const url = `${lib.IpAddress}/users/ShowAllMessages?id=${lib.TId}&status=${this.state.status}`
+        });
+
+        const url = `${lib.IpAddress}/users/ShowAllMessages?id=${lib.TId}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -73,24 +157,44 @@ class Students extends Component {
                 this.setState(
                     {
                         data: responsejson,
-                        isloading: false,
-
-
                     }
                 )
+                for (var i = 0; i < this.state.data.length; i++) {
 
+                    this.CheckNotificationSeenOrNot(this.state.data[i].Id);
 
+                }
             })
             .catch((error) => {
                 console.log(error)
             })
+        }
 
-    }
+        ////////////////////// Update Status //////////////////////////////////////////////
+
+        UpdateStatus() {
+
+            const url = `${lib.IpAddress}/users/ModifyStatus?id=${lib.TId}`
+            fetch(url)
+                .then((response) => response.json())
+                .then((responsejson) => {
+                    console.log(responsejson)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+            }
+    
+
 
 
     componentDidMount() {
         this.getNotifications();
+        this.UpdateStatus();
         lib.TMsgCount='0';
+        setTimeout(() => {
+            this.setState({ isloading: false})
+        }, 1000);
     }
 
 

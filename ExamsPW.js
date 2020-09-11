@@ -124,17 +124,20 @@ export default class ExamsPW extends React.Component {
 
                 ></Image>
                 <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                    <View style={{ flexDirection: 'column', flex: 1 }}>
-                        <Text style={{ fontSize: 14, color: 'black', fontWeight: '600', width: '80%', }}>
+                    <View style={{ flexDirection: 'column', flex: 1, }}>
+                        <Text style={{ fontSize: 14, color: 'black', fontWeight: '600', width: '65%', }}>
                             {item.Doc_Name}
                         </Text>
-                        <Text style={{ fontSize: 12, color: 'black', fontWeight: '600', width: '80%', }}>
+                        <Text style={{ fontSize: 12, color: 'black', fontWeight: '600', width: '65%', }}>
                             {item.emp_firstname} {item.emp_middle} {item.emp_lastname}
                         </Text>
                     </View>
                     <View
-                        style={{ right: 30, position: 'absolute', padding: 4 }}
+                        style={{ right: 25, position: 'absolute', padding: 4,alignItems:'center' }}
                     >
+                        <Text>
+                            {item.Doc_Time}
+                        </Text>
                         <Text>
                             {item.Doc_Date}
                         </Text>
@@ -202,6 +205,7 @@ export default class ExamsPW extends React.Component {
             collection.Message = this.state.MessageNfe;
             collection.Status = 'false';
             collection.Course_no = this.state.course_noN;
+            collection.Seen='false';
 
             fetch(`${lib.IpAddress}/users/SaveMessage`, {
                 method: 'POST', // or 'PUT'
@@ -260,16 +264,19 @@ export default class ExamsPW extends React.Component {
                 ></Image>
                 <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                     <View style={{ flexDirection: 'column', flex: 1 }}>
-                        <Text style={{ fontSize: 14, color: 'black', fontWeight: '600', width: '80%', }}>
+                        <Text style={{ fontSize: 14, color: 'black', fontWeight: '600', width: '65%', }}>
                             {item.Doc_Name}
                         </Text>
-                        <Text style={{ fontSize: 12, color: 'black', fontWeight: '600', width: '80%', }}>
+                        <Text style={{ fontSize: 12, color: 'black', fontWeight: '600', width: '65%', }}>
                             {item.emp_firstname} {item.emp_middle} {item.emp_lastname}
                         </Text>
                     </View>
                     <View
-                        style={{ right: 30, position: 'absolute', padding: 4 }}
+                        style={{ right: 25, position: 'absolute', padding: 4,alignItems:'center' }}
                     >
+                        <Text>
+                            {item.Doc_Time}
+                        </Text>
                         <Text>
                             {item.Doc_Date}
                         </Text>

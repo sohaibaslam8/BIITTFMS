@@ -155,42 +155,29 @@ class courses extends Component {
                 this.setState(
                     {
                         semesterno: responsejson,
-
-
-
                     }
-
-                )
-
-                // console.log(this.state.semesterno);
-
-
-            })
+                    )
+                    // console.log(this.state.semesterno);
+                })
             .catch((error) => {
                 console.log(error)
             })
-
-
-    }
+        }
 
     //////////////////////// Get Notifications ////////////////////////////////////////
     getNotifications() {
 
-        const url = `${lib.IpAddress}/users/ShowAllMessages?id=${lib.TId}&status=${this.state.status}`
+        const url = `${lib.IpAddress}/users/CountNotification?id=${lib.TId}&status=${this.state.status}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
                 // console.log(responsejson)
-                this.setState(
-                    {
-                        data: responsejson,
-                    }
-                )
-
-
-
-
-
+                // this.setState(
+                //     {
+                //         data: responsejson,
+                //     }
+                // )
+                lib.TMsgCount=responsejson;
             })
             .catch((error) => {
                 console.log(error)
@@ -222,17 +209,13 @@ class courses extends Component {
         this.getNotifications();
         this.getsemesternumber();
         this.getcourses();
-
-
-
-
-        setTimeout(() => {
-            if (this.state.data !== '') {
-                console.log(this.state.data.length);
-                lib.TMsgCount = this.state.data.length;
-            }
-        }, 1000);
-
+        
+        // setTimeout(() => {
+        //     if (this.state.data !== '') {
+        //         console.log("Notification Length  "+lib.TMsgCount);
+        //         // lib.TMsgCount = this.state.data.length;
+        //     }
+        // }, 1000);
     }
 
 

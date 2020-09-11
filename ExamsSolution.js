@@ -29,6 +29,7 @@ export default class ExamsSolution extends React.Component {
                 FileOriginalNameme: '',
                 showModalme: false,
                 dateme: '',
+                timeme:'',
 
                 singleFilefe: '',
                 multipleFilefe: [],
@@ -42,6 +43,7 @@ export default class ExamsSolution extends React.Component {
                 status: true,
                 finalstatus: false,
                 datefe: '',
+                timefe:'',
             };
     }
 
@@ -198,6 +200,7 @@ export default class ExamsSolution extends React.Component {
         collection.Doc_Type = 'MidExamSolution';
         collection.SEMESTER_NO = lib.SemNo;
         collection.Doc_Date = this.state.dateme;
+        collection.Doc_Time=this.state.timeme;
 
         fetch(`${lib.IpAddress}/users/AddFolderDetail`, {
             method: 'POST', // or 'PUT'
@@ -218,7 +221,7 @@ export default class ExamsSolution extends React.Component {
             });
     }
     GetFolderDetailIdme() {
-        const url = `${lib.IpAddress}/Users/GetFolderDetailIdMainFolderPaper?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtypeme}&ddate=${this.state.dateme}`
+        const url = `${lib.IpAddress}/Users/GetFolderDetailIdMainFolderPaper?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtypeme}&ddate=${this.state.dateme}&dtime=${this.state.timefe}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -282,10 +285,25 @@ export default class ExamsSolution extends React.Component {
             var date = new Date().getDate(); //Current Date
             var month = new Date().getMonth() + 1; //Current Month
             var year = new Date().getFullYear(); //Current Year
+            var hours = new Date().getHours(); //Current Hours
+            var min = new Date().getMinutes(); //Current Minutes
+            var sec = new Date().getSeconds(); //Current Seconds
+            var am_pm = 'AM';
+            if (hours > 11) {
+                am_pm = 'PM';
+                if (hours > 12) {
+                    hours = hours - 12;
+                }
+            }
+            if (hours == 0) {
+                hours = 12;
+            }
 
             this.setState({
                 //Setting the value of the date time
-                dateme: date + '/' + month + '/' + year
+                dateme: date + '/' + month + '/' + year,
+                timeme: hours + ':' + min +' '+am_pm
+
             });
             // console.log("data ", this.state.dateme);
 
@@ -532,6 +550,7 @@ export default class ExamsSolution extends React.Component {
         collection.Doc_Type = 'FinalExamSolution';
         collection.SEMESTER_NO = lib.SemNo;
         collection.Doc_Date = this.state.datefe;
+        collection.Doc_Time=this.state.timefe;
         fetch(`${lib.IpAddress}/users/AddFolderDetail`, {
             method: 'POST', // or 'PUT'
             headers: {
@@ -551,7 +570,7 @@ export default class ExamsSolution extends React.Component {
             });
     }
     GetFolderDetailIdfe() {
-        const url = `${lib.IpAddress}/Users/GetFolderDetailIdMainFolderPaper?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtypefe}&ddate=${this.state.datefe}`
+        const url = `${lib.IpAddress}/Users/GetFolderDetailIdMainFolderPaper?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&empno=${lib.TIdTemp}&dtype=${this.state.dtypefe}&ddate=${this.state.datefe}&dtime=${this.state.timefe}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {
@@ -616,10 +635,24 @@ export default class ExamsSolution extends React.Component {
             var date = new Date().getDate(); //Current Date
             var month = new Date().getMonth() + 1; //Current Month
             var year = new Date().getFullYear(); //Current Year
+            var hours = new Date().getHours(); //Current Hours
+            var min = new Date().getMinutes(); //Current Minutes
+            var sec = new Date().getSeconds(); //Current Seconds
+            var am_pm = 'AM';
+            if (hours > 11) {
+                am_pm = 'PM';
+                if (hours > 12) {
+                    hours = hours - 12;
+                }
+            }
+            if (hours == 0) {
+                hours = 12;
+            }
 
             this.setState({
                 //Setting the value of the date time
-                datefe: date + '/' + month + '/' + year
+                datefe: date + '/' + month + '/' + year,
+                timefe: hours + ':' + min +' '+am_pm
             });
             // console.log("data ", this.state.datefe);
 
