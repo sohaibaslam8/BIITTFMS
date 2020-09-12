@@ -20,7 +20,8 @@ class CourseObjective extends Component {
         Dname: '',
         dtype: 'MarksDistribution',
         FileOriginalName: '',
-        showModal: false
+        showModal: false,
+        refresh:false
       };
   }
   
@@ -119,6 +120,10 @@ class CourseObjective extends Component {
       </View>
     )
 
+  }
+
+  handleRefresh=()=>{
+    this.componentDidMount();
   }
 
   //////////////// ComponentDidMount ////////////////////////////////////
@@ -386,7 +391,7 @@ class CourseObjective extends Component {
                                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => this.UploadFiles()}
+                onPress={()=>this.state.FileOriginalName!==''?this.UploadFiles():Alert.alert("File Name","Please enter file name.")}
                 style={{
                   borderWidth: 1,
                   padding: 10,
@@ -414,6 +419,8 @@ class CourseObjective extends Component {
           }
           <View style={styles.container}>
             <FlatList
+             refreshing={this.state.refresh}
+             onRefresh={this.handleRefresh}
               data={this.state.multipleFile}
               renderItem={this.renderItem}
               keyExtractor={(item, index) => index.toString()}

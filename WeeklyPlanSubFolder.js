@@ -92,27 +92,28 @@ class WeeklyPlanMainFolder extends Component {
 
         console.log(collection)
 
-        if (this.state.weekno == '') {
+        // if (this.state.weekno == '') {
             collection.ST_Id = this.state.rowkey,
-                collection.week_no = lib.WeekNoSubFolder,
+                collection.week_no = `Week-${this.state.weekno.trim()}`,
                 collection.SECTION = lib.Section,
                 collection.DISCIPLINE = lib.Discipline,
                 collection.SemC = lib.Semc,
                 collection.SEMESTER_NO = lib.SemNo,
                 collection.EMP_NO = lib.TId
+                console.log(collection)
 
-        }
-        else {
-            collection.ST_Id = this.state.rowkey,
-                collection.week_no = this.state.weekno,
-                collection.SECTION = lib.Section,
-                collection.DISCIPLINE = lib.Discipline,
-                collection.SemC = lib.Semc,
-                collection.SEMESTER_NO = lib.SemNo,
-                collection.EMP_NO = lib.TId
+        // }
+        // else {
+        //     collection.ST_Id = this.state.rowkey,
+        //         collection.week_no = this.state.weekno,
+        //         collection.SECTION = lib.Section,
+        //         collection.DISCIPLINE = lib.Discipline,
+        //         collection.SemC = lib.Semc,
+        //         collection.SEMESTER_NO = lib.SemNo,
+        //         collection.EMP_NO = lib.TId
 
 
-        }
+        // }
 
         fetch(`${lib.IpAddress}/users/AddCoveredSubTopic`, {
             method: 'POST', // or 'PUT'
@@ -147,7 +148,9 @@ class WeeklyPlanMainFolder extends Component {
     }
     toggleCheckForTask(taskId) {
 
-        this.SubmitCoveredSubTopic();
+        if(this.state.weekno<=16)
+        {
+            this.SubmitCoveredSubTopic();
         this.setState({ modalShowST: false })
         var foundindex = this.findTaskIndex(taskId);
 
@@ -159,8 +162,22 @@ class WeeklyPlanMainFolder extends Component {
         console.log("index of this task is ", foundindex);
 
 
+        }
+        else 
+        {
+            Alert.alert("Week Number","Please enter the valid week number.")
+        }
+
+        
+
     }
 
+    OpenModalCheckWeekNumber(id)
+    {
+
+        this.setState({weekno:lib.WeekNoSubFolder.split('-')[1] ,rowkey:id, modalShowST: true })
+
+    }
 
 
     renderItem = ({ item }) => {
@@ -184,7 +201,7 @@ class WeeklyPlanMainFolder extends Component {
                         }
                         {lib.Token !== 'true' &&
                             <CheckBox checked={item.isChecked} color="green"
-                                onPress={() => item.isChecked !== true ? this.setState({ rowkey: item.ST_Id, modalShowST: true }) : Alert.alert("The checkbox is already checked.")}
+                                onPress={() => item.isChecked !== true ? this.OpenModalCheckWeekNumber(item.ST_Id) : Alert.alert("Checkbox","The checkbox is already checked.")}
                             />
                         }
                     </View>
@@ -347,7 +364,7 @@ class WeeklyPlanMainFolder extends Component {
                             }}
                         >Enter Week Number</Text>
 
-                        <Item stackedLabel style={{
+                        {/* <Item stackedLabel style={{
                             height: 40,
                             borderBottomColor: 'gray',
                             marginLeft: 30,
@@ -361,7 +378,29 @@ class WeeklyPlanMainFolder extends Component {
                             <Label>Week Number</Label>
                             <Input defaultValue={lib.WeekNoSubFolder} onChangeText={(text) => this.setState({ weekno: text })} />
 
-                        </Item>
+                        </Item> */}
+                         <Text
+                            style={{
+                                fontSize: 16,
+                                marginTop: 15,
+                                marginLeft: 30
+                            }}
+                        >Week Number</Text>
+                        <View style={{flexDirection:'row',alignItems:'center'}}>
+                            <Text style={{fontSize:16,marginLeft:30}}>Week-</Text>
+                        <TextInput
+                            style={{fontSize:16,marginTop:3,color:'black'}}
+                            // placeholder={'Enter Topic Name'}
+                             defaultValue={this.state.weekno}
+                            // placeholderTextColor={'black'}
+                            underlineColorAndroid='transparent'
+                            keyboardType='numeric'
+                            onChangeText={(text) => this.setState({ weekno: text })}
+                        />
+
+                        </View>
+                        
+                        <View style={{borderWidth:0.5,borderColor:'gray',marginLeft: 30,marginRight: 30,}}></View>
 
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
                             <TouchableOpacity
@@ -381,7 +420,7 @@ class WeeklyPlanMainFolder extends Component {
                                 </Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                onPress={() => this.toggleCheckForTask(this.state.rowkey)}
+                                onPress={()=>this.state.weekno!==''?this.toggleCheckForTask(this.state.rowkey):Alert.alert("Week Number","Please enter week number.")}
                                 style={{
                                     borderWidth: 1,
                                     padding: 10,

@@ -23,7 +23,8 @@ class courses extends Component {
             Tid: '',
             SemNo: '2018SM',
             data: [],
-            status: 'false'
+            status: 'false',
+            refresh:false
 
 
         }
@@ -120,6 +121,10 @@ class courses extends Component {
         )
 
     }
+
+    handleRefresh=()=>{
+        this.getcourses();
+      }
 
 
     //////////////////////// Get Teachers Courses ////////////////////////////////////////
@@ -317,6 +322,8 @@ class courses extends Component {
 
                     <View style={{ backgroundColor: '#FFFFFF', }}>
                         <FlatList
+                         refreshing={this.state.refresh}
+                         onRefresh={this.handleRefresh}
                             data={this.state.datasource}
                             renderItem={this.renderItem}
                             keyExtractor={(item, index) => index.toString()}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ActivityIndicator, Image, FlatList, Alert, Dimensions, Linking } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity,TextInput, ActivityIndicator, Image, FlatList, Alert, Dimensions, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import DocumentPicker from 'react-native-document-picker';
 import { Item, Input, Label } from 'native-base';
@@ -23,6 +23,7 @@ class CourseObjective extends Component {
         FileOriginalName: '',
         showModal: false,
         date:'',
+        refresh:false,
       };
   }
 
@@ -121,6 +122,10 @@ class CourseObjective extends Component {
       </View>
     )
 
+  }
+
+  handleRefresh=()=>{
+    this.componentDidMount();
   }
 
   //////////////// ComponentDidMount ////////////////////////////////////
@@ -367,15 +372,15 @@ class CourseObjective extends Component {
               marginRight: 30,
               marginBottom: 10,
               borderBottomWidth: 1
-
-
-            }}>
-              <Label>File Name</Label>
+              }}>
+             <Label>File Name</Label>
               {this.state.FileOriginalName === undefined &&
                 <Input defaultValue={this.state.Dname} onChangeText={(text) => this.setState({ FileOriginalName: text })} />
+    
               }
               {this.state.FileOriginalName != undefined &&
                 <Input defaultValue={this.state.FileOriginalName} onChangeText={(text) => this.setState({ FileOriginalName: text })} />
+          
               }
 
             </Item>
@@ -398,7 +403,7 @@ class CourseObjective extends Component {
                                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => this.UploadFiles()}
+                onPress={()=>this.state.FileOriginalName!==''?this.UploadFiles():Alert.alert("File Name","Please enter file name.")}
                 style={{
                   borderWidth: 1,
                   padding: 10,
@@ -426,6 +431,8 @@ class CourseObjective extends Component {
           }
           <View style={styles.container}>
             <FlatList
+            refreshing={this.state.refresh}
+            onRefresh={this.handleRefresh}
               data={this.state.multipleFile}
               renderItem={this.renderItem}
               keyExtractor={(item, index) => index.toString()}

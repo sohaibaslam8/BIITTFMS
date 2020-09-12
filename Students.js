@@ -15,7 +15,7 @@ class Students extends Component {
             routeParam: '',
             fulldata: [],
             query:'',
-            
+            refresh:false,
 
 
         }
@@ -68,6 +68,11 @@ class Students extends Component {
         this.setState({data,query:text})
 
     }
+
+
+    handleRefresh=()=>{
+        this.getStudents();
+      }
 
 
 
@@ -130,6 +135,8 @@ class Students extends Component {
                     <View style={{backgroundColor: '#FFFFFF'}}>
                     <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }} >
                         <FlatList
+                         refreshing={this.state.refresh}
+                         onRefresh={this.handleRefresh}
                             data={this.state.data}
                             renderItem={this.renderItem}
                             keyExtractor={(item, index) => index.toString()}

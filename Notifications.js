@@ -12,7 +12,8 @@ class Students extends Component {
             data: [],
             isloading: true,
             status: 'false',
-            seen:'true',
+            seen: 'true',
+            refresh:false
         }
     }
 
@@ -28,26 +29,24 @@ class Students extends Component {
     }
     toggleCheckForTask(taskId) {
 
-     
+
         var foundindex = this.findTaskIndex(taskId);
 
         var newsubtopic = this.state.data;
-        if(newsubtopic[foundindex].isSeen)
-        {
+        if (newsubtopic[foundindex].isSeen) {
             console.log(newsubtopic[foundindex].isSeen);
-          
+
         }
-        else
-        {
+        else {
             newsubtopic[foundindex].isSeen = !newsubtopic[foundindex].isSeen;
-        
+
             this.setState({
                 data: newsubtopic
             });
             console.log("index of this task is ", foundindex);
 
         }
-     
+
         // console.log(newsubtopic[foundindex].isSeen);
 
 
@@ -58,54 +57,54 @@ class Students extends Component {
 
         var newsubtopic = this.state.data;
         newsubtopic[foundindex].isSeen = !newsubtopic[foundindex].isSeen;
-        
+
         this.setState({
             data: newsubtopic
         });
         console.log("index of this task is ", foundindex);
         // console.log(newsubtopic[foundindex].isSeen);
-       
+
     }
-    ShowNewScreen(msg,id,cname) {
+    ShowNewScreen(msg, id, cname) {
         console.log("Show New Screen");
         this.toggleCheckForTask(id);
         lib.TMsg = msg;
-        lib.TMsgId=id;
-        lib.TMsgCName=cname;
+        lib.TMsgId = id;
+        lib.TMsgCName = cname;
         this.props.navigation.navigate('Message');
 
     }
-    
+
     renderItem = ({ item }) => {
         return (
             <TouchableOpacity
-                onPress={this.ShowNewScreen.bind(this, item.Message,item.Id,item.title)}
-                style={{ flex: 1, flexDirection: 'row',alignItems:'center' }}
+                onPress={this.ShowNewScreen.bind(this, item.Message, item.Id, item.title)}
+                style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}
 
             >
 
-                <Image style={{ height: 65, width: 65, borderRadius: 65/2, margin: 15 }}
+                <Image style={{ height: 65, width: 65, borderRadius: 65 / 2, margin: 15 }}
                     source={item.Img != null ? { uri: 'data:image/jpeg;base64,' + lib.TImg } :
                         require('./img/demoprofile.jpg')
                     }
-                    />
+                />
 
 
-                <View style={{ justifyContent: 'center',width:'65%'}}>
+                <View style={{ justifyContent: 'center', width: '65%' }}>
                     <Text>
-                    <Text style={{fontWeight:'bold',color: 'black', }}>
-                        {item.emp_firstname} {item.emp_middle} {item.emp_lastname}</Text>
-                    <Text style={{color: 'black', }}> has recommended replacing the</Text>
-                    <Text style={{fontWeight:'bold',color: 'black'}}> {item.title}</Text><Text> paper.</Text>
+                        <Text style={{ fontWeight: 'bold', color: 'black', }}>
+                            {item.emp_firstname} {item.emp_middle} {item.emp_lastname}</Text>
+                        <Text style={{ color: 'black', }}> has recommended replacing the</Text>
+                        <Text style={{ fontWeight: 'bold', color: 'black' }}> {item.title}</Text><Text> paper.</Text>
                     </Text>
                     <Text>
                         {item.NDate}  {item.NTime}
                     </Text>
                 </View>
                 {!item.isSeen &&
-                <View style={{marginLeft:3,  width: 12, height: 12, borderRadius: 12 / 2, backgroundColor: 'green', alignItems: 'center', justifyContent: 'center' }}>
-                </View>
-                 } 
+                    <View style={{ marginLeft: 3, width: 12, height: 12, borderRadius: 12 / 2, backgroundColor: 'green', alignItems: 'center', justifyContent: 'center' }}>
+                    </View>
+                }
 
             </TouchableOpacity>
         )
@@ -113,7 +112,7 @@ class Students extends Component {
 
     renderseparator = () => {
         return (
-            <View style={{ height: 1, width: '90%', backgroundColor: '#cccccc', marginLeft: 89 }} >
+            <View style={{ height: 1, width: '90%', backgroundColor: '#cccccc', marginLeft: 95 }} >
 
             </View>
         )
@@ -139,6 +138,14 @@ class Students extends Component {
 
 
     }
+    handleRefresh=()=>{
+        this.setState({isloading:true});
+        this.getNotifications();
+        setTimeout(() => {
+            this.setState({ isloading: false })
+        }, 2000);
+      }
+
 
     //////////////////////// Get Notifications ////////////////////////////////////////
     getNotifications() {
@@ -168,32 +175,32 @@ class Students extends Component {
             .catch((error) => {
                 console.log(error)
             })
-        }
+    }
 
-        ////////////////////// Update Status //////////////////////////////////////////////
+    ////////////////////// Update Status //////////////////////////////////////////////
 
-        UpdateStatus() {
+    UpdateStatus() {
 
-            const url = `${lib.IpAddress}/users/ModifyStatus?id=${lib.TId}`
-            fetch(url)
-                .then((response) => response.json())
-                .then((responsejson) => {
-                    console.log(responsejson)
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-            }
-    
+        const url = `${lib.IpAddress}/users/ModifyStatus?id=${lib.TId}`
+        fetch(url)
+            .then((response) => response.json())
+            .then((responsejson) => {
+                console.log(responsejson)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
 
 
 
     componentDidMount() {
         this.getNotifications();
         this.UpdateStatus();
-        lib.TMsgCount='0';
+        lib.TMsgCount = '0';
         setTimeout(() => {
-            this.setState({ isloading: false})
+            this.setState({ isloading: false })
         }, 2000);
     }
 
@@ -218,6 +225,8 @@ class Students extends Component {
 
                     <View style={{ backgroundColor: '#FFFFFF', }}>
                         <FlatList
+                            refreshing={this.state.refresh}
+                            onRefresh={this.handleRefresh}
                             data={this.state.data}
                             renderItem={this.renderItem}
                             keyExtractor={(item, index) => index.toString()}

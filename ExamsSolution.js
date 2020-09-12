@@ -30,6 +30,7 @@ export default class ExamsSolution extends React.Component {
                 showModalme: false,
                 dateme: '',
                 timeme:'',
+                refreshme:false,
 
                 singleFilefe: '',
                 multipleFilefe: [],
@@ -44,6 +45,7 @@ export default class ExamsSolution extends React.Component {
                 finalstatus: false,
                 datefe: '',
                 timefe:'',
+                refreshfe:false,
             };
     }
 
@@ -375,6 +377,11 @@ export default class ExamsSolution extends React.Component {
         // this.addFolderDetailme();
         this.GetFolderDetailIdme();
     };
+
+
+    handleRefreshme=()=>{
+        this.DisplayMidExamsFiles();
+      }
 
     DisplayMidExamsFiles() {
         const url = `${lib.IpAddress}/users/AllDocumentShowMainFolder?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&dtype=${this.state.dtypeme}`
@@ -722,6 +729,9 @@ export default class ExamsSolution extends React.Component {
         this.GetFolderDetailIdfe();
     };
 
+    handleRefreshfe=()=>{
+        this.DisplayFinalExamsFiles();
+      }
     DisplayFinalExamsFiles() {
         const url = `${lib.IpAddress}/users/AllDocumentShowMainFolder?courseno=${lib.CNo}&semno=${lib.SemNoTemp}&dtype=${this.state.dtypefe}`
         fetch(url)
@@ -875,7 +885,7 @@ export default class ExamsSolution extends React.Component {
                                 </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    onPress={() => this.UploadFilesme()}
+                                    onPress={()=>this.state.FileOriginalNameme!==''?this.UploadFilesme():Alert.alert("File Name","Please enter file name.")}
                                     style={{
                                         borderWidth: 1,
                                         padding: 10,
@@ -903,6 +913,8 @@ export default class ExamsSolution extends React.Component {
                         }
                         <View style={{ marginTop: 10, backgroundColor: '#FFFFFF' }}>
                             <FlatList
+                             refreshing={this.state.refreshme}
+                             onRefresh={this.handleRefreshme}
                                 data={this.state.multipleFileme}
                                 renderItem={this.renderItemme}
                                 keyExtractor={(item, index) => index.toString()}
@@ -999,7 +1011,7 @@ export default class ExamsSolution extends React.Component {
                                 </Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
-                                        onPress={() => this.UploadFilesfe()}
+                                        onPress={()=>this.state.FileOriginalNamefe!==''?this.UploadFilesfe():Alert.alert("File Name","Please enter file name.")}
                                         style={{
                                             borderWidth: 1,
                                             padding: 10,
@@ -1027,6 +1039,8 @@ export default class ExamsSolution extends React.Component {
                             }
                             <View style={{ marginTop: 10, backgroundColor: '#FFFFFF' }}>
                                 <FlatList
+                                 refreshing={this.state.refreshfe}
+                                 onRefresh={this.handleRefreshfe}
                                     data={this.state.multipleFilefe}
                                     renderItem={this.renderItemfe}
                                     keyExtractor={(item, index) => index.toString()}

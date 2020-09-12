@@ -490,7 +490,7 @@ class Quizzes extends Component {
                                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => this.UploadFiles()}
+                onPress={()=>this.state.FileOriginalName!==''?this.UploadFiles():Alert.alert("File Name","Please enter file name.")}
                 style={{
                   borderWidth: 1,
                   padding: 10,

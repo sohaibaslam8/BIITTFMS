@@ -19,6 +19,8 @@ export default class CoursesDetail extends React.Component {
             routeParam: '',
             exportId: lib.Id,
             id: '',
+            refresh:false,
+            refreshmf:false,
             datasourcemf: [
                 { name: 'Course Objective', url: require('./img/goal.png'), key: '1' },
                 { name: 'Contents Reference Material', url: require('./img/content.png'), key: '2' },
@@ -166,12 +168,20 @@ export default class CoursesDetail extends React.Component {
         )
 
     }
+    handleRefreshmf=()=>{
+        // this.ShowSection();
+      }
+
+
+    handleRefresh=()=>{
+        this.ShowSection();
+      }
 
     ////////////////////////// Show All Section ///////////////////////////////////
 
     ShowSection(){
 
-        this.setState({ isLoading: true })
+        // this.setState({ isLoading: true })
         const url = `${lib.IpAddress}/Users/AllSections?id=${lib.TIdTemp}&courseno=${lib.CNo}&semno=${lib.SemNoTemp}`
         fetch(url)
             .then((response) => response.json())
@@ -279,6 +289,8 @@ export default class CoursesDetail extends React.Component {
                         <View style={{ backgroundColor:'#FFFFFF', }}>
 
                             <FlatList
+                             refreshing={this.state.refresh}
+                             onRefresh={this.handleRefresh}
                                 data={this.state.datasource}
                                 renderItem={this.renderItem}
                                 keyExtractor={(item, index) => index.toString()}
@@ -310,8 +322,8 @@ export default class CoursesDetail extends React.Component {
 
 
                                 <FlatList
-
-
+                                     refreshing={this.state.refreshmf}
+                                     onRefresh={this.handleRefreshmf}
                                     data={this.state.datasourcemf}
                                     renderItem={this.renderItemmf}
                                     keyExtractor={(item, index) => index.toString()}

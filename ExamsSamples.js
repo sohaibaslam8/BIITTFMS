@@ -852,7 +852,7 @@ export default class ExamsSamples extends React.Component {
                                 </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    onPress={() => this.UploadFilesme()}
+                                    onPress={()=>this.state.FileOriginalNameme!==''?this.UploadFilesme():Alert.alert("File Name","Please enter file name.")}
                                     style={{
                                         borderWidth: 1,
                                         padding: 10,
@@ -1015,7 +1015,7 @@ export default class ExamsSamples extends React.Component {
                                 </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    onPress={() => this.UploadFilesfe()}
+                                    onPress={()=>this.state.FileOriginalNamefe!==''?this.UploadFilesfe():Alert.alert("File Name","Please enter file name.")}
                                     style={{
                                         borderWidth: 1,
                                         padding: 10,

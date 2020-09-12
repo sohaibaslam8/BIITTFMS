@@ -29,6 +29,7 @@ class WeeklyPlanMainFolder extends Component {
             UpdateTopicName:'',
             OriginalTopicName:'',
             UpdateTNModel:false,
+            refresh:false,
             datasource: [
                 { name: 'Week-1', key: '1' },
                 { name: 'Week-2', key: '2' },
@@ -221,6 +222,9 @@ class WeeklyPlanMainFolder extends Component {
           });
     }
       
+    handleRefresh=()=>{
+        this.componentDidMount();
+      }
     componentDidMount() {
         const url = `${lib.IpAddress}/users/AllSubTopic?weekno=${lib.WeekNoMainFolder}&courseno=${lib.CNo}`
         fetch(url)
@@ -305,7 +309,7 @@ class WeeklyPlanMainFolder extends Component {
                                 </Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                onPress={this.state.UpdateTopicName!==''?()=>this.EditTopicName():()=>alert("Please enter topic name.")}
+                                onPress={()=>this.state.UpdateTopicName!==''?this.EditTopicName():Alert.alert("Topic Name","Please enter topic name.")}
                                 style={{
                                     borderWidth: 1,
                                     padding: 10,
@@ -380,7 +384,7 @@ class WeeklyPlanMainFolder extends Component {
                                 </Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                onPress={this.state.TopicName!=''?() => this.AddTopic():()=>alert("Please Enter Topic Name.")}
+                                onPress={()=>this.state.TopicName!=''?this.AddTopic():Alert.alert("Topic Name","Please Enter Topic Name.")}
                                 style={{
                                     borderWidth: 1,
                                     padding: 10,
@@ -444,6 +448,8 @@ class WeeklyPlanMainFolder extends Component {
                             </Modal>
                             <View style={{ backgroundColor: '#FFFFFF' }}>
                                 <FlatList
+                                 refreshing={this.state.refresh}
+                                 onRefresh={this.handleRefresh}
                                     data={this.state.SubTopics}
                                     renderItem={this.renderItem}
                                     keyExtractor={(item, index) => index.toString()}

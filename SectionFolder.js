@@ -20,6 +20,7 @@ class section extends Component {
                 { name: 'Final Result', url: require('./img/result1.png'), key: '6' },
                 { name: 'Assessment Analysis and FCR', url: require('./img/research.png'), key: '7' },
             ],
+            refresh:false,
         }
     }
 
@@ -107,6 +108,10 @@ class section extends Component {
         )
     }
 
+    handleRefresh=()=>{
+        
+    }
+
     renderseparator = () => {
         return (
             <View  style={{height: 1, width: '90%', backgroundColor: '#cccccc',marginLeft:92}} >
@@ -126,7 +131,8 @@ class section extends Component {
                         </View>
                         <View style={{flex: 1, marginTop: 10,backgroundColor:'#FFFFFF'}}>
                     <FlatList
-
+                        refreshing={this.state.refresh}
+                        onRefresh={this.handleRefresh}
                         data={this.state.datasource}
                         renderItem={this.renderItem}
                         keyExtractor={(item, index) => index.toString()}
