@@ -62,5 +62,8 @@ export const TLNameMFM=''
 export const SemNoMFM='2018SM'
 export const IpAddress='http://192.168.10.3/FWebAPI/api'
 export const IpAddressFileOpen='http://192.168.10.3/FWebAPI/File/'
+export const CNoPR=''
+export const CNamePR=''
+export const FileNamePR=''
 
 

@@ -16,12 +16,14 @@ import Iconps from 'react-native-vector-icons/Feather';
 import Iconf from 'react-native-vector-icons/FontAwesome';
 import Iconpw from 'react-native-vector-icons/Foundation';
 import Iconn from 'react-native-vector-icons/MaterialIcons';
+
 import * as lib from './storeData'
 
 import PaperWettingViewStack from './PaperWettingStack';
 import NotificationsViewStack from './NotificationsStack';
 import { Badge,} from 'react-native-elements';
 import MainFolderManageViewStack from './MainFolderManageStack';
+import CourseProgressReportViewStack from './CourseProgressReportStack';
 
 
 
@@ -41,6 +43,7 @@ const CustomDrawerComponent = (props) => {
     const [colorscp,setcolorscp]=useState(false);
     const [colorsl,setcolorsl]=useState(false);
     const [colorsn,setcolorsn]=useState(false);
+    const [colorspr,setcolorspr]=useState(false);
     const functionCombinedC=()=> {
         props.navigation.navigate('Courses')
 
@@ -53,6 +56,7 @@ const CustomDrawerComponent = (props) => {
         setcolorspw(false);
         setcolorsn(false);
         setcolorsmf(false);
+        setcolorspr(false);
     }
     const functionCombinedPS=()=> {
         // alert("helloo")
@@ -66,6 +70,7 @@ const CustomDrawerComponent = (props) => {
         setcolorspw(false);
         setcolorsn(false);
         setcolorsmf(false);
+        setcolorspr(false);
     }
         const functionCombinedAF=()=> {
              props.navigation.navigate('AllFolderStack')
@@ -78,6 +83,7 @@ const CustomDrawerComponent = (props) => {
             setcolorspw(false);
             setcolorsn(false);
             setcolorsmf(false);
+            setcolorspr(false);
         } 
         const functionCombinedMF=()=> {
             props.navigation.navigate('MainFolderStack')
@@ -90,6 +96,7 @@ const CustomDrawerComponent = (props) => {
            setcolorsl(false);
            setcolorspw(false);
            setcolorsn(false);
+           setcolorspr(false);
        } 
         const functionCombinedPW=()=> {
             props.navigation.navigate('PaperWettingStack')
@@ -102,7 +109,21 @@ const CustomDrawerComponent = (props) => {
            setcolorsl(false);
            setcolorsn(false);
            setcolorsmf(false);
+           setcolorspr(false);
        } 
+       const functionCombinedPR=()=> {
+        props.navigation.navigate('CourseProgressStack')
+        setcolorspr(true);
+        setcolorspw(false);
+       setcolorsaf(false);
+       setcolorsps(false);
+       setcolorsc(false);
+       setcolorsp(false);
+       setcolorscp(false);
+       setcolorsl(false);
+       setcolorsn(false);
+       setcolorsmf(false);
+   } 
        
             const functionCombinedP=()=> {
                 props.navigation.navigate('Profile')
@@ -115,6 +136,7 @@ const CustomDrawerComponent = (props) => {
                 setcolorspw(false);
                 setcolorsn(false);
                 setcolorsmf(false);
+                setcolorspr(false);
 
 
                 }
@@ -129,6 +151,7 @@ const CustomDrawerComponent = (props) => {
                     setcolorsl(false);
                     setcolorspw(false);
                     setcolorsmf(false);
+                    setcolorspr(false);
     
     
                     }
@@ -144,6 +167,7 @@ const CustomDrawerComponent = (props) => {
                     setcolorspw(false);
                     setcolorsn(false);
                     setcolorsmf(false);
+                    setcolorspr(false);
                     }
                     const functionCombinedl=()=> {
                         props.navigation.navigate('LogOut')
@@ -156,6 +180,7 @@ const CustomDrawerComponent = (props) => {
                         setcolorspw(false);
                         setcolorsn(false);
                         setcolorsmf(false);
+                        setcolorspr(false);
                         }
     
     // console.log("How i work :",props.navigation.getParam('status'));
@@ -238,6 +263,19 @@ const CustomDrawerComponent = (props) => {
                         <Iconpw name={'clipboard-notes'} size={30} style={[colorspw?{margin:20,color:'black'}:{margin:20,color:'#606060'}]}/>
                     <Text style={[colorspw?{margin:15,fontSize:16,fontWeight:'bold',color:'black'}:
                     {margin:15,fontSize:16,fontWeight:'bold',color:'#606060'}]}>Paper Wetting</Text>
+                    </TouchableOpacity>
+                }
+                  {lib.TPosition==='Dir' && 
+                    <TouchableOpacity 
+                    style={
+                        [colorspr?
+                            {flexDirection:'row',height:50,alignItems:'center',backgroundColor:'#e9e9e9'}:
+                        {flexDirection:'row',height:50,alignItems:'center'}
+                        ]}
+                    onPress={() => functionCombinedPR()}>
+                        <Iconc name={'progress-check'} size={30} style={[colorspw?{margin:14,color:'black'}:{margin:14,color:'#606060'}]}/>
+                    <Text style={[colorspr?{margin:15,fontSize:16,fontWeight:'bold',color:'black'}:
+                    {margin:15,fontSize:16,fontWeight:'bold',color:'#606060'}]}>Course Progress Report</Text>
                     </TouchableOpacity>
                 }
                  <TouchableOpacity 
@@ -361,6 +399,10 @@ const RootDrawerNavigator = createDrawerNavigator({
     },
     PaperWettingStack:{
         screen:PaperWettingViewStack,
+
+    },
+    CourseProgressStack:{
+        screen:CourseProgressReportViewStack,
 
     },
     NotificationStack:{

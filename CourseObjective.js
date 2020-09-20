@@ -24,16 +24,17 @@ class CourseObjective extends Component {
         showModal: false,
         date:'',
         refresh:false,
+        com:'compare.html'
       };
   }
 
   /////////       Show Files ////////////
   ShowFiles = (name) => {
-    Linking.canOpenURL(`${lib.IpAddressFileOpen}`+name).then(supported => {
+    Linking.canOpenURL(`${lib.IpAddressFileOpen}`+`${this.state.com}`).then(supported => {
       if (supported) {
-        Linking.openURL(`${lib.IpAddressFileOpen}`+name);
+        Linking.openURL(`${lib.IpAddressFileOpen}`+`${this.state.com}`);
       } else {
-        console.log("Don't know how to open URI: " + `${lib.IpAddressFileOpen}`+name);
+        console.log("Don't know how to open URI: " + `${lib.IpAddressFileOpen}`+`${this.state.com}`);
       }
     });
   };
