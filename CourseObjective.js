@@ -30,11 +30,11 @@ class CourseObjective extends Component {
 
   /////////       Show Files ////////////
   ShowFiles = (name) => {
-    Linking.canOpenURL(`${lib.IpAddressFileOpen}`+`${this.state.com}`).then(supported => {
+    Linking.canOpenURL(`${lib.IpAddressFileOpen}`+name).then(supported => {
       if (supported) {
-        Linking.openURL(`${lib.IpAddressFileOpen}`+`${this.state.com}`);
+        Linking.openURL(`${lib.IpAddressFileOpen}`+name);
       } else {
-        console.log("Don't know how to open URI: " + `${lib.IpAddressFileOpen}`+`${this.state.com}`);
+        console.log("Don't know how to open URI: " + `${lib.IpAddressFileOpen}`+name);
       }
     });
   };

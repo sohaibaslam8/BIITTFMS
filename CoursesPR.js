@@ -34,7 +34,7 @@ export default class CoursesPW extends React.Component {
         });
       };
     getFile(cno) {
-        const url = `${lib.IpAddress}/users/CheckTopics?cno=${cno}`
+        const url = `${lib.IpAddress}/users/CheckTopics?cid=${cno}`
         fetch(url)
             .then((response) => response.json())
             .then((responsejson) => {

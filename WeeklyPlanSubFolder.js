@@ -11,8 +11,6 @@ import RightIcon from 'react-native-vector-icons/AntDesign';
 import * as lib from './storeData'
 var screen = Dimensions.get('window');
 class WeeklyPlanMainFolder extends Component {
-
-
     constructor(props) {
         super(props);
         //Initialization of the state to store the selected file related attribute
@@ -25,6 +23,7 @@ class WeeklyPlanMainFolder extends Component {
             modalShowST: false,
             rowkey: '',
             weekno: '',
+            TopicName:'',
             datasource: [
                 { name: 'Week-1', key: '1' },
                 { name: 'Week-2', key: '2' },

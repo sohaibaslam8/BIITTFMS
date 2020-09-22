@@ -27,9 +27,9 @@ export default class CoursesPW extends React.Component {
                             <Text style={{fontSize:20,width:'95%',textAlign:'center'}}>{lib.CNamePR}</Text>
                     </View>
                     <WebView
-                        style={{ flex: 1 }}
+                        style={{ flex: 1,}}
                         originWhitelist={['*']}
-                        source={{ uri: `http://192.168.10.3/FWebAPI/`+`${lib.FileNamePR}` }}
+                        source={{ uri: `http://192.168.10.4/FWebAPI/`+`${lib.FileNamePR}` }}
                         style={{ marginTop: 10 }}
                         javaScriptEnabled={true}
                         domStorageEnabled={true}
