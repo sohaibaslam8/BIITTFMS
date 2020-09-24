@@ -22,6 +22,7 @@ import AASStack from './AASStack';
 import SamplesStack from './SamplesStack';
 import FinalResult from './FinalResult';
 import FCR from './FCR';
+import OpenPdfFile from './OpenPdfFiles'
 
 import Notification from './Notifications';
 
@@ -181,6 +182,13 @@ FCR:{
   screen:FCR,
   navigationOptions:{
     title:'FCR',
+    headerTintColor: '#fff',
+},
+},
+OpenPdfFile:{
+  screen:OpenPdfFile,
+  navigationOptions:{
+    title:'File',
     headerTintColor: '#fff',
 },
 },

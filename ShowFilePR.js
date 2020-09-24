@@ -29,7 +29,7 @@ export default class CoursesPW extends React.Component {
                     <WebView
                         style={{ flex: 1,}}
                         originWhitelist={['*']}
-                        source={{ uri: `http://192.168.10.4/FWebAPI/`+`${lib.FileNamePR}` }}
+                        source={{ uri: `http://192.168.43.143/FWebAPI/`+`${lib.FileNamePR}` }}
                         style={{ marginTop: 10 }}
                         javaScriptEnabled={true}
                         domStorageEnabled={true}

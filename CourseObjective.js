@@ -30,13 +30,16 @@ class CourseObjective extends Component {
 
   /////////       Show Files ////////////
   ShowFiles = (name) => {
-    Linking.canOpenURL(`${lib.IpAddressFileOpen}`+name).then(supported => {
-      if (supported) {
-        Linking.openURL(`${lib.IpAddressFileOpen}`+name);
-      } else {
-        console.log("Don't know how to open URI: " + `${lib.IpAddressFileOpen}`+name);
-      }
-    });
+    lib.OpenPdfFileG=name;
+    this.props.navigation.navigate('OpenPdfFile');
+
+    // Linking.canOpenURL(`${lib.IpAddressFileOpen}`+name).then(supported => {
+    //   if (supported) {
+    //     Linking.openURL(`${lib.IpAddressFileOpen}`+name);
+    //   } else {
+    //     console.log("Don't know how to open URI: " + `${lib.IpAddressFileOpen}`+name);
+    //   }
+    // });
   };
 
   /////////  Delete Files ///////////////////////////

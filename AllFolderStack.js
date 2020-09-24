@@ -23,7 +23,7 @@ import AASStack from './AASStack';
 import SamplesStack from './SamplesStack';
 import FinalResult from './FinalResult';
 import FCR from './FCR';
-
+import OpenPdfFile from './OpenPdfFiles'
 
 import CourseDetailCAF from './CoursesDetailAF';
 const screens={
@@ -180,6 +180,13 @@ CoursesDetailCAF:{
     headerTintColor: '#fff',
     //  headerStyle:{backgroundColor:'#eee'}
   },
+},
+OpenPdfFile:{
+  screen:OpenPdfFile,
+  navigationOptions:{
+    title:'File',
+    headerTintColor: '#fff',
+},
 },
 
 

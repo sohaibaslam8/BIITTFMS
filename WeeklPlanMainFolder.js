@@ -25,6 +25,7 @@ class WeeklyPlanMainFolder extends Component {
             showModalAddTopic: false,
             TopicId:'',
             TopicName:'',
+            MTopicName:'',
             UpdateTopicId:'',
             UpdateTopicName:'',
             OriginalTopicName:'',
@@ -200,6 +201,7 @@ class WeeklyPlanMainFolder extends Component {
     AddTopic()
     {
         let collection = {}
+        collection.TName=this.state.MTopicName;
         collection.course_no = lib.CNo;
         collection.week_no = lib.WeekNoMainFolder;
         fetch(`${lib.IpAddress}/users/AddTopic`, {
@@ -221,6 +223,39 @@ class WeeklyPlanMainFolder extends Component {
             console.error('Error:', error);
           });
     }
+
+    getTopicName()
+    {
+        const url = `${lib.IpAddress}/users/GetTopic?cno=${lib.CNo}&weekno=${lib.WeekNoMainFolder}`
+        fetch(url)
+            .then((response) => response.json())
+            .then((responsejson) => {
+                console.log(responsejson)
+                if(responsejson!='false')
+                {
+                    this.setState(
+                        {
+                          
+                          MTopicName:responsejson,
+                          showModalAddTopic: true
+                        })
+
+                }
+                else 
+                {
+                    
+                    this.setState({MTopicName:'',showModalAddTopic: true})
+                }
+               
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        // this.setState({ showModalAddTopic: true }) ;
+
+    }
+
+
       
     handleRefresh=()=>{
         this.componentDidMount();
@@ -358,13 +393,36 @@ class WeeklyPlanMainFolder extends Component {
                                 marginLeft: 30
                             }}
                         >Do you want to Add this Topic?</Text>
-                        <TextInput
+                       {this.state.MTopicName=='' &&
+                         <TextInput
                             style={{marginLeft:30}}
                             placeholder={'Enter Topic Name'}
+                            // defaultValue={this.state.MTopicName!='false'?this.state.MTopicName:'Enter Topic Name'}
+                            placeholderTextColor={'black'}
+                            underlineColorAndroid='transparent'
+                            onChangeText={(text) => this.setState({ MTopicName: text })}
+                        />
+                    }
+                    {this.state.MTopicName!='' &&
+                        <TextInput
+                        style={{marginLeft:30}}
+                        // placeholder={'Enter Topic Name'}
+                         defaultValue={this.state.MTopicName}
+                        placeholderTextColor={'black'}
+                        underlineColorAndroid='transparent'
+                        onChangeText={(text) => this.setState({ MTopicName: text })}
+                    />
+
+                    }
+                        <View style={{borderWidth:0.5,borderColor:'gray',marginLeft: 30,marginRight: 30,}}></View>
+                        <TextInput
+                            style={{marginLeft:30}}
+                            placeholder={'Enter SubTopic Name'}
                             placeholderTextColor={'black'}
                             underlineColorAndroid='transparent'
                             onChangeText={(text) => this.setState({ TopicName: text })}
                         />
+
                         <View style={{borderWidth:0.5,borderColor:'gray',marginLeft: 30,marginRight: 30,}}></View>
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
                             <TouchableOpacity
@@ -480,7 +538,7 @@ class WeeklyPlanMainFolder extends Component {
                             </View>
                             {lib.MainFM === 'true' &&
                                 <TouchableOpacity
-                                 onPress={() => { this.setState({ showModalAddTopic: true }) }}
+                                 onPress={() =>this.getTopicName()}
                                     style={{ marginLeft: '75%' }}
                                 >
                                     <Icon name={'pluscircle'} size={50} color={'green'}

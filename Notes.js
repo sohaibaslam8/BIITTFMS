@@ -27,6 +27,8 @@ class Notes extends Component {
   
   /////////       Show Files ////////////
   ShowFiles = (name) => {
+    // lib.OpenPdfFileG=name;
+    // this.props.navigation.navigate('OpenPdfFile');
     Linking.canOpenURL(`${lib.IpAddressFileOpen}`+name).then(supported => {
       if (supported) {
         Linking.openURL(`${lib.IpAddressFileOpen}`+name);
