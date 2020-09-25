@@ -167,6 +167,7 @@ class LogIn extends Component {
 
 
     render() {
+        console.disableYellowBox = true;
         return (
             this.state.isloading
                 ?
