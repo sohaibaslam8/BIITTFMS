@@ -25,12 +25,12 @@ export default class CoursesDetail extends React.Component {
             semesterno: [],
             id: '',
             datasourcemf: [
-                { name: 'Course Objective', url: require('./img/goal.png'), key: '1' },
-                { name: 'Contents Reference Material', url: require('./img/content.png'), key: '2' },
-                { name: 'Marks Distribution_Grading Policy', url: require('./img/marks.png'), key: '3' },
-                { name: 'Weekly Plan', url: require('./img/calendar.png'), key: '4' },
-                { name: 'Notes and LabManuals', url: require('./img/paper.png'), key: '5' },
-                { name: 'Exams and Solutions', url: require('./img/exam.png'), key: '6' },
+                { name: 'Course Objective', url: require('../img/goal.png'), key: '1' },
+                { name: 'Contents Reference Material', url: require('../img/content.png'), key: '2' },
+                { name: 'Marks Distribution_Grading Policy', url: require('../img/marks.png'), key: '3' },
+                { name: 'Weekly Plan', url: require('../img/calendar.png'), key: '4' },
+                { name: 'Notes and LabManuals', url: require('../img/paper.png'), key: '5' },
+                { name: 'Exams and Solutions', url: require('../img/exam.png'), key: '6' },
 
             ],
         }

@@ -244,7 +244,7 @@ class courses extends Component {
                         style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#FFFFFF' }}>
                         <Image style={{ height: 60, width: 60, borderRadius: 30, margin: 15 }}
                             source={lib.TImg != null ? { uri: 'data:image/jpeg;base64,' + lib.TImg } :
-                                require('./img/demoprofile.jpg')
+                                require('../img/demoprofile.jpg')
                             }
 
 

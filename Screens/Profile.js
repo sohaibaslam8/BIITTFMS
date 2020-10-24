@@ -15,7 +15,7 @@ class Profile extends Component {
 
           <Image style={styles.imgprofile}
             source={lib.TImg != null ? { uri: 'data:image/jpeg;base64,' + lib.TImg } :
-              require('./img/demoprofile.jpg')
+              require('../img/demoprofile.jpg')
             }
 
           />

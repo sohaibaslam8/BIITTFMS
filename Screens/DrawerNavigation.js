@@ -218,7 +218,7 @@ const CustomDrawerComponent = (props) => {
                 {/* <Image style={{ height: 120, width: 120, borderRadius: 60, marginTop: 25 }} source={require('./img/demoprofile.jpg')} /> */}
                 <Image style={{ height: 120, width: 120, borderRadius: 60, marginTop: 25 }}
                     source={lib.TImg != null ? { uri: 'data:image/jpeg;base64,' + lib.TImg } :
-                        require('./img/demoprofile.jpg')
+                        require('../img/demoprofile.jpg')
                     }
 
 

@@ -11,14 +11,14 @@ class section extends Component {
         super()
         this.state = {
             datasource: [
-                { name: 'Students', url: require('./img/studenta.png'), key: '0' },
-                { name: 'Weekly Plan', url: require('./img/calendar.png'), key: '1' },
-                { name: 'Attendance Record', url: require('./img/register.png'), key: '2' },
-                { name: 'Quizzes and Solutions', url: require('./img/quiz.png'), key: '3' },
-                { name: 'Assignments and Solutions', url: require('./img/assignment.png'), key: '4' },
-                { name: 'Samples', url: require('./img/documents.png'), key: '5' },
-                { name: 'Final Result', url: require('./img/result1.png'), key: '6' },
-                { name: 'Assessment Analysis and FCR', url: require('./img/research.png'), key: '7' },
+                { name: 'Students', url: require('../img/studenta.png'), key: '0' },
+                { name: 'Weekly Plan', url: require('../img/calendar.png'), key: '1' },
+                { name: 'Attendance Record', url: require('../img/register.png'), key: '2' },
+                { name: 'Quizzes and Solutions', url: require('../img/quiz.png'), key: '3' },
+                { name: 'Assignments and Solutions', url: require('../img/assignment.png'), key: '4' },
+                { name: 'Samples', url: require('../img/documents.png'), key: '5' },
+                { name: 'Final Result', url: require('../img/result1.png'), key: '6' },
+                { name: 'Assessment Analysis and FCR', url: require('../img/research.png'), key: '7' },
             ],
             refresh:false,
         }

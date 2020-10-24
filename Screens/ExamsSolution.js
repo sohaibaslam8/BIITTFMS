@@ -123,7 +123,7 @@ export default class ExamsSolution extends React.Component {
             >
 
                 <Image
-                    source={require('./img/pdf3.jpg')}
+                    source={require('../img/pdf3.jpg')}
                     style={{ height: 38, width: 38, margin: 8 }}
 
                 ></Image>
@@ -477,7 +477,7 @@ export default class ExamsSolution extends React.Component {
             >
 
                 <Image
-                    source={require('./img/pdf3.jpg')}
+                    source={require('../img/pdf3.jpg')}
                     style={{ height: 38, width: 38, margin: 8 }}
 
                 ></Image>

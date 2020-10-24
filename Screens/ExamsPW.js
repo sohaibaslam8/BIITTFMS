@@ -119,7 +119,7 @@ export default class ExamsPW extends React.Component {
             >
 
                 <Image
-                    source={require('./img/pdf3.jpg')}
+                    source={require('../img/pdf3.jpg')}
                     style={{ height: 40, width: 40, margin: 8 }}
 
                 ></Image>
@@ -258,7 +258,7 @@ export default class ExamsPW extends React.Component {
             >
 
                 <Image
-                    source={require('./img/pdf3.jpg')}
+                    source={require('../img/pdf3.jpg')}
                     style={{ height: 40, width: 40, margin: 8 }}
 
                 ></Image>

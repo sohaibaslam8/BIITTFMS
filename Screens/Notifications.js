@@ -85,7 +85,7 @@ class Students extends Component {
 
                 <Image style={{ height: 65, width: 65, borderRadius: 65 / 2, margin: 15 }}
                     source={item.Img != null ? { uri: 'data:image/jpeg;base64,' + lib.TImg } :
-                        require('./img/demoprofile.jpg')
+                        require('../img/demoprofile.jpg')
                     }
                 />
 
