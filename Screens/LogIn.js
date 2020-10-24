@@ -167,6 +167,7 @@ class LogIn extends Component {
 
 
     render() {
+        console.disableYellowBox = true;
         return (
             this.state.isloading
                 ?
@@ -182,7 +183,7 @@ class LogIn extends Component {
 
                     {/* <ImageBackground source={require('./img/download.jpg')} style={styles.Backgroundcontainer} > */}
                     <View style={styles.logocontainer}>
-                        <Image source={require('./img/withoutback.png')} style={styles.logo} />
+                        <Image source={require('../img/withoutback.png')} style={styles.logo} />
                         <Text style={styles.logotext}>Teacher's Folder</Text>
                     </View>
 

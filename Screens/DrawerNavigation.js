@@ -24,6 +24,7 @@ import NotificationsViewStack from './NotificationsStack';
 import { Badge,} from 'react-native-elements';
 import MainFolderManageViewStack from './MainFolderManageStack';
 import CourseProgressReportViewStack from './CourseProgressReportStack';
+import TeacherPerformanceViewStack from './TeacherPerformanceStack';
 
 
 
@@ -44,6 +45,8 @@ const CustomDrawerComponent = (props) => {
     const [colorsl,setcolorsl]=useState(false);
     const [colorsn,setcolorsn]=useState(false);
     const [colorspr,setcolorspr]=useState(false);
+    const [colorstp,setcolorstp]=useState(false);
+
     const functionCombinedC=()=> {
         props.navigation.navigate('Courses')
 
@@ -57,6 +60,7 @@ const CustomDrawerComponent = (props) => {
         setcolorsn(false);
         setcolorsmf(false);
         setcolorspr(false);
+        setcolorstp(false);
     }
     const functionCombinedPS=()=> {
         // alert("helloo")
@@ -71,6 +75,7 @@ const CustomDrawerComponent = (props) => {
         setcolorsn(false);
         setcolorsmf(false);
         setcolorspr(false);
+        setcolorstp(false);
     }
         const functionCombinedAF=()=> {
              props.navigation.navigate('AllFolderStack')
@@ -84,6 +89,7 @@ const CustomDrawerComponent = (props) => {
             setcolorsn(false);
             setcolorsmf(false);
             setcolorspr(false);
+            setcolorstp(false);
         } 
         const functionCombinedMF=()=> {
             props.navigation.navigate('MainFolderStack')
@@ -97,6 +103,7 @@ const CustomDrawerComponent = (props) => {
            setcolorspw(false);
            setcolorsn(false);
            setcolorspr(false);
+           setcolorstp(false);
        } 
         const functionCombinedPW=()=> {
             props.navigation.navigate('PaperWettingStack')
@@ -110,6 +117,7 @@ const CustomDrawerComponent = (props) => {
            setcolorsn(false);
            setcolorsmf(false);
            setcolorspr(false);
+           setcolorstp(false);
        } 
        const functionCombinedPR=()=> {
         props.navigation.navigate('CourseProgressStack')
@@ -123,7 +131,22 @@ const CustomDrawerComponent = (props) => {
        setcolorsl(false);
        setcolorsn(false);
        setcolorsmf(false);
+       setcolorstp(false);
    } 
+   const functionCombinedTP=()=> {
+    props.navigation.navigate('TeacherPerformance')
+    setcolorstp(true);
+    setcolorspr(false);
+    setcolorspw(false);
+   setcolorsaf(false);
+   setcolorsps(false);
+   setcolorsc(false);
+   setcolorsp(false);
+   setcolorscp(false);
+   setcolorsl(false);
+   setcolorsn(false);
+   setcolorsmf(false);
+} 
        
             const functionCombinedP=()=> {
                 props.navigation.navigate('Profile')
@@ -137,6 +160,7 @@ const CustomDrawerComponent = (props) => {
                 setcolorsn(false);
                 setcolorsmf(false);
                 setcolorspr(false);
+                setcolorstp(false);
 
 
                 }
@@ -152,6 +176,7 @@ const CustomDrawerComponent = (props) => {
                     setcolorspw(false);
                     setcolorsmf(false);
                     setcolorspr(false);
+                    setcolorstp(false);
     
     
                     }
@@ -168,6 +193,7 @@ const CustomDrawerComponent = (props) => {
                     setcolorsn(false);
                     setcolorsmf(false);
                     setcolorspr(false);
+                    setcolorstp(false);
                     }
                     const functionCombinedl=()=> {
                         props.navigation.navigate('LogOut')
@@ -181,6 +207,7 @@ const CustomDrawerComponent = (props) => {
                         setcolorsn(false);
                         setcolorsmf(false);
                         setcolorspr(false);
+                        setcolorstp(false);
                         }
     
     // console.log("How i work :",props.navigation.getParam('status'));
@@ -276,6 +303,19 @@ const CustomDrawerComponent = (props) => {
                         <Iconc name={'progress-check'} size={30} style={[colorspw?{margin:14,color:'black'}:{margin:14,color:'#606060'}]}/>
                     <Text style={[colorspr?{margin:15,fontSize:16,fontWeight:'bold',color:'black'}:
                     {margin:15,fontSize:16,fontWeight:'bold',color:'#606060'}]}>Course Progress Report</Text>
+                    </TouchableOpacity>
+                }
+                {lib.TPosition==='Dir' && 
+                    <TouchableOpacity 
+                    style={
+                        [colorstp?
+                            {flexDirection:'row',height:50,alignItems:'center',backgroundColor:'#e9e9e9'}:
+                        {flexDirection:'row',height:50,alignItems:'center'}
+                        ]}
+                    onPress={() => functionCombinedTP()}>
+                        <Iconc name={'progress-check'} size={30} style={[colorstp?{margin:14,color:'black'}:{margin:14,color:'#606060'}]}/>
+                    <Text style={[colorstp?{margin:15,fontSize:16,fontWeight:'bold',color:'black'}:
+                    {margin:15,fontSize:16,fontWeight:'bold',color:'#606060'}]}>Teacher Performance</Text>
                     </TouchableOpacity>
                 }
                  <TouchableOpacity 
@@ -403,6 +443,10 @@ const RootDrawerNavigator = createDrawerNavigator({
     },
     CourseProgressStack:{
         screen:CourseProgressReportViewStack,
+
+    },
+    TeacherPerformance:{
+        screen:TeacherPerformanceViewStack,
 
     },
     NotificationStack:{
